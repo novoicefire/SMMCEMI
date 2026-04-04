@@ -1,0 +1,3654 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark" data-lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formosa Plastics | Company Overview & Financial Performance</title>
+  <link rel="icon" href="data:," />
+  <meta
+    name="description"
+    content="A high-interaction single page application exploring Formosa Plastics through news, history, management, product portfolios, and financial performance from 2021 to 2025."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+  <style>
+    :root {
+      --bg: #060816;
+      --bg-elevated: rgba(12, 18, 42, 0.72);
+      --bg-soft: rgba(18, 25, 58, 0.52);
+      --text: #f5f7ff;
+      --muted: #aab3df;
+      --line: rgba(165, 180, 255, 0.18);
+      --glow-cyan: #62e7ff;
+      --glow-lime: #84ffbf;
+      --glow-amber: #ffc86b;
+      --glow-rose: #ff7fb2;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --content-width: min(1200px, calc(100vw - 40px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(80, 200, 255, 0.12), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(255, 122, 191, 0.10), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(78, 255, 177, 0.12), transparent 25%),
+        linear-gradient(160deg, #050714 0%, #090d20 35%, #060816 100%);
+      color: var(--text);
+      font-family: 'Space Grotesk', 'Trebuchet MS', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      inset: auto;
+      width: 42vw;
+      height: 42vw;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: -2;
+      animation: drift 16s ease-in-out infinite alternate;
+      will-change: transform;
+      contain: strict;
+    }
+
+    body::before {
+      top: -10vw;
+      left: -8vw;
+      background: linear-gradient(135deg, var(--glow-cyan), transparent 60%);
+    }
+
+    body::after {
+      right: -10vw;
+      bottom: -8vw;
+      background: linear-gradient(135deg, var(--glow-rose), transparent 65%);
+      animation-duration: 22s;
+    }
+
+    #plasma-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 130px 130px;
+      mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+      opacity: 0.25;
+    }
+
+    .top-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .top-progress__bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--glow-cyan), var(--glow-lime), var(--glow-amber));
+      box-shadow: 0 0 26px rgba(98, 231, 255, 0.66);
+      transition: width 0.2s linear;
+    }
+
+    .shell {
+      width: var(--content-width);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      background: radial-gradient(circle, rgba(98, 231, 255, 0.16) 0%, rgba(98, 231, 255, 0.04) 32%, rgba(98, 231, 255, 0) 70%);
+      mix-blend-mode: screen;
+      filter: blur(10px);
+      will-change: transform, opacity;
+      transition: opacity 0.35s ease;
+    }
+
+    .cursor-glow.is-active {
+      opacity: 1;
+    }
+
+    .nav {
+      position: sticky;
+      top: 18px;
+      z-index: 180;
+      display: flex;
+      justify-content: center;
+      padding: 18px 0 0;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(8, 13, 30, 0.68);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .nav__brand {
+      padding: 0 12px 0 6px;
+      border-right: 1px solid var(--line);
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .nav__link {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      white-space: nowrap;
+      font: inherit;
+    }
+
+    .nav__link:hover,
+    .nav__link.is-active {
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(98, 231, 255, 0.20), rgba(255, 127, 178, 0.16));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 25px rgba(98, 231, 255, 0.12);
+    }
+
+    main {
+      padding-bottom: 120px;
+    }
+
+    .section {
+      position: relative;
+      padding: 92px 0;
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      --orb-shift: 0px;
+      --orb-shift-alt: 0px;
+      isolation: isolate;
+      contain: layout style;
+    }
+
+    .section:not(.hero) {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 800px;
+    }
+
+    .section::before,
+    .section::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .section::before {
+      top: 10%;
+      right: -10%;
+      width: 32vw;
+      height: 32vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(98, 231, 255, 0.10), transparent 68%);
+      transform: translate3d(0, var(--orb-shift), 0);
+      filter: blur(6px);
+    }
+
+    .section::after {
+      left: -6%;
+      bottom: 6%;
+      width: 22vw;
+      height: 22vw;
+      background: radial-gradient(circle, rgba(255, 127, 178, 0.08), transparent 70%);
+      transform: translate3d(0, var(--orb-shift-alt), 0);
+      border-radius: 50%;
+    }
+
+    .section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section.is-visible::before,
+    .section.is-visible::after {
+      opacity: 1;
+    }
+
+    .hero {
+      min-height: calc(100vh - 24px);
+      display: grid;
+      align-items: center;
+      padding-top: 42px;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 12px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 42px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glow-cyan));
+    }
+
+    .hero__title {
+      margin: 20px 0 18px;
+      font-family: 'Cormorant Garamond', 'Palatino Linotype', serif;
+      font-size: clamp(58px, 10vw, 132px);
+      line-height: 0.86;
+      letter-spacing: -0.04em;
+    }
+
+    .hero__title .accent {
+      display: block;
+      color: var(--glow-cyan);
+      text-shadow: 0 0 42px rgba(98, 231, 255, 0.24);
+      animation: accentPulse 4.2s ease-in-out infinite;
+    }
+
+    .hero__copy {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .scroll-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+      color: rgba(245, 247, 255, 0.68);
+      letter-spacing: 0.18em;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .scroll-cue::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--glow-cyan);
+      box-shadow: 0 0 18px rgba(98, 231, 255, 0.6);
+      animation: pulseDot 1.8s ease-in-out infinite;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font: inherit;
+      cursor: pointer;
+      color: var(--text);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, rgba(98, 231, 255, 0.22), rgba(132, 255, 191, 0.18));
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32), inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+    }
+
+    .btn--ghost {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: var(--line);
+    }
+
+    .panel {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(13, 20, 47, 0.76), rgba(8, 12, 28, 0.76));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,0.10), transparent 28%, transparent 72%, rgba(98,231,255,0.06));
+      pointer-events: none;
+    }
+
+    .panel::after {
+      content: '';
+      position: absolute;
+      inset: -30%;
+      background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.07) 50%, transparent 60%);
+      transform: translateX(-55%) rotate(12deg);
+      pointer-events: none;
+      animation: sheen 9s linear infinite;
+      opacity: 0.45;
+    }
+
+    .section:not(.is-visible) .panel::after {
+      animation-play-state: paused;
+    }
+
+    .hero-card {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      animation: floatCard 8s ease-in-out infinite alternate;
+    }
+
+    .hero-card__label {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-card__score {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .score {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .score__value {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .score__caption {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hero-card__footer {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin: 8px 0 0;
+      font-family: 'Cormorant Garamond', 'Palatino Linotype', serif;
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .news-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+    }
+
+    .news-stage,
+    .news-side {
+      padding: 26px;
+    }
+
+    .news-card {
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    .content-swap {
+      animation: fadeRise 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+
+    .news-card__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .news-card__title {
+      font-size: clamp(28px, 3.8vw, 48px);
+      line-height: 1.04;
+      margin: 0;
+    }
+
+    .news-card__lead {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 16px;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .news-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .news-controls button,
+    .mode-switch button,
+    .tab-list button,
+    .phase-switch button {
+      appearance: none;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+      transition: 0.25s ease;
+    }
+
+    .news-controls button:hover,
+    .news-controls button.is-active,
+    .mode-switch button:hover,
+    .mode-switch button.is-active,
+    .tab-list button:hover,
+    .tab-list button.is-active,
+    .phase-switch button:hover,
+    .phase-switch button.is-active {
+      color: var(--text);
+      background: rgba(98, 231, 255, 0.10);
+      border-color: rgba(98, 231, 255, 0.40);
+      box-shadow: 0 0 26px rgba(98, 231, 255, 0.10);
+    }
+
+    .news-gauge {
+      display: grid;
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .gauge {
+      display: grid;
+      gap: 10px;
+    }
+
+    .gauge__row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .gauge__bar {
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .gauge__fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--glow-cyan), var(--glow-amber));
+      transform-origin: left;
+      animation: grow 1s ease both;
+    }
+
+    .timeline-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 22px;
+    }
+
+    .timeline-nav,
+    .timeline-stage,
+    .vmv-layout,
+    .org-layout,
+    .management-layout,
+    .products-layout,
+    .finance-layout,
+    .sources-layout {
+      min-width: 0;
+    }
+
+    .timeline-nav {
+      padding: 26px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      width: 100%;
+      text-align: left;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      color: var(--text);
+      transition: 0.25s ease;
+      font: inherit;
+    }
+
+    .timeline-item small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .timeline-item:hover,
+    .timeline-item.is-active {
+      transform: translateX(8px);
+      border-color: rgba(132, 255, 191, 0.32);
+      background: linear-gradient(135deg, rgba(132,255,191,0.10), rgba(98,231,255,0.08));
+      box-shadow: 0 0 34px rgba(132, 255, 191, 0.10);
+    }
+
+    .timeline-stage {
+      padding: 32px;
+      display: grid;
+      gap: 22px;
+      min-height: 520px;
+      align-content: start;
+    }
+
+    .timeline-stage__year {
+      font-size: 82px;
+      line-height: 0.88;
+      color: rgba(255,255,255,0.08);
+      font-weight: 700;
+      letter-spacing: -0.06em;
+    }
+
+    .timeline-stage__title {
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.04;
+      margin: 0;
+    }
+
+    .timeline-stage__copy,
+    .timeline-stage__impact {
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .timeline-stage__impact {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .timeline-stage__content,
+    .management-detail__content,
+    .phase-detail__content {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .vmv-layout {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .flip-card {
+      min-height: 360px;
+      perspective: 1200px;
+    }
+
+    .flip-card__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+
+    .flip-card.is-flipped .flip-card__inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card__face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .flip-card__face--front,
+    .flip-card__face--back {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(13, 20, 47, 0.78), rgba(8, 12, 28, 0.78));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .flip-card__face--back {
+      transform: rotateY(180deg);
+      background: linear-gradient(180deg, rgba(14, 26, 54, 0.86), rgba(11, 15, 34, 0.92));
+    }
+
+    .flip-card h3,
+    .stack-card h3,
+    .product-card h3,
+    .source-card h3 {
+      margin: 0 0 12px;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .flip-card p,
+    .stack-card p,
+    .product-card p,
+    .source-card p,
+    .org-panel p,
+    .management-detail p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .flip-card__hint {
+      color: var(--glow-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+    }
+
+    .tilt-card {
+      transform: perspective(1600px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translate3d(0, 0, 0);
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      will-change: transform;
+    }
+
+    .org-layout {
+      display: grid;
+      gap: 20px;
+    }
+
+    .stack-card {
+      padding: 24px;
+    }
+
+    .tab-list,
+    .mode-switch,
+    .phase-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .org-panel {
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .org-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .org-node,
+    .chip-grid span,
+    .product-chip,
+    .finance-note,
+    .insight-card {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .org-node strong,
+    .insight-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .org-node span,
+    .insight-card span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .chip-grid span {
+      color: var(--muted);
+      padding: 10px 14px;
+    }
+
+    .management-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric-pill {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .metric-pill b {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .metric-pill span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .management-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .management-card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      transition: 0.25s ease;
+      font: inherit;
+      overflow: hidden;
+    }
+
+    .management-card:hover,
+    .management-card.is-active {
+      transform: translateY(-4px);
+      border-color: rgba(98, 231, 255, 0.32);
+      box-shadow: 0 0 30px rgba(98, 231, 255, 0.10);
+    }
+
+    .management-card small {
+      display: block;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    .management-card strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .management-card span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .management-detail {
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .management-detail__role {
+      color: var(--glow-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 12px;
+    }
+
+    .management-detail__name {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 0.95;
+    }
+
+    .management-detail__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .management-detail__tags span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .products-layout {
+      display: grid;
+      gap: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .product-card {
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      min-height: 260px;
+      transition: 0.25s ease;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 34px rgba(132, 255, 191, 0.08);
+    }
+
+    .product-chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .product-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .phase-board {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 18px;
+    }
+
+    .phase-card,
+    .phase-detail,
+    .finance-chart,
+    .finance-panel,
+    .source-card,
+    .disclosure-card {
+      padding: 26px;
+    }
+
+    .phase-track {
+      display: grid;
+      gap: 16px;
+    }
+
+    .phase-item {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: 0.25s ease;
+    }
+
+    .phase-item.is-active {
+      border-color: rgba(255, 200, 107, 0.38);
+      box-shadow: 0 0 30px rgba(255, 200, 107, 0.10);
+      transform: translateX(8px);
+    }
+
+    .phase-item small {
+      display: block;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+    }
+
+    .phase-item strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .phase-item span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .phase-detail {
+      min-height: 360px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .phase-bar {
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .phase-bar__fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--glow-lime), var(--glow-cyan));
+      transition: width 0.8s ease;
+    }
+
+    .finance-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+    }
+
+    .finance-chart {
+      display: grid;
+      gap: 18px;
+    }
+
+    .chart-wrap {
+      border-radius: 24px;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .chart-grid-line {
+      opacity: 0;
+      animation: chartFade 0.65s ease forwards;
+    }
+
+    .chart-label,
+    .chart-year-label {
+      opacity: 0;
+      animation: chartFade 0.7s ease forwards;
+    }
+
+    .chart-area {
+      opacity: 0;
+      transform-origin: bottom;
+      animation: chartFade 0.9s ease forwards;
+      animation-delay: 0.14s;
+    }
+
+    .chart-line {
+      stroke-dasharray: var(--line-length, 1600);
+      stroke-dashoffset: var(--line-length, 1600);
+      animation: drawLine 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    .chart-point {
+      opacity: 0;
+      transform-origin: center;
+      animation: pointPop 0.5s ease forwards;
+    }
+
+    #financial-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .chart-tooltip {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .chart-tooltip strong {
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    .finance-summary {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .finance-kpi {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      animation: fadeRise 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .finance-kpi b {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .finance-kpi span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .finance-panel {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .finance-notes {
+      display: grid;
+      gap: 12px;
+    }
+
+    .finance-note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .finance-note span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .finance-year-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .finance-year {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+
+    .finance-year b {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .finance-year span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .sources-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .source-link {
+      display: block;
+      padding: 14px 16px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: 0.25s ease;
+    }
+
+    .source-link:hover {
+      transform: translateX(6px);
+      border-color: rgba(98, 231, 255, 0.34);
+      box-shadow: 0 0 26px rgba(98, 231, 255, 0.10);
+    }
+
+    .source-link small {
+      display: block;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .footer-note {
+      padding: 18px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes sheen {
+      0% {
+        transform: translateX(-55%) rotate(12deg);
+      }
+      100% {
+        transform: translateX(55%) rotate(12deg);
+      }
+    }
+
+    @keyframes accentPulse {
+      0%,
+      100% {
+        text-shadow: 0 0 30px rgba(98, 231, 255, 0.18);
+        transform: translateY(0);
+      }
+      50% {
+        text-shadow: 0 0 54px rgba(98, 231, 255, 0.34);
+        transform: translateY(-2px);
+      }
+    }
+
+    @keyframes pulseDot {
+      0%,
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+
+    @keyframes floatCard {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes fadeRise {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 24px, 0) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes pointPop {
+      from {
+        opacity: 0;
+        transform: scale(0.2);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes chartFade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes drift {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      to {
+        transform: translate3d(4vw, 3vw, 0) scale(1.08);
+      }
+    }
+
+    @keyframes grow {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .hero__grid,
+      .news-layout,
+      .timeline-layout,
+      .management-layout,
+      .phase-board,
+      .finance-layout,
+      .sources-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .vmv-layout,
+      .finance-summary,
+      .finance-year-grid,
+      .metrics-strip,
+      .management-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav__inner {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(calc(100vw - 40px), 1200px);
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 28px;
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      .panel,
+      .flip-card__face--front,
+      .flip-card__face--back {
+        border-radius: 24px;
+      }
+
+      .hero-card,
+      .news-stage,
+      .news-side,
+      .timeline-nav,
+      .timeline-stage,
+      .stack-card,
+      .management-detail,
+      .phase-card,
+      .phase-detail,
+      .finance-chart,
+      .finance-panel,
+      .source-card,
+      .disclosure-card {
+        padding: 18px;
+      }
+
+      .flip-card__face--front,
+      .flip-card__face--back {
+        padding: 18px;
+      }
+
+      .flip-card {
+        min-height: 280px;
+      }
+
+      .hero__title {
+        font-size: clamp(40px, 12vw, 72px);
+      }
+
+      .section-head h2 {
+        font-size: clamp(28px, 7vw, 48px);
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .timeline-item:hover,
+      .timeline-item.is-active,
+      .phase-item.is-active,
+      .source-link:hover {
+        transform: none;
+      }
+
+      .cursor-glow {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-card,
+      .news-stage,
+      .news-side,
+      .timeline-nav,
+      .timeline-stage,
+      .stack-card,
+      .management-detail,
+      .phase-card,
+      .phase-detail,
+      .finance-chart,
+      .finance-panel,
+      .source-card,
+      .disclosure-card,
+      .flip-card__face--front,
+      .flip-card__face--back {
+        padding: 14px;
+      }
+
+      .score {
+        padding: 12px;
+      }
+
+      .score__value {
+        font-size: 26px;
+      }
+
+      .score__caption {
+        font-size: 12px;
+      }
+
+      .management-detail__name {
+        font-size: clamp(26px, 6vw, 40px);
+      }
+
+      .bullet-list li,
+      .source-link {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .chart-wrap {
+        padding: 10px;
+        border-radius: 16px;
+      }
+
+      .metric-pill {
+        padding: 12px;
+      }
+
+      .metric-pill b {
+        font-size: 22px;
+      }
+
+      .finance-kpi b {
+        font-size: 22px;
+      }
+
+      .finance-year-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .product-chip,
+      .management-detail__tags span {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      .news-controls button,
+      .mode-switch button,
+      .tab-list button,
+      .phase-switch button,
+      .btn {
+        min-height: 44px;
+        padding: 12px 16px;
+      }
+
+      .hero__copy {
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      .flip-card h3,
+      .stack-card h3,
+      .product-card h3,
+      .source-card h3 {
+        font-size: 24px;
+      }
+
+      .news-card__title {
+        font-size: clamp(22px, 5vw, 36px);
+      }
+
+      .timeline-stage__title {
+        font-size: clamp(22px, 5vw, 36px);
+      }
+
+      .timeline-stage__year {
+        font-size: 56px;
+      }
+
+      .hero-card__score {
+        gap: 10px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ====== Light Theme ====== */
+    [data-theme="light"] {
+      --bg: #f0f2ff;
+      --bg-elevated: rgba(255,255,255,0.82);
+      --bg-soft: rgba(230,235,255,0.62);
+      --text: #0c1030;
+      --muted: #505880;
+      --line: rgba(20,30,80,0.12);
+      --glow-cyan: #0098b8;
+      --glow-lime: #00a86b;
+      --glow-amber: #c88600;
+      --glow-rose: #c8406a;
+      --shadow: 0 24px 80px rgba(0,0,0,0.06);
+    }
+
+    [data-theme="light"] body {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(0,152,184,0.06), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(200,64,106,0.05), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(0,168,107,0.06), transparent 25%),
+        linear-gradient(160deg, #e8ecff 0%, #f0f2ff 35%, #eef0ff 100%);
+      color: var(--text);
+    }
+
+    [data-theme="light"] body::before {
+      background: linear-gradient(135deg, rgba(0,152,184,0.06), transparent 60%);
+    }
+
+    [data-theme="light"] body::after {
+      background: linear-gradient(135deg, rgba(200,64,106,0.05), transparent 65%);
+    }
+
+    [data-theme="light"] #plasma-canvas { opacity: 0.15; }
+    [data-theme="light"] .noise { opacity: 0.06; }
+
+    [data-theme="light"] .nav__inner {
+      background: rgba(255,255,255,0.82);
+      border-color: rgba(20,30,80,0.10);
+    }
+
+    [data-theme="light"] .panel,
+    [data-theme="light"] .flip-card__face--front,
+    [data-theme="light"] .flip-card__face--back {
+      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(248,250,255,0.90));
+      border-color: var(--line);
+    }
+
+    [data-theme="light"] .flip-card__face--back {
+      background: linear-gradient(180deg, rgba(242,245,255,0.95), rgba(238,240,252,0.95));
+    }
+
+    [data-theme="light"] .score,
+    [data-theme="light"] .org-node,
+    [data-theme="light"] .chip-grid span,
+    [data-theme="light"] .product-chip,
+    [data-theme="light"] .finance-note,
+    [data-theme="light"] .metric-pill,
+    [data-theme="light"] .timeline-item,
+    [data-theme="light"] .management-card,
+    [data-theme="light"] .phase-item,
+    [data-theme="light"] .finance-kpi,
+    [data-theme="light"] .finance-year,
+    [data-theme="light"] .source-link,
+    [data-theme="light"] .bullet-list li,
+    [data-theme="light"] .management-detail__tags span,
+    [data-theme="light"] .product-card,
+    [data-theme="light"] .chart-wrap,
+    [data-theme="light"] .timeline-stage__impact {
+      background: rgba(0,0,0,0.025);
+      border-color: rgba(0,0,0,0.07);
+    }
+
+    [data-theme="light"] .nav__link:hover,
+    [data-theme="light"] .nav__link.is-active {
+      background: linear-gradient(135deg, rgba(0,152,184,0.12), rgba(200,64,106,0.08));
+    }
+
+    [data-theme="light"] .btn--primary {
+      background: linear-gradient(135deg, rgba(0,152,184,0.14), rgba(0,168,107,0.10));
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.06);
+    }
+
+    [data-theme="light"] .btn--ghost {
+      background: rgba(0,0,0,0.02);
+      border-color: var(--line);
+    }
+
+    [data-theme="light"] .news-controls button,
+    [data-theme="light"] .mode-switch button,
+    [data-theme="light"] .tab-list button,
+    [data-theme="light"] .phase-switch button {
+      background: rgba(0,0,0,0.025);
+      border-color: var(--line);
+    }
+
+    [data-theme="light"] .news-controls button:hover,
+    [data-theme="light"] .news-controls button.is-active,
+    [data-theme="light"] .mode-switch button:hover,
+    [data-theme="light"] .mode-switch button.is-active,
+    [data-theme="light"] .tab-list button:hover,
+    [data-theme="light"] .tab-list button.is-active,
+    [data-theme="light"] .phase-switch button:hover,
+    [data-theme="light"] .phase-switch button.is-active {
+      color: var(--text);
+      background: rgba(0,152,184,0.08);
+      border-color: rgba(0,152,184,0.30);
+    }
+
+    [data-theme="light"] .timeline-stage__year { color: rgba(0,0,0,0.05); }
+
+    [data-theme="light"] .hero__title .accent {
+      color: var(--glow-cyan);
+      text-shadow: 0 0 42px rgba(0,152,184,0.14);
+    }
+
+    [data-theme="light"] .top-progress__bar {
+      box-shadow: 0 0 26px rgba(0,152,184,0.40);
+    }
+
+    [data-theme="light"] .cursor-glow {
+      background: radial-gradient(circle, rgba(0,152,184,0.08) 0%, rgba(0,152,184,0.02) 32%, transparent 70%);
+    }
+
+    [data-theme="light"] .panel::before {
+      background: linear-gradient(120deg, rgba(0,0,0,0.03), transparent 28%, transparent 72%, rgba(0,152,184,0.03));
+    }
+
+    [data-theme="light"] .panel::after {
+      background: linear-gradient(115deg, transparent 40%, rgba(0,0,0,0.03) 50%, transparent 60%);
+    }
+
+    /* ====== Nav Toggles ====== */
+    .nav-toggles {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    .toggle-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      transition: 0.25s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .toggle-btn:hover {
+      color: var(--text);
+      background: rgba(98,231,255,0.10);
+      border-color: rgba(98,231,255,0.30);
+    }
+
+    [data-theme="light"] .toggle-btn {
+      background: rgba(0,0,0,0.03);
+    }
+
+    [data-theme="light"] .toggle-btn:hover {
+      background: rgba(0,152,184,0.08);
+      border-color: rgba(0,152,184,0.30);
+    }
+
+    /* ====== Hamburger ====== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      padding: 8px 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav__links {
+      display: contents;
+    }
+
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+
+      .nav__inner {
+        flex-wrap: wrap;
+        border-radius: var(--radius-lg);
+      }
+
+      .nav__links {
+        display: none;
+        width: 100%;
+        order: 10;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        margin-top: 10px;
+      }
+
+      .nav__links.menu-open {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .nav__links.menu-open .nav__link {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="plasma-canvas"></canvas>
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+  <div class="noise"></div>
+  <div class="top-progress" aria-hidden="true">
+    <div class="top-progress__bar" id="top-progress-bar"></div>
+  </div>
+
+  <div class="shell">
+    <nav class="nav" aria-label="Section navigation">
+      <div class="nav__inner">
+        <div class="nav__brand">SMMC-EMI / TP0</div>
+        <div class="nav__links" id="nav-links">
+          <button class="nav__link is-active" data-target="hero">Intro</button>
+          <button class="nav__link" data-target="news">News</button>
+          <button class="nav__link" data-target="history">History</button>
+          <button class="nav__link" data-target="vision">Vision</button>
+          <button class="nav__link" data-target="management">Team</button>
+          <button class="nav__link" data-target="products">Products</button>
+          <button class="nav__link" data-target="finance">Finance</button>
+          <button class="nav__link" data-target="sources">Sources</button>
+        </div>
+        <div class="nav-toggles">
+          <button class="toggle-btn" id="lang-toggle" title="Switch Language / 切換語言" aria-label="Switch Language">EN</button>
+          <button class="toggle-btn" id="theme-toggle" title="Toggle Theme / 切換主題" aria-label="Toggle Theme">☀️</button>
+          <button class="hamburger" id="hamburger" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="section hero is-visible" id="hero">
+        <div class="hero__grid">
+          <div class="reveal-up is-visible">
+            <span class="eyebrow">Company Overview & Financial Performance</span>
+            <h1 class="hero__title">
+              FORMOSA
+              <span class="accent">IN FLUX</span>
+            </h1>
+            <p class="hero__copy">
+              這不是一份靜態報告，而是一場關於台塑如何在石化景氣循環、綠色轉型、
+              全球佈局與財務壓力之間重新定義自己的單頁敘事實驗。這個 SPA 把公司歷史、
+              管理結構、產品版圖與 2021 至 2025 的績效變化，轉成一條可探索的數據長卷。
+            </p>
+            <div class="hero__actions">
+              <button class="btn btn--primary" data-jump="news" title="進入互動報告">Start The Scroll</button>
+              <button class="btn btn--ghost" data-jump="finance" title="直接查看財務段落">Jump To Finance</button>
+            </div>
+            <div class="scroll-cue">Scroll To Disturb The Surface</div>
+          </div>
+
+          <div class="panel hero-card reveal-up is-visible">
+            <div>
+              <div class="hero-card__label">2021 → 2025 / Five-Year Shockwave</div>
+              <div class="hero-card__score">
+                <div class="score">
+                  <div class="score__value" data-counter="2735.98" data-decimals="2">0</div>
+                  <div class="score__caption">2021 合併營收高峰（億元）</div>
+                </div>
+                <div class="score">
+                  <div class="score__value" data-counter="-102.15" data-decimals="2">0</div>
+                  <div class="score__caption">2025 稅前損益（億元）</div>
+                </div>
+                <div class="score">
+                  <div class="score__value" data-counter="11.21" data-decimals="2">0</div>
+                  <div class="score__caption">2021 EPS（元/股）</div>
+                </div>
+                <div class="score">
+                  <div class="score__value" data-counter="-1.58" data-decimals="2">0</div>
+                  <div class="score__caption">2025 EPS（元/股）</div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-card__footer">
+              核心敘事是清楚的：2021 為景氣高峰，2022 至 2023 快速修正，2024 與 2025 進入低檔盤整與虧損擴大。問題不只是量，而是產品利差與產業結構。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="news">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Two Recent News</span>
+            <h2>Shockwaves In Motion</h2>
+          </div>
+          <p>
+            兩則新聞像兩道相反方向的波：一邊是美國廠的原料與製程優勢，另一邊是台灣本地供應緊張與市場質疑。這組對照，直接揭示台塑的全球布局與在地風險如何同時存在。
+          </p>
+        </div>
+
+        <div class="news-layout">
+          <div class="panel news-stage reveal-up">
+            <div class="news-card" id="news-card"></div>
+          </div>
+          <div class="panel news-side reveal-up">
+            <div class="news-card__meta">
+              <span>Interactive Compare</span>
+              <div class="news-controls" id="news-controls"></div>
+            </div>
+            <div class="news-gauge" id="news-gauges"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="history">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Company History</span>
+            <h2>From Micro PVC To A System</h2>
+          </div>
+          <p>
+            台塑的歷史不是平面年表，而是一連串結構性動作：從逆向整合、跨域擴張、六輕建設，到全球化據點佈局，每一步都在重寫成本、供應鏈與市場控制方式。
+          </p>
+        </div>
+
+        <div class="timeline-layout">
+          <div class="panel timeline-nav reveal-up" id="timeline-nav"></div>
+          <div class="panel timeline-stage reveal-up" id="timeline-stage"></div>
+        </div>
+      </section>
+
+      <section class="section" id="vision">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Vision, Mission, Value</span>
+            <h2>Three Strategic Surfaces</h2>
+          </div>
+          <p>
+            核心價值說明企業為何存在，願景界定未來的畫面，使命則是執行路徑。這裡不是把文字貼上牆，而是讓三個面向像三塊漂浮板塊，翻面後顯示其真正壓力與企圖。
+          </p>
+        </div>
+
+        <div class="vmv-layout" id="vmv-layout"></div>
+      </section>
+
+      <section class="section" id="management">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Structure & Management</span>
+            <h2>Governance As A Machine</h2>
+          </div>
+          <p>
+            4.1 與 4.2 在這裡被重構成一台可閱讀的機器：前端是事業群與全球布局，後端是董事會監督、經理人分工與績效邏輯。重點不是誰在名單裡，而是權力如何流動。
+          </p>
+        </div>
+
+        <div class="org-layout reveal-up">
+          <div class="panel stack-card">
+            <div class="tab-list" id="org-tabs"></div>
+            <div class="org-panel" id="org-panel"></div>
+          </div>
+
+          <div class="management-layout">
+            <div class="panel stack-card">
+              <div class="metrics-strip">
+                <div class="metric-pill">
+                  <b>12</b>
+                  <span>董事會席次</span>
+                </div>
+                <div class="metric-pill">
+                  <b>4</b>
+                  <span>獨立董事席次</span>
+                </div>
+                <div class="metric-pill">
+                  <b>95.56%</b>
+                  <span>2024 董事會出席率</span>
+                </div>
+              </div>
+              <div class="management-grid" id="management-grid"></div>
+            </div>
+
+            <div class="panel management-detail" id="management-detail"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Product Portfolios</span>
+            <h2>Product Fields & Conversion Paths</h2>
+          </div>
+          <p>
+            從石化主業到電子材料、醫療、儲能與鋼鐵，台塑的產品版圖本身就像一張垂直整合地圖。這裡把它拆成現在的產品面，以及未來三段轉型路線。
+          </p>
+        </div>
+
+        <div class="products-layout reveal-up">
+          <div class="product-grid" id="product-grid"></div>
+
+          <div class="phase-board">
+            <div class="panel phase-card">
+              <div class="phase-switch" id="phase-switch"></div>
+              <div class="phase-track" id="phase-track"></div>
+            </div>
+            <div class="panel phase-detail" id="phase-detail"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="finance">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Financial Performance</span>
+            <h2>The Financial Main Stage</h2>
+          </div>
+          <p>
+            財務段落是這份作品的核心劇場。營收、稅前損益、EPS 與 ROE 在 2021 到 2025 之間形成一條幾乎完整的景氣斷面，也揭示台塑正在經歷的轉型壓力。
+          </p>
+        </div>
+
+        <div class="finance-layout reveal-up">
+          <div class="panel finance-chart tilt-card" data-tilt>
+            <div class="mode-switch" id="finance-mode"></div>
+            <div class="finance-summary" id="finance-summary"></div>
+            <div class="chart-wrap">
+              <svg id="financial-svg" viewBox="0 0 860 360" role="img" aria-label="Financial trend chart"></svg>
+            </div>
+            <div class="chart-tooltip" id="chart-tooltip"></div>
+          </div>
+
+          <div class="panel finance-panel tilt-card" data-tilt>
+            <div class="finance-year-grid" id="finance-year-grid"></div>
+            <div class="finance-notes" id="finance-notes"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="sources">
+        <div class="section-head reveal-up">
+          <div>
+            <span class="eyebrow">Disclosure</span>
+            <h2>Sources, Methods, Integrity</h2>
+          </div>
+          <p>
+            這個單頁作品保留了報告的可追溯性。來源不是附註，而是敘事可信度的一部分；AI 使用聲明則被清楚保留下來，讓創作與查證邊界保持透明。
+          </p>
+        </div>
+
+        <div class="sources-layout reveal-up">
+          <div class="panel source-card tilt-card" data-tilt>
+            <h3>Primary Sources</h3>
+            <p>所有管理、財務與策略資訊，皆優先對照官網、永續報告、財務報告與法人說明會資料。</p>
+            <div class="source-list" id="source-list"></div>
+          </div>
+
+          <div class="panel disclosure-card tilt-card" data-tilt>
+            <h3>AI Usage Disclosure</h3>
+            <p>
+              1. AI was consulted for language and/or ideas.<br />
+              2. All company facts, management information, and financial figures used in this report were checked against the cited official sources before inclusion.
+            </p>
+            <div class="chip-grid">
+              <span>Single File HTML</span>
+              <span>Offline Ready</span>
+              <span>Interactive SVG Charts</span>
+              <span>Fluid Motion Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note reveal-up">
+          Designed as a one-file SPA for SMMC-EMI_GX_TP Company Overview &amp; Financial Performance.<br />
+          Content adapted from the companion report and re-orchestrated into an interactive visual narrative.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const appData = {
+      news: [
+        {
+          id: 'us-advantage',
+          label: { zh: '近期新聞 01', en: 'Recent News 01' },
+          source: 'UDN / 2026',
+          title: { zh: '台塑美國廠的乙烷裂解優勢，讓戰爭油價衝擊變成成本差距。', en: 'Formosa\u2019s US ethane cracking advantage turns oil-price shocks into a cost gap.' },
+          lead: { zh: '當亞洲廠因輕油裂解受油價波動牽動，乙烯成本一路逼近每噸 1,000 美元，台塑美國廠仍可把成本維持在 520 至 530 美元，形成極大的製程差與競爭緩衝。', en: 'While Asian naphtha crackers push ethylene costs near $1,000/ton, Formosa\u2019s US plants keep costs at $520\u2013530, creating a massive process gap and competitive buffer.' },
+          bullets: { zh: ['亞洲乙烯價格接近每噸 1,000 美元，美國乙烷裂解成本仍約 520~530 美元。','美國廠改善被視為帶動整體獲利的正面力量。','管理層預估 2026 石化景氣有望優於 2025，但仍須觀察關稅、地緣政治與海運費變數。'], en: ['Asia ethylene near $1,000/t; US ethane cracking cost stays around $520\u2013530/t.','US plant improvements seen as a positive driver for group profitability.','Management expects 2026 petrochemical conditions to improve vs 2025, but tariffs, geopolitics, and shipping remain variables.'] },
+          metrics: { zh: [{ label: '亞洲乙烯價格', value: 1000, max: 1000, suffix: 'USD/t' },{ label: '美國乙烯成本', value: 525, max: 1000, suffix: 'USD/t' }], en: [{ label: 'Asia Ethylene Price', value: 1000, max: 1000, suffix: 'USD/t' },{ label: 'US Ethylene Cost', value: 525, max: 1000, suffix: 'USD/t' }] },
+          url: 'https://udn.com/news/story/7241/9386427'
+        },
+        {
+          id: 'plastic-shortage',
+          label: { zh: '近期新聞 02', en: 'Recent News 02' },
+          source: 'PTS / 2026',
+          title: { zh: '台灣塑膠粒缺貨與價格爭議，暴露本地供應鏈的脆弱斷點。', en: 'Taiwan\u2019s plastic pellet shortage and price disputes expose local supply chain fragility.' },
+          lead: { zh: '另一邊，台灣本地卻因乙烯短缺、減供與市場恐慌，引發塑膠粒搶購與價格劇烈波動。事件中，同時出現供應緊張、政治質疑與政府緊急協調三條平行線。', en: 'Domestically, ethylene shortages, supply cuts, and market panic triggered plastic pellet hoarding and extreme price swings\u2014supply tension, political scrutiny, and government coordination ran in parallel.' },
+          bullets: { zh: ['塑膠粒價格一度飆升至原來的 3 倍以上。','立委質疑減供與關線可能形成價格操縱，但經濟部將主因歸結為上游乙烯短缺。','中油啟動四輕裂解廠，預期次月可增加約 3 萬噸乙烯供應。'], en: ['Plastic pellet prices surged to over 3\u00d7 the original level.','Legislators questioned whether supply cuts constituted price manipulation; the MOEA attributed it to upstream ethylene shortages.','CPC restarted its No. 4 naphtha cracker, expected to add ~30,000 tons of ethylene supply next month.'] },
+          metrics: { zh: [{ label: '價格波動', value: 300, max: 300, suffix: '% of base' },{ label: '次月增產乙烯', value: 30000, max: 30000, suffix: 'tons' }], en: [{ label: 'Price Surge', value: 300, max: 300, suffix: '% of base' },{ label: 'Next Month Ethylene Boost', value: 30000, max: 30000, suffix: 'tons' }] },
+          url: 'https://news.pts.org.tw/article/801635'
+        }
+      ],
+      timeline: [
+        {
+          year: '1954',
+          tag: 'Origin',
+          title: '福懋塑膠成立，日後更名為台灣塑膠公司。',
+          copy:
+            '台塑由王永慶與王永在兄弟創立，在美援與台灣民營化政策背景下開始起步。初期以聚氯乙烯相關業務切入，規模極小，卻很快形成強烈的成本與產業整合意識。',
+          impact:
+            '這是台塑一切擴張的原點，也是其「先把產能做大，再把需求做出來」思維的起始點。'
+        },
+        {
+          year: '1957-1958',
+          tag: 'Reverse Integration',
+          title: '以逆向整合化解 PVC 滯銷危機。',
+          copy:
+            '面對產量少、成本高與下游客戶不足，台塑選擇擴增 PVC 產能，同時成立南亞塑膠與其他加工公司，把下游市場直接做出來。',
+          impact:
+            '這個策略不只是救公司，而是把整個台灣塑膠加工鏈一起推起來。'
+        },
+        {
+          year: '1965-1984',
+          tag: 'Diversification',
+          title: '從塑膠跨入紡織與電子材料。',
+          copy:
+            '台化成立後切入化纖與紡織，南亞則進入印刷電路板與銅箔基板，集團版圖開始從傳統塑膠延伸到高技術材料。',
+          impact:
+            '台塑開始脫離單一材料商的身份，建立多角化增長曲線。'
+        },
+        {
+          year: '1970s-1986',
+          tag: 'Petrochemical Power',
+          title: '爭取輕油裂解廠，六輕計畫成形。',
+          copy:
+            '面對上游原料仰賴進口的結構性問題，台塑向政府爭取興建輕油裂解廠，最終獲准推動六輕計畫，打造完整的一貫化生產體系。',
+          impact:
+            '六輕讓台塑真正握住上游原料命脈，也建立了難以被複製的規模與成本護城河。'
+        },
+        {
+          year: '1990s',
+          tag: 'Global Buildout',
+          title: '美國與中國布局，形成資源與市場雙軸。',
+          copy:
+            '台塑在美國德州發展烯烴裂解與石化工廠，掌握低價頁岩氣優勢；同時進入中國大陸，建立寧波等原料與加工基地。',
+          impact:
+            '全球化不只是擴產，而是讓台塑把低成本資源和高成長市場同時納入版圖。'
+        },
+        {
+          year: '2001+',
+          tag: 'Southeast Asia',
+          title: '越南布局與重工業延伸。',
+          copy:
+            '面對紡纖成本壓力與東協市場機會，台塑進入越南，並與中鋼、日本 JFE 合資發展河靜鋼鐵與深水港。',
+          impact:
+            '集團從石化與材料，延伸到更重資本、更長週期的鋼鐵重工業。'
+        },
+        {
+          year: '2024-2025',
+          tag: 'Transformation',
+          title: '轉型開發專案組成立，AI、能源與高值化成為新主軸。',
+          copy:
+            '在石化景氣疲弱與獲利壓力下，台塑將轉型正式拉到管理主舞台：新產品、新事業、數位化與能源轉型不再是附屬工程，而是生存與重估價值的主軸。',
+          impact:
+            '台塑進入一個新階段：不只比誰規模更大，而是比誰能把結構變得更輕、更高值、更有韌性。'
+        }
+      ],
+      vmv: [
+        {
+          title: 'Value',
+          front:
+            '勤勞樸實、止於至善、永續經營、奉獻社會。這不是單純口號，而是台塑用來解釋成本控管、流程紀律與社會角色的底層語法。',
+          back:
+            '優點在於治理節奏穩定、執行效率高；風險在於過度標準化可能壓縮創新速度與彈性。當外部環境快速變動，這套價值也必須學會轉型。'
+        },
+        {
+          title: 'Vision',
+          front:
+            '成為永續經營的領航者，透過產業轉型與綠色創新，朝向 2050 碳中和，並持續創造幸福與經濟價值。',
+          back:
+            '這個願景不再把台塑定義成塑膠製造商，而是希望成為科技材料驅動者、綠色產業參與者，以及滲透日常生活的基礎供應者。'
+        },
+        {
+          title: 'Mission',
+          front:
+            '推動高值化與差異化、深化 AI 與數位轉型、落實能源轉型與減碳脫煤，讓傳統製造體系獲得新的獲利曲線。',
+          back:
+            '使命的關鍵不是宣示，而是執行：產品組合能否升級、營運效率能否改善、減碳投入能否變成結構優勢，決定這段轉型是否只是口號。'
+        }
+      ],
+      org: {
+        business: {
+          intro:
+            '台塑企業採多事業群並進的集團結構，台灣塑膠公司則聚焦在塑膠原料、碳纖維與化工產品。集團層級像策略母體，事業公司負責各自市場與生產邏輯。',
+          items: [
+            { title: '台塑企業 / 塑膠', description: '台灣塑膠、南亞塑膠等，以樹脂、建材與加工製品為主。'},
+            { title: '台塑企業 / 石化', description: '台塑石化、台化，掌握煉油、輕油裂解與石化中游。'},
+            { title: '台塑企業 / 電子', description: '南亞科技、南亞電路板等，向高技術材料與半導體延伸。'},
+            { title: '台灣塑膠公司 / 塑膠原料', description: 'PVC、HDPE、LLDPE、EVA、液鹼、鹽酸與塑膠改質劑。'},
+            { title: '台灣塑膠公司 / 纖維', description: '碳纖維作為高值化材料核心。'},
+            { title: '台灣塑膠公司 / 化學工業', description: '丙烯酸及酯類、AN、MMA、MTBE、正丁醇等。'}
+          ]
+        },
+        functional: {
+          intro:
+            '功能單位的角色，是把策略翻成製程、營運與管理責任。對台塑來說，總經理室、轉型開發專案組、塑膠事業群、化工事業群與直屬部門共同構成執行骨架。',
+          items: [
+            { title: '總經理室', description: '管理組、營業管理組、經營分析組、人事組、工程管理組。'},
+            { title: '轉型開發專案組', description: '研究開發、能源轉型、數位轉型，直接對接新事業與 AI 化。'},
+            { title: '塑膠事業群', description: '塑膠、聚烯、聚丙烯與電石等事業部。'},
+            { title: '化工事業群', description: '化學品、台麗朗、工務、電子材料與保養中心。'},
+            { title: '直屬部門', description: '檢驗中心、安全衛生、會計、儲運、高雄管理、成品處與麥寮管理部。'}
+          ]
+        },
+        regional: {
+          intro:
+            '地區單位反映的是供應鏈與市場位置：台灣是製造核心，中國是加工與市場延伸，美國是低成本資源據點，越南則承接東協市場與重工布局。',
+          items: [
+            { title: '台灣', description: '仁武、林園、冬山、台北辦事處、新港、麥寮等據點構成營運主體。'},
+            { title: '中國', description: '寧波與其他基地承接加工、市場與原料供應任務。'},
+            { title: '美國', description: '德州、路易斯安那等州支撐頁岩氣與石化成本優勢。'},
+            { title: '越南 / 東南亞', description: '河靜鋼鐵與區域市場布局，對應集團擴張。'}
+          ]
+        }
+      },
+      management: [
+        {
+          role: 'Chairman',
+          name: '郭文筆',
+          team: 'Corporate Leadership',
+          education: '清華大學工業化學系',
+          focus: '綜理所有經營管理業務，兼任台塑勝高董事長。',
+          insight: '在景氣低迷與轉型壓力同時存在的階段，董事長角色更像策略加速器，負責把集團的資源與治理節奏對接起來。',
+          tags: ['Strategy', 'Transformation', 'Board Leadership']
+        },
+        {
+          role: 'President',
+          name: '林勝冠',
+          team: 'Corporate Leadership',
+          education: '政治大學企管系',
+          focus: '綜理所有經營管理業務。',
+          insight: '董事長與總經理分工恢復後，總經理成為把方向轉成日常營運節奏的關鍵執行者。',
+          tags: ['Execution', 'Operations', 'Management']
+        },
+        {
+          role: 'Executive VP',
+          name: '梁世昌',
+          team: 'Chemical Operations',
+          education: '交通大學機械系',
+          focus: '協助綜理所有經營管理業務，兼管化工事業群。',
+          insight: '化工事業群在產品利差壓縮時，直接影響獲利修復速度。',
+          tags: ['Chemical Group', 'Engineering', 'Profitability']
+        },
+        {
+          role: 'Senior VP',
+          name: '歐雲清',
+          team: 'Plastics Group',
+          education: '匹茲堡大學化工所',
+          focus: '綜理塑膠事業群並兼管塑膠事業部。',
+          insight: '台塑的主體仍在塑膠產品組合，這個位置等於握住公司最核心的產品結構。',
+          tags: ['PVC', 'PE', 'Core Products']
+        },
+        {
+          role: 'VP',
+          name: '吳政龍',
+          team: 'Polyolefin',
+          education: '中央大學化工系',
+          focus: '綜理聚烯事業部所有經營管理業務。',
+          insight: '聚烯事業是塑膠主戰場之一，關係到出貨量與平均售價的穩定度。',
+          tags: ['Polyolefin', 'Volume', 'Pricing']
+        },
+        {
+          role: 'VP',
+          name: '高榮鴻',
+          team: 'Polypropylene',
+          education: '清華大學化工系',
+          focus: '綜理聚丙烯事業部所有經營管理業務。',
+          insight: 'PP 屬於台塑主要營收項目之一，在景氣循環中對獲利彈性影響明顯。',
+          tags: ['PP', 'Margin', 'Core Line']
+        },
+        {
+          role: 'VP',
+          name: '連國慶',
+          team: 'Formolene / Specialty',
+          education: '台灣科技大學化工系',
+          focus: '綜理台麗朗事業部所有經營管理業務。',
+          insight: '台麗朗與特用化學品板塊，是公司從泛用品轉向高值化的重要節點。',
+          tags: ['Specialty', 'Upgrade', 'Differentiation']
+        },
+        {
+          role: 'VP',
+          name: '葉一志',
+          team: 'Chemicals',
+          education: '中央大學化工系',
+          focus: '綜理化學品事業部所有經營管理業務。',
+          insight: '丙烯酸酯、AN、MMA 等產品的價差波動，直接反映到化工事業群的績效。',
+          tags: ['Chemical Products', 'AN', 'MMA']
+        },
+        {
+          role: 'VP',
+          name: '陳朝榮',
+          team: 'Engineering',
+          education: '台北工專機械系',
+          focus: '綜理工務部所有經營管理業務。',
+          insight: '當公司推動去瓶頸、產能擴充與設備效率改善時，工務系統就是支點。',
+          tags: ['Engineering', 'Debottlenecking', 'Capex']
+        },
+        {
+          role: 'VP',
+          name: '李應源',
+          team: 'Electronic Materials',
+          education: '明志工專電工系',
+          focus: '綜理電子材料部所有經營管理業務。',
+          insight: '電子材料代表台塑往高值化與半導體材料移動的方向。',
+          tags: ['Electronic Materials', 'High Value', 'Transition']
+        },
+        {
+          role: 'Senior VP',
+          name: '雷震霄',
+          team: 'Finance',
+          education: '台灣大學商學所碩士',
+          focus: '綜理財務部所有業務。',
+          insight: '在營收下滑與本業虧損擴大時，財務系統的資金調度、資本支出節奏與風險監控變得更重要。',
+          tags: ['Finance', 'Capital Allocation', 'Risk Control']
+        }
+      ],
+      products: {
+        lines: [
+          {
+            title: '石化與塑膠本業',
+            text: '台塑四寶構成垂直整合主體，從煉油、輕油裂解，到 PVC、PE、PP 與終端加工，形成集團現金流核心。',
+            chips: ['PVC', 'PE', 'PP', 'ABS', 'PS']
+          },
+          {
+            title: '電子材料與半導體',
+            text: '從 CCL、PCB、環氧樹脂延伸到 DRAM 與矽晶圓，是台塑高毛利與高技術密度的延伸面。',
+            chips: ['CCL', 'PCB', 'DRAM', 'Silicon Wafers']
+          },
+          {
+            title: '化纖與紡織',
+            text: '聚酯纖維、尼龍與回收紗線構成轉型中的中間層，兼顧傳統產量與機能性材質。',
+            chips: ['Polyester', 'Nylon', 'Recycled Yarn']
+          },
+          {
+            title: '生技、醫療與生活用品',
+            text: '台塑生醫與長庚醫療體系讓集團可在品牌、醫療資源與生活消費市場建立另一條路徑。',
+            chips: ['Dr’s Formula', 'FORTE', 'Medical Support']
+          },
+          {
+            title: '新能源與重工業',
+            text: '台塑新智能、儲能、電池回收與河靜鋼鐵，顯示台塑不只升級材料，也在重新選擇資本配置方向。',
+            chips: ['LFP Cells', 'Energy Storage', 'Steel']
+          }
+        ],
+        phases: [
+          {
+            key: 'phase1',
+            label: 'Phase 1',
+            title: '高值化與 AI 智能化',
+            progress: 78,
+            text:
+              '減少泛用型塑膠比重，增加醫療級塑膠、半導體級化學品與碳纖維等高附加價值產品，並同步導入 AI 做製程控制、工安預測與能耗管理。',
+            bullets: [
+              '產品差異化取代單純追求量。',
+              '數位化與 GPT 導入研發與營運。',
+              '目標是讓傳統製造擁有科技產業的精準度。'
+            ]
+          },
+          {
+            key: 'phase2',
+            label: 'Phase 2',
+            title: '綠能與新能源產業鏈',
+            progress: 56,
+            text:
+              '彰濱磷酸鋰鐵電芯、儲能系統與電池回收成為未來三到五年的關鍵爆發區，對應的不只是新產品，更是新的資本敘事。',
+            bullets: [
+              '儲能與電池建構新成長曲線。',
+              '太陽能、風電與微電網形成能源布局。',
+              '從石化原料供應商往綠色系統參與者移動。'
+            ]
+          },
+          {
+            key: 'phase3',
+            label: 'Phase 3',
+            title: '淨零碳排與循環經濟',
+            progress: 34,
+            text:
+              '最長期的目標是 2050 碳中和，包括廢塑料回收再生、化學回收、生物可分解塑膠、氫能與碳捕捉技術等。',
+            bullets: [
+              '回收與再製將重新定義材料生命週期。',
+              '低碳材料不只是 ESG，而是下一輪競爭門票。',
+              '真正的關鍵在於這些投資能否回到毛利與產品組合。'
+            ]
+          }
+        ]
+      },
+      financial: {
+        years: ['2021', '2022', '2023', '2024', '2025'],
+        metrics: {
+          revenue: {
+            label: '合併營收',
+            unit: '億元',
+            values: [2735.98, 2516.47, 1991.38, 2000.40, 1754.11],
+            summary: '營收先在 2021 年衝上高峰，再在 2023 大幅下修，2024 止跌但 2025 再度下探。',
+            color: '#62e7ff'
+          },
+          pretax: {
+            label: '稅前利益',
+            unit: '億元',
+            values: [859.57, 437.94, 69.96, -24.14, -102.15],
+            summary: '獲利端比營收更早、更劇烈地失速，2024 與 2025 已轉為虧損。',
+            color: '#ff7fb2'
+          },
+          eps: {
+            label: '每股盈餘 EPS',
+            unit: '元/股',
+            values: [11.21, 5.68, 1.15, -0.19, -1.58],
+            summary: 'EPS 幾乎是一條縮影式折線，反映景氣循環與本業利差壓縮。',
+            color: '#ffc86b'
+          },
+          roe: {
+            label: '股東權益報酬率 ROE',
+            unit: '%',
+            values: [19.4, 9.5, 2.08, -0.39, -3.1],
+            summary: '資本報酬率從高效率資本運作，轉為面臨結構調整的壓力訊號。',
+            color: '#84ffbf'
+          }
+        },
+        notes: [
+          { title: '2021 / Peak', text: '疫情後需求回升、產品平均售價上揚，形成五年高峰。' },
+          { title: '2022-2023 / Correction', text: '亞洲石化供給過剩、中國房市疲弱與通膨壓抑需求，獲利快速收縮。' },
+          { title: '2024 / Stabilized Revenue, Weakened Margin', text: '營收止跌，但利差與本業獲利仍不足以支撐修復。' },
+          { title: '2025 / Structural Pressure', text: '全年營收、稅前損益與 EPS 持續走弱，顯示本業獲利能力尚未恢復。' }
+        ],
+        yearlyCards: [
+          { year: '2021', text: '高峰年：營收與 EPS 同步衝高。' },
+          { year: '2022', text: '修正開始：營收與獲利同步收縮。' },
+          { year: '2023', text: '快速下探：僅剩低檔獲利。' },
+          { year: '2024', text: '止跌不止損：營收微回，但已轉虧。' },
+          { year: '2025', text: '低檔延續：虧損擴大，轉型壓力前置。' }
+        ]
+      },
+      sources: [
+        {
+          title: '台塑主要經理人',
+          url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=3',
+          note: '管理團隊與職責分工'
+        },
+        {
+          title: '台塑公司治理原則',
+          url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=11',
+          note: '董事會、審計委員會、薪酬與永續委員會'
+        },
+        {
+          title: '董事會資訊',
+          url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=13&c=54',
+          note: '董事會議事錄與治理資料'
+        },
+        {
+          title: '2024 永續報告書',
+          url: 'https://csr.fpc.com.tw/FPC_CSR/download/csr_report/FPC_2024_ESG_TW.pdf',
+          note: '公司治理、2022-2024 財務摘要'
+        },
+        {
+          title: '2022 永續報告書',
+          url: 'https://csr.fpc.com.tw/FPC_CSR/download/csr_report/FPC_2022_ESG-CH.pdf',
+          note: '2021-2022 財務績效摘要'
+        },
+        {
+          title: '財務資訊頁面',
+          url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=13&c=22',
+          note: '財務報告與法人說明會入口'
+        },
+        {
+          title: '2025 合併財務報告',
+          url: 'https://www.fpc.com.tw/fpcwuploads/files/2025%20Q4%20FS-CH(4).pdf',
+          note: '2025 全年營收、稅前淨損、EPS'
+        },
+        {
+          title: '2025 第四季法人說明會',
+          url: 'https://www.fpc.com.tw/fpcwuploads/files/2025Q4M.pdf',
+          note: '季營收與市場說明'
+        }
+      ]
+    };
+
+    /* ── English translation augmentation ── */
+    (function augmentBilingual() {
+      const enTimeline = [
+        { title: 'Formosa Plastics founded, later renamed Taiwan Plastics Corporation.', copy: 'Founded by Y.C. Wang and Y.T. Wang under US aid and privatization policies. Started with PVC on a tiny scale but quickly developed an intense cost and integration mindset.', impact: 'This is the origin of all expansion—and the birthplace of the "scale up capacity first, then create demand" philosophy.' },
+        { title: 'Reverse integration to resolve the PVC glut crisis.', copy: 'Facing low volume, high cost, and too few downstream customers, Formosa expanded PVC capacity while founding Nan Ya Plastics and other processors to create downstream demand directly.', impact: 'This strategy didn\u2019t just save the company—it pulled Taiwan\u2019s entire plastics processing chain upward.' },
+        { title: 'From plastics into textiles and electronic materials.', copy: 'Formosa Chemicals entered synthetic fibers and textiles, while Nan Ya moved into PCBs and copper-clad laminates. The group\u2019s portfolio began stretching from traditional plastics into high-tech materials.', impact: 'Formosa Plastics began shedding its single-material identity and built a diversified growth curve.' },
+        { title: 'Pursuing a naphtha cracker; the Sixth Naphtha Cracker takes shape.', copy: 'Facing structural dependence on imported feedstock, Formosa lobbied the government for a naphtha cracking license. The resulting Sixth Naphtha Cracker project built a fully integrated production system.', impact: 'The Sixth Naphtha Cracker gave Formosa true upstream feedstock control and an almost unreplicable scale-and-cost moat.' },
+        { title: 'US and China deployment: dual axes of resources and markets.', copy: 'Formosa developed olefin crackers and petrochemical plants in Texas to capture cheap shale gas, while entering mainland China with Ningbo and other feedstock/processing bases.', impact: 'Globalization wasn\u2019t just about adding capacity—it put low-cost resources and high-growth markets on the same map.' },
+        { title: 'Vietnam deployment and heavy-industry extension.', copy: 'Facing textile cost pressure and ASEAN market opportunities, Formosa entered Vietnam and co-developed Ha Tinh Steel and a deep-water port with CSC and JFE.', impact: 'The group extended from petrochemicals and materials into heavier-capital, longer-cycle steel and heavy industry.' },
+        { title: 'Transformation task force formed; AI, energy, and high-value products become the new pillars.', copy: 'Under weak petrochemical conditions and profit pressure, Formosa elevated transformation to center-stage management: new products, new businesses, digitalization, and energy transition are no longer side projects but survival imperatives.', impact: 'Formosa enters a new phase: the competition is no longer about scale, but about making the structure lighter, higher-value, and more resilient.' }
+      ];
+      appData.timeline.forEach(function(item, i) {
+        item.title = { zh: item.title, en: enTimeline[i].title };
+        item.copy = { zh: item.copy, en: enTimeline[i].copy };
+        item.impact = { zh: item.impact, en: enTimeline[i].impact };
+      });
+
+      const enVMV = [
+        { front: 'Diligence, frugality, striving for perfection, sustainable management, and serving society. This is not mere sloganeering—it\u2019s the underlying grammar Formosa uses to explain cost control, process discipline, and social role.', back: 'Strengths: stable governance rhythm and high execution efficiency. Risk: over-standardization may compress innovation speed and flexibility. When the external environment changes rapidly, these values must also learn to transform.' },
+        { front: 'Become a leader in sustainable management through industrial transformation and green innovation toward 2050 carbon neutrality, while continuously creating well-being and economic value.', back: 'This vision no longer defines Formosa as a plastics manufacturer, but as a tech-materials driver, green-industry participant, and infrastructure provider permeating daily life.' },
+        { front: 'Drive high-value and differentiated products, deepen AI and digital transformation, implement energy transition and coal phase-out, giving the traditional manufacturing system a new profit curve.', back: 'The key to the mission is not declaration but execution: whether the product mix can upgrade, operational efficiency can improve, and decarbonization investment can become a structural advantage determines if this transformation is more than rhetoric.' }
+      ];
+      appData.vmv.forEach(function(item, i) {
+        item.front = { zh: item.front, en: enVMV[i].front };
+        item.back = { zh: item.back, en: enVMV[i].back };
+      });
+
+      const enOrg = {
+        business: {
+          intro: 'Formosa Enterprises adopts a multi-business-group structure; Taiwan Plastics Corp. focuses on plastic raw materials, carbon fiber, and chemical products. The group level acts as a strategic parent while each subsidiary manages its own market and production logic.',
+          items: [
+            { title: 'FPG / Plastics', description: 'Formosa Plastics, Nan Ya Plastics, etc.—resins, building materials, and processed products.' },
+            { title: 'FPG / Petrochemicals', description: 'Formosa Petrochemical, Formosa Chemicals—refining, naphtha cracking, and midstream petrochemicals.' },
+            { title: 'FPG / Electronics', description: 'Nanya Technology, Nanya PCB, etc.—extending into high-tech materials and semiconductors.' },
+            { title: 'FPC / Plastic Raw Materials', description: 'PVC, HDPE, LLDPE, EVA, caustic soda, hydrochloric acid, and plastic modifiers.' },
+            { title: 'FPC / Fiber', description: 'Carbon fiber as a core high-value material.' },
+            { title: 'FPC / Chemical Industry', description: 'Acrylic acid & esters, AN, MMA, MTBE, n-butanol, etc.' }
+          ]
+        },
+        functional: {
+          intro: 'Functional units translate strategy into processes, operations, and management accountability. At Formosa Plastics, the President\u2019s Office, Transformation Task Force, Plastics BG, Chemical BG, and direct departments form the execution backbone.',
+          items: [
+            { title: 'President\u2019s Office', description: 'Management, sales management, business analysis, HR, and engineering management divisions.' },
+            { title: 'Transformation Task Force', description: 'R&D, energy transition, digital transformation—directly interfacing with new businesses and AI.' },
+            { title: 'Plastics Business Group', description: 'Plastics, polyolefin, polypropylene, and calcium carbide divisions.' },
+            { title: 'Chemical Business Group', description: 'Chemicals, Formolene, engineering, electronic materials, and maintenance center.' },
+            { title: 'Direct Departments', description: 'QC center, safety & health, accounting, logistics, Kaohsiung management, finished-goods, and Mailiao management.' }
+          ]
+        },
+        regional: {
+          intro: 'Regional units reflect supply-chain and market positioning: Taiwan is the manufacturing core, China handles processing and market extension, the US provides low-cost feedstock, and Vietnam serves ASEAN markets and heavy-industry deployment.',
+          items: [
+            { title: 'Taiwan', description: 'Renwu, Linyuan, Dongshan, Taipei office, Xingang, Mailiao—forming the operational backbone.' },
+            { title: 'China', description: 'Ningbo and other bases handling processing, market, and feedstock supply.' },
+            { title: 'USA', description: 'Texas, Louisiana, etc.—supporting shale gas and petrochemical cost advantages.' },
+            { title: 'Vietnam / SE Asia', description: 'Ha Tinh Steel and regional market deployment matching group expansion.' }
+          ]
+        }
+      };
+      for (var orgKey in enOrg) {
+        appData.org[orgKey].intro = { zh: appData.org[orgKey].intro, en: enOrg[orgKey].intro };
+        appData.org[orgKey].items.forEach(function(item, i) {
+          item.title = { zh: item.title, en: enOrg[orgKey].items[i].title };
+          item.description = { zh: item.description, en: enOrg[orgKey].items[i].description };
+        });
+      }
+
+      var enMgmt = [
+        { name: 'Wen-Pi Kuo', education: 'NTHU Industrial Chemistry', focus: 'Oversees all business management; also chairs Formosa Sumco.', insight: 'In a phase of simultaneous cyclical downturn and transformation pressure, the Chairman acts as a strategic accelerator aligning group resources with governance rhythm.' },
+        { name: 'Sheng-Kuan Lin', education: 'NCCU Business Administration', focus: 'Oversees all business management operations.', insight: 'After restoring the Chairman-President division of labor, the President becomes the critical executor translating direction into daily operational rhythm.' },
+        { name: 'Shih-Chang Liang', education: 'NCTU Mechanical Engineering', focus: 'Assists in overall management; also oversees the Chemical BG.', insight: 'The Chemical BG directly affects profit-recovery speed when product spreads compress.' },
+        { name: 'Yun-Ching Ou', education: 'U. of Pittsburgh, Chemical Eng.', focus: 'Oversees the Plastics BG and Plastics Division.', insight: 'Formosa\u2019s core is still its plastics product mix—this position holds the company\u2019s most critical product structure.' },
+        { name: 'Cheng-Lung Wu', education: 'NCU Chemical Engineering', focus: 'Oversees all operations of the Polyolefin Division.', insight: 'The polyolefin business is a plastics battleground, affecting shipment volume and average selling-price stability.' },
+        { name: 'Jung-Hung Kao', education: 'NTHU Chemical Engineering', focus: 'Oversees all operations of the Polypropylene Division.', insight: 'PP is a major revenue item; its margin elasticity significantly impacts profitability across cycles.' },
+        { name: 'Kuo-Ching Lien', education: 'NTUST Chemical Engineering', focus: 'Oversees all operations of the Formolene Division.', insight: 'Formolene and specialty chemicals are a critical node in the shift from commodity to high-value products.' },
+        { name: 'Yi-Chih Yeh', education: 'NCU Chemical Engineering', focus: 'Oversees all operations of the Chemicals Division.', insight: 'Price-spread volatility in acrylic esters, AN, and MMA directly reflects on Chemical BG performance.' },
+        { name: 'Chao-Jung Chen', education: 'Taipei Tech, Mechanical Eng.', focus: 'Oversees all operations of the Engineering Department.', insight: 'When the company pushes debottlenecking, capacity expansion, and equipment efficiency, the engineering system is the fulcrum.' },
+        { name: 'Ying-Yuan Li', education: 'Ming Chi Tech, Electrical Eng.', focus: 'Oversees all operations of the Electronic Materials Dept.', insight: 'Electronic materials represent Formosa\u2019s move toward high-value products and semiconductor materials.' },
+        { name: 'Chen-Hsiao Lei', education: 'NTU Business School (MA)', focus: 'Oversees all finance department operations.', insight: 'When revenue declines and operating losses widen, the finance system\u2019s fund management, capex pacing, and risk monitoring become even more critical.' }
+      ];
+      appData.management.forEach(function(item, i) {
+        item.name = { zh: item.name, en: enMgmt[i].name };
+        item.education = { zh: item.education, en: enMgmt[i].education };
+        item.focus = { zh: item.focus, en: enMgmt[i].focus };
+        item.insight = { zh: item.insight, en: enMgmt[i].insight };
+      });
+
+      var enLines = [
+        { title: 'Petrochemical & Plastics Core', text: 'The "Big Four" form a vertically integrated body—from refining and naphtha cracking to PVC, PE, PP, and finished processing—constituting the group\u2019s cash-flow engine.' },
+        { title: 'Electronic Materials & Semiconductors', text: 'From CCL, PCB, and epoxy resins extending to DRAM and silicon wafers—Formosa\u2019s high-margin, high-tech-density frontier.' },
+        { title: 'Synthetic Fibers & Textiles', text: 'Polyester, nylon, and recycled yarn form a transitional middle layer, balancing traditional volume with functional materials.' },
+        { title: 'Biotech, Healthcare & Consumer', text: 'Formosa Biomedical and Chang Gung Medical let the group build another pathway in brands, medical resources, and consumer markets.' },
+        { title: 'New Energy & Heavy Industry', text: 'Formosa Advanced Technologies, energy storage, battery recycling, and Ha Tinh Steel show Formosa isn\u2019t just upgrading materials but also re-choosing capital allocation.' }
+      ];
+      appData.products.lines.forEach(function(item, i) {
+        item.title = { zh: item.title, en: enLines[i].title };
+        item.text = { zh: item.text, en: enLines[i].text };
+      });
+
+      var enPhases = [
+        { title: 'High-Value Products & AI Intelligence', text: 'Reduce commodity plastics ratio, increase medical-grade plastics, semiconductor-grade chemicals, and carbon fiber. Simultaneously deploy AI for process control, safety prediction, and energy management.', bullets: ['Product differentiation replaces volume-only pursuit.', 'Digitalization and GPT integrated into R&D and operations.', 'Goal: give traditional manufacturing the precision of tech industries.'] },
+        { title: 'Green Energy & New Energy Chain', text: 'Changbin LFP cells, energy-storage systems, and battery recycling are key explosion areas for the next 3\u20135 years\u2014representing new products and a new capital narrative.', bullets: ['Energy storage and batteries build a new growth curve.', 'Solar, wind, and microgrids form the energy layout.', 'Moving from petrochemical supplier to green-system participant.'] },
+        { title: 'Net-Zero & Circular Economy', text: 'The longest-term goal is 2050 carbon neutrality: waste-plastic recycling, chemical recycling, biodegradable plastics, hydrogen, and carbon capture.', bullets: ['Recycling and remanufacturing will redefine material life cycles.', 'Low-carbon materials are not just ESG\u2014they\u2019re the next competitive ticket.', 'The real key: whether these investments can flow back into margins and product mix.'] }
+      ];
+      appData.products.phases.forEach(function(item, i) {
+        item.title = { zh: item.title, en: enPhases[i].title };
+        item.text = { zh: item.text, en: enPhases[i].text };
+        item.bullets = { zh: item.bullets, en: enPhases[i].bullets };
+      });
+
+      var enMetrics = {
+        revenue: { label: 'Consolidated Revenue', unit: '100M NTD', summary: 'Revenue peaked in 2021, dropped sharply in 2023, stabilized in 2024, then fell again in 2025.' },
+        pretax: { label: 'Pretax Income', unit: '100M NTD', summary: 'Profits stalled earlier and more sharply than revenue; 2024\u20132025 turned to losses.' },
+        eps: { label: 'Earnings Per Share', unit: 'NTD/share', summary: 'EPS is a miniature folding chart reflecting cycle dynamics and margin compression.' },
+        roe: { label: 'Return on Equity', unit: '%', summary: 'Capital returns shifted from efficient deployment to a structural-adjustment pressure signal.' }
+      };
+      for (var mKey in enMetrics) {
+        var m = appData.financial.metrics[mKey];
+        m.label = { zh: m.label, en: enMetrics[mKey].label };
+        m.unit = { zh: m.unit, en: enMetrics[mKey].unit };
+        m.summary = { zh: m.summary, en: enMetrics[mKey].summary };
+      }
+
+      var enNotes = [
+        { title: '2021 / Peak', text: 'Post-pandemic demand rebound and rising ASPs created a five-year high.' },
+        { title: '2022\u20132023 / Correction', text: 'Asian petrochemical oversupply, weak Chinese property, and inflation suppressed demand\u2014profits shrank rapidly.' },
+        { title: '2024 / Stabilized Revenue, Weakened Margin', text: 'Revenue stabilized, but spreads and operating profit were insufficient to support recovery.' },
+        { title: '2025 / Structural Pressure', text: 'Full-year revenue, pretax income, and EPS continued to weaken\u2014core profitability not yet restored.' }
+      ];
+      appData.financial.notes.forEach(function(item, i) {
+        item.title = { zh: item.title, en: enNotes[i].title };
+        item.text = { zh: item.text, en: enNotes[i].text };
+      });
+
+      var enYearlyCards = [
+        { text: 'Peak year: revenue and EPS surged together.' },
+        { text: 'Correction begins: revenue and profits contract in tandem.' },
+        { text: 'Rapid decline: only minimal profit remained.' },
+        { text: 'Revenue stabilized but losses began.' },
+        { text: 'Low-end persists: losses widened, transformation pressures front-loaded.' }
+      ];
+      appData.financial.yearlyCards.forEach(function(item, i) {
+        item.text = { zh: item.text, en: enYearlyCards[i].text };
+      });
+
+      var enSources = [
+        { title: 'FPC Key Executives', note: 'Management team and role assignments' },
+        { title: 'FPC Corporate Governance', note: 'Board, audit committee, compensation & sustainability committees' },
+        { title: 'Board Information', note: 'Board meeting minutes and governance data' },
+        { title: '2024 Sustainability Report', note: 'Corporate governance, 2022\u20132024 financial summary' },
+        { title: '2022 Sustainability Report', note: '2021\u20132022 financial performance summary' },
+        { title: 'Financial Information Page', note: 'Financial reports and investor conference portal' },
+        { title: '2025 Consolidated Financial Report', note: '2025 full-year revenue, pretax loss, EPS' },
+        { title: '2025 Q4 Investor Conference', note: 'Quarterly revenue and market commentary' }
+      ];
+      appData.sources.forEach(function(item, i) {
+        item.title = { zh: item.title, en: enSources[i].title };
+        item.note = { zh: item.note, en: enSources[i].note };
+      });
+    })();
+
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    function L(v) { return (v && typeof v === 'object' && !Array.isArray(v) && (v.zh !== undefined || v.en !== undefined)) ? (v[lang] ?? v.zh) : v; }
+
+    let currentNews = 0;
+    let currentTimeline = 0;
+    let currentOrg = 'business';
+    let currentManagement = 0;
+    let currentPhase = 'phase1';
+    let currentMetric = 'revenue';
+    let lang = 'zh';
+    let theme = 'dark';
+
+    const UI_TEXT = {
+      navIntro: { zh: '首頁', en: 'Intro' },
+      navNews: { zh: '新聞', en: 'News' },
+      navHistory: { zh: '歷史', en: 'History' },
+      navVision: { zh: '願景', en: 'Vision' },
+      navTeam: { zh: '團隊', en: 'Team' },
+      navProducts: { zh: '產品', en: 'Products' },
+      navFinance: { zh: '財務', en: 'Finance' },
+      navSources: { zh: '資料', en: 'Sources' },
+      heroEyebrow: { zh: '公司概覽與財務表現', en: 'Company Overview & Financial Performance' },
+      heroTitle: { zh: 'FORMOSA <span class="accent">動態全景</span>', en: 'FORMOSA <span class="accent">IN FLUX</span>' },
+      heroCopy: {
+        zh: '這不是一份靜態報告，而是一場關於台塑如何在石化景氣循環、綠色轉型、全球佈局與財務壓力之間重新定義自己的單頁敘事實驗。這個 SPA 把公司歷史、管理結構、產品版圖與 2021 至 2025 的績效變化，轉成一條可探索的數據長卷。',
+        en: 'This is not a static report but a single-page narrative experiment exploring how Formosa Plastics redefines itself amid petrochemical cycles, green transformation, global expansion, and financial pressure. This SPA converts company history, management structure, product portfolios, and 2021\u20132025 performance data into an explorable visual scroll.'
+      },
+      btnStart: { zh: '開始探索', en: 'Start The Scroll' },
+      btnFinance: { zh: '直接查看財務', en: 'Jump To Finance' },
+      scrollCue: { zh: '向下滾動以探索更多', en: 'Scroll To Disturb The Surface' },
+      newsEyebrow: { zh: '兩則近期新聞', en: 'Two Recent News' },
+      newsH2: { zh: '波動中的衝擊', en: 'Shockwaves In Motion' },
+      newsDesc: {
+        zh: '兩則新聞像兩道相反方向的波：一邊是美國廠的原料與製程優勢，另一邊是台灣本地供應緊張與市場質疑。這組對照，直接揭示台塑的全球布局與在地風險如何同時存在。',
+        en: 'Two news stories like opposing waves: one highlights the US plant\u2019s feedstock advantages, the other exposes domestic supply tensions. This contrast reveals how global strategy and local risks coexist.'
+      },
+      historyEyebrow: { zh: '公司歷史', en: 'Company History' },
+      historyH2: { zh: '從PVC到產業系統', en: 'From Micro PVC To A System' },
+      historyDesc: {
+        zh: '台塑的歷史不是平面年表，而是一連串結構性動作：從逆向整合、跨域擴張、六輕建設，到全球化據點佈局，每一步都在重寫成本、供應鏈與市場控制方式。',
+        en: 'Formosa Plastics\u2019 history is not a flat timeline but a series of structural moves: from reverse integration to the Sixth Naphtha Cracker and global deployment\u2014each rewriting cost, supply chain, and market control.'
+      },
+      visionEyebrow: { zh: '願景、使命、價值', en: 'Vision, Mission, Value' },
+      visionH2: { zh: '三個策略面向', en: 'Three Strategic Surfaces' },
+      visionDesc: {
+        zh: '核心價值說明企業為何存在，願景界定未來的畫面，使命則是執行路徑。這裡不是把文字貼上牆，而是讓三個面向像三塊漂浮板塊，翻面後顯示其真正壓力與企圖。',
+        en: 'Core values explain why the company exists, vision defines the future, and mission is the execution path. Here, three dimensions float like tectonic plates\u2014flip them to reveal real pressures and ambitions.'
+      },
+      mgmtEyebrow: { zh: '架構與管理團隊', en: 'Structure & Management' },
+      mgmtH2: { zh: '治理即機器', en: 'Governance As A Machine' },
+      mgmtDesc: {
+        zh: '4.1 與 4.2 在這裡被重構成一台可閱讀的機器：前端是事業群與全球布局，後端是董事會監督、經理人分工與績效邏輯。重點不是誰在名單裡，而是權力如何流動。',
+        en: 'Sections 4.1 and 4.2 are reconstructed as a readable machine: business groups and global deployment at the front; board oversight, executive roles, and performance logic at the back.'
+      },
+      productsEyebrow: { zh: '產品版圖', en: 'Product Portfolios' },
+      productsH2: { zh: '產品領域與轉換路徑', en: 'Product Fields & Conversion Paths' },
+      productsDesc: {
+        zh: '從石化主業到電子材料、醫療、儲能與鋼鐵，台塑的產品版圖本身就像一張垂直整合地圖。這裡把它拆成現在的產品面，以及未來三段轉型路線。',
+        en: 'From core petrochemicals to electronic materials, healthcare, energy storage, and steel\u2014Formosa Plastics\u2019 product map is a vertically integrated landscape split into current segments and three transformation paths.'
+      },
+      financeEyebrow: { zh: '財務表現', en: 'Financial Performance' },
+      financeH2: { zh: '財務主舞台', en: 'The Financial Main Stage' },
+      financeDesc: {
+        zh: '財務段落是這份作品的核心劇場。營收、稅前損益、EPS 與 ROE 在 2021 到 2025 之間形成一條幾乎完整的景氣斷面，也揭示台塑正在經歷的轉型壓力。',
+        en: 'The financial section is the core theater. Revenue, pretax income, EPS, and ROE from 2021 to 2025 form a nearly complete business cycle cross-section, revealing transformation pressures.'
+      },
+      sourcesEyebrow: { zh: '資訊揭露', en: 'Disclosure' },
+      sourcesH2: { zh: '來源、方法、誠信', en: 'Sources, Methods, Integrity' },
+      sourcesDesc: {
+        zh: '這個單頁作品保留了報告的可追溯性。來源不是附註，而是敘事可信度的一部分；AI 使用聲明則被清楚保留下來，讓創作與查證邊界保持透明。',
+        en: 'This single-page work preserves traceability. Sources are part of the narrative\u2019s credibility; the AI usage disclosure is retained to keep the boundary between creation and verification transparent.'
+      },
+      heroCardLabel: { zh: '2021 → 2025 / 五年衝擊波', en: '2021 → 2025 / Five-Year Shockwave' },
+      heroCardFooter: {
+        zh: '核心敘事是清楚的：2021 為景氣高峰，2022 至 2023 快速修正，2024 與 2025 進入低檔盤整與虧損擴大。問題不只是量，而是產品利差與產業結構。',
+        en: 'The core narrative is clear: 2021 was the cycle peak, 2022\u20132023 saw rapid correction, and 2024\u20132025 entered consolidation with widening losses. The issue is product margins and industrial structure.'
+      },
+      scoreCaptions: [
+        { zh: '2021 合併營收高峰（億元）', en: '2021 Peak Revenue (100M NTD)' },
+        { zh: '2025 稅前損益（億元）', en: '2025 Pretax Income (100M NTD)' },
+        { zh: '2021 EPS（元/股）', en: '2021 EPS (NTD/share)' },
+        { zh: '2025 EPS（元/股）', en: '2025 EPS (NTD/share)' }
+      ],
+      boardSeats: { zh: '董事會席次', en: 'Board Seats' },
+      independentSeats: { zh: '獨立董事席次', en: 'Independent Directors' },
+      boardAttendance: { zh: '2024 董事會出席率', en: '2024 Board Attendance' },
+      primarySources: { zh: '重要資料來源', en: 'Primary Sources' },
+      primarySourcesDesc: { zh: '所有管理、財務與策略資訊，皆優先對照官網、永續報告、財務報告與法人說明會資料。', en: 'All management, financial, and strategic information was cross-referenced with official sources, sustainability reports, financial reports, and investor conference materials.' },
+      aiDisclosure: { zh: 'AI 使用聲明', en: 'AI Usage Disclosure' },
+      aiDisclosureText: {
+        zh: '1. AI 曾被諮詢以提供語言與/或創意支援。<br />2. 本報告中所有公司事實、管理資訊與財務數據均已與所引用之官方來源交叉核實。',
+        en: '1. AI was consulted for language and/or ideas.<br />2. All company facts, management information, and financial figures used in this report were checked against the cited official sources before inclusion.'
+      },
+      footerNote: {
+        zh: '本作品設計為 SMMC-EMI_GX_TP 公司概覽與財務表現之單檔 SPA。<br/>內容改編自配套報告，重新編排為互動式視覺敘事。',
+        en: 'Designed as a one-file SPA for SMMC-EMI_GX_TP Company Overview &amp; Financial Performance.<br/>Content adapted from the companion report and re-orchestrated into an interactive visual narrative.'
+      }
+    };
+
+    function applyLanguage() {
+      const root = document.documentElement;
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : 'en');
+
+      const navTargets = ['hero','news','history','vision','management','products','finance','sources'];
+      const navKeys = ['navIntro','navNews','navHistory','navVision','navTeam','navProducts','navFinance','navSources'];
+      navTargets.forEach((target, i) => {
+        const link = $(`.nav__link[data-target="${target}"]`);
+        if (link) link.textContent = UI_TEXT[navKeys[i]][lang];
+      });
+
+      const heroEyebrow = $('#hero .eyebrow');
+      if (heroEyebrow) heroEyebrow.textContent = UI_TEXT.heroEyebrow[lang];
+      const heroTitle = $('#hero .hero__title');
+      if (heroTitle) heroTitle.innerHTML = UI_TEXT.heroTitle[lang];
+      const heroCopy = $('#hero .hero__copy');
+      if (heroCopy) heroCopy.textContent = UI_TEXT.heroCopy[lang];
+      const btnStart = $('[data-jump="news"]');
+      if (btnStart) btnStart.textContent = UI_TEXT.btnStart[lang];
+      const btnFinanceEl = $('[data-jump="finance"]');
+      if (btnFinanceEl) btnFinanceEl.textContent = UI_TEXT.btnFinance[lang];
+      const scrollCue = $('#hero .scroll-cue');
+      if (scrollCue) scrollCue.textContent = UI_TEXT.scrollCue[lang];
+
+      const heroCardLabel = $('.hero-card__label');
+      if (heroCardLabel) heroCardLabel.textContent = UI_TEXT.heroCardLabel[lang];
+      const heroCardFooter = $('.hero-card__footer');
+      if (heroCardFooter) heroCardFooter.textContent = UI_TEXT.heroCardFooter[lang];
+
+      const scoreCaptions = $$('.score__caption');
+      scoreCaptions.forEach((el, i) => {
+        if (UI_TEXT.scoreCaptions[i]) el.textContent = UI_TEXT.scoreCaptions[i][lang];
+      });
+
+      const sectionMap = {
+        news: ['newsEyebrow','newsH2','newsDesc'],
+        history: ['historyEyebrow','historyH2','historyDesc'],
+        vision: ['visionEyebrow','visionH2','visionDesc'],
+        management: ['mgmtEyebrow','mgmtH2','mgmtDesc'],
+        products: ['productsEyebrow','productsH2','productsDesc'],
+        finance: ['financeEyebrow','financeH2','financeDesc'],
+        sources: ['sourcesEyebrow','sourcesH2','sourcesDesc']
+      };
+      for (const [sectionId, keys] of Object.entries(sectionMap)) {
+        const head = $(`#${sectionId} .section-head`);
+        if (!head) continue;
+        const eyebrow = $('.eyebrow', head);
+        const h2 = $('h2', head);
+        const p = $('p', head);
+        if (eyebrow) eyebrow.textContent = UI_TEXT[keys[0]][lang];
+        if (h2) h2.textContent = UI_TEXT[keys[1]][lang];
+        if (p) p.textContent = UI_TEXT[keys[2]][lang];
+      }
+
+      const metricSpans = $$('.metrics-strip .metric-pill span');
+      if (metricSpans.length >= 3) {
+        metricSpans[0].textContent = UI_TEXT.boardSeats[lang];
+        metricSpans[1].textContent = UI_TEXT.independentSeats[lang];
+        metricSpans[2].textContent = UI_TEXT.boardAttendance[lang];
+      }
+
+      const primaryH3El = $('#source-list');
+      if (primaryH3El) {
+        const srcCard = primaryH3El.closest('.source-card');
+        if (srcCard) {
+          const h3 = $('h3', srcCard);
+          const p = $('p', srcCard);
+          if (h3) h3.textContent = UI_TEXT.primarySources[lang];
+          if (p) p.textContent = UI_TEXT.primarySourcesDesc[lang];
+        }
+      }
+      const disclosureCard = $('.disclosure-card');
+      if (disclosureCard) {
+        const h3 = $('h3', disclosureCard);
+        const p = disclosureCard.querySelector(':scope > p');
+        if (h3) h3.textContent = UI_TEXT.aiDisclosure[lang];
+        if (p) p.innerHTML = UI_TEXT.aiDisclosureText[lang];
+      }
+
+      const footerNote = $('.footer-note');
+      if (footerNote) footerNote.innerHTML = UI_TEXT.footerNote[lang];
+
+      const langBtn = $('#lang-toggle');
+      if (langBtn) langBtn.textContent = lang === 'zh' ? 'EN' : '中';
+    }
+
+    function toggleTheme() {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('smmcemi-theme', theme); } catch(e) {}
+      const btn = $('#theme-toggle');
+      if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    function toggleLang() {
+      lang = lang === 'zh' ? 'en' : 'zh';
+      try { localStorage.setItem('smmcemi-lang', lang); } catch(e) {}
+      applyLanguage();
+      renderNews();
+      renderTimeline();
+      renderVMV();
+      renderOrg();
+      renderManagement();
+      renderProducts();
+      renderFinance();
+      renderSources();
+    }
+
+    function formatNumber(value, decimals = 0) {
+      return Number(value).toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function renderNews() {
+      const card = $('#news-card');
+      const controls = $('#news-controls');
+      const gauges = $('#news-gauges');
+      const item = appData.news[currentNews];
+
+      card.innerHTML = `
+        <div class="content-swap tilt-card" data-tilt>
+          <div class="news-card__meta">
+            <span>${L(item.label)}</span>
+            <span>${item.source}</span>
+          </div>
+          <h3 class="news-card__title">${L(item.title)}</h3>
+          <p class="news-card__lead">${L(item.lead)}</p>
+        </div>
+        <ul class="bullet-list">
+          ${L(item.bullets).map((bullet) => `<li>${bullet}</li>`).join('')}
+        </ul>
+        <a class="source-link" href="${item.url}" target="_blank" rel="noreferrer" title="Open Source">
+          Open Source
+          <small>${item.url}</small>
+        </a>
+      `;
+      setupTilt(card);
+
+      controls.innerHTML = appData.news
+        .map(
+          (news, index) => `
+            <button
+              class="${index === currentNews ? 'is-active' : ''}"
+              data-news-index="${index}"
+              aria-label="${L(news.label)}"
+              title="${L(news.label)}"
+            >0${index + 1}</button>
+          `
+        )
+        .join('');
+
+      gauges.innerHTML = L(item.metrics)
+        .map((metric) => {
+          const width = Math.max(8, Math.min(100, (metric.value / metric.max) * 100));
+          return `
+            <div class="gauge">
+              <div class="gauge__row"><span>${metric.label}</span><strong>${formatNumber(metric.value)} ${metric.suffix}</strong></div>
+              <div class="gauge__bar"><div class="gauge__fill" style="width:${width}%"></div></div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function renderTimeline() {
+      const nav = $('#timeline-nav');
+      const stage = $('#timeline-stage');
+      const item = appData.timeline[currentTimeline];
+
+      nav.innerHTML = appData.timeline
+        .map(
+          (entry, index) => `
+            <button class="timeline-item ${index === currentTimeline ? 'is-active' : ''}" data-timeline-index="${index}">
+              <small>${entry.tag}</small>
+              <strong>${entry.year}</strong>
+              <div>${L(entry.title)}</div>
+            </button>
+          `
+        )
+        .join('');
+
+      stage.innerHTML = `
+        <div class="timeline-stage__content content-swap tilt-card" data-tilt>
+          <div class="timeline-stage__year">${item.year}</div>
+          <h3 class="timeline-stage__title">${L(item.title)}</h3>
+          <p class="timeline-stage__copy">${L(item.copy)}</p>
+          <div class="timeline-stage__impact">
+            <strong>Why It Matters</strong><br />
+            ${L(item.impact)}
+          </div>
+        </div>
+      `;
+      setupTilt(stage);
+    }
+
+    function renderVMV() {
+      const vmv = $('#vmv-layout');
+      vmv.innerHTML = appData.vmv
+        .map(
+          (item, index) => `
+            <div class="flip-card" data-flip-index="${index}">
+              <div class="flip-card__inner">
+                <div class="flip-card__face flip-card__face--front">
+                  <div>
+                    <div class="flip-card__hint">Front / Surface</div>
+                    <h3>${item.title}</h3>
+                    <p>${L(item.front)}</p>
+                  </div>
+                  <button class="btn btn--ghost" data-flip-trigger="${index}" title="Flip">Flip</button>
+                </div>
+                <div class="flip-card__face flip-card__face--back">
+                  <div>
+                    <div class="flip-card__hint">Back / Pressure</div>
+                    <h3>${item.title}</h3>
+                    <p>${L(item.back)}</p>
+                  </div>
+                  <button class="btn btn--ghost" data-flip-trigger="${index}" title="Back">Back</button>
+                </div>
+              </div>
+            </div>
+          `
+        )
+        .join('');
+    }
+
+    function renderOrg() {
+      const tabs = $('#org-tabs');
+      const panel = $('#org-panel');
+      const current = appData.org[currentOrg];
+
+      tabs.innerHTML = Object.keys(appData.org)
+        .map(
+          (key) => `
+            <button class="${key === currentOrg ? 'is-active' : ''}" data-org-key="${key}" title="${key}">
+              ${key.toUpperCase()}
+            </button>
+          `
+        )
+        .join('');
+
+      panel.innerHTML = `
+        <p>${L(current.intro)}</p>
+        <div class="org-grid">
+          ${current.items
+            .map(
+              (item) => `
+                <div class="org-node">
+                  <strong>${L(item.title)}</strong>
+                  <span>${L(item.description)}</span>
+                </div>
+              `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    function renderManagement() {
+      const grid = $('#management-grid');
+      const detail = $('#management-detail');
+      const item = appData.management[currentManagement];
+
+      grid.innerHTML = appData.management
+        .map(
+          (person, index) => `
+            <button class="management-card ${index === currentManagement ? 'is-active' : ''}" data-management-index="${index}" title="${L(person.name)}">
+              <small>${person.role}</small>
+              <strong>${L(person.name)}</strong>
+              <span>${L(person.focus)}</span>
+            </button>
+          `
+        )
+        .join('');
+
+      detail.innerHTML = `
+        <div class="management-detail__content content-swap tilt-card" data-tilt>
+          <div class="management-detail__role">${item.role} / ${item.team}</div>
+          <h3 class="management-detail__name">${L(item.name)}</h3>
+          <div class="management-detail__tags">
+            ${item.tags.map((tag) => `<span>${tag}</span>`).join('')}
+          </div>
+          <p><strong>Primary Duty</strong><br />${L(item.focus)}</p>
+          <p><strong>Education</strong><br />${L(item.education)}</p>
+          <p><strong>Interpretation</strong><br />${L(item.insight)}</p>
+        </div>
+      `;
+      setupTilt(detail);
+    }
+
+    function renderProducts() {
+      const grid = $('#product-grid');
+      grid.innerHTML = appData.products.lines
+        .map(
+          (item) => `
+            <article class="product-card">
+              <h3>${L(item.title)}</h3>
+              <p>${L(item.text)}</p>
+              <div class="product-chip-wrap">
+                ${item.chips.map((chip) => `<span class="product-chip">${chip}</span>`).join('')}
+              </div>
+            </article>
+          `
+        )
+        .join('');
+
+      renderPhases();
+    }
+
+    function renderPhases() {
+      const phaseSwitch = $('#phase-switch');
+      const phaseTrack = $('#phase-track');
+      const phaseDetail = $('#phase-detail');
+      const current = appData.products.phases.find((phase) => phase.key === currentPhase);
+
+      phaseSwitch.innerHTML = appData.products.phases
+        .map(
+          (phase) => `
+            <button class="${phase.key === currentPhase ? 'is-active' : ''}" data-phase-key="${phase.key}" title="${phase.label}">
+              ${phase.label}
+            </button>
+          `
+        )
+        .join('');
+
+      phaseTrack.innerHTML = appData.products.phases
+        .map(
+          (phase) => `
+            <div class="phase-item ${phase.key === currentPhase ? 'is-active' : ''}">
+              <small>${phase.label}</small>
+              <strong>${L(phase.title)}</strong>
+              <span>${L(phase.text)}</span>
+            </div>
+          `
+        )
+        .join('');
+
+      phaseDetail.innerHTML = `
+        <div class="phase-detail__content content-swap tilt-card" data-tilt>
+          <div>
+            <div class="eyebrow" style="margin-bottom:14px;">${current.label} / Transformation Route</div>
+            <h3 style="margin:0 0 14px; font-size:44px; line-height:0.95;">${L(current.title)}</h3>
+            <p>${L(current.text)}</p>
+          </div>
+          <div>
+            <div class="phase-bar"><div class="phase-bar__fill" id="phase-fill"></div></div>
+          </div>
+          <ul class="bullet-list">
+            ${L(current.bullets).map((bullet) => `<li>${bullet}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+      setupTilt(phaseDetail);
+
+      requestAnimationFrame(() => {
+        const fill = $('#phase-fill');
+        if (fill) {
+          fill.style.width = `${current.progress}%`;
+        }
+      });
+    }
+
+    function renderFinance() {
+      const mode = $('#finance-mode');
+      const summary = $('#finance-summary');
+      const metric = appData.financial.metrics[currentMetric];
+      const notes = $('#finance-notes');
+      const years = $('#finance-year-grid');
+      const tooltip = $('#chart-tooltip');
+
+      mode.innerHTML = Object.entries(appData.financial.metrics)
+        .map(
+          ([key, item]) => `
+            <button class="${key === currentMetric ? 'is-active' : ''}" data-metric-key="${key}" title="${L(item.label)}">
+              ${L(item.label)}
+            </button>
+          `
+        )
+        .join('');
+
+      const values = metric.values;
+      const first = values[0];
+      const last = values[values.length - 1];
+      const delta = last - first;
+      const deltaSign = delta > 0 ? '+' : '';
+
+      summary.innerHTML = `
+        <div class="finance-kpi">
+          <b>${formatNumber(Math.max(...values), currentMetric === 'roe' ? 2 : 2)}</b>
+          <span>Peak ${L(metric.label)}</span>
+        </div>
+        <div class="finance-kpi">
+          <b>${formatNumber(Math.min(...values), currentMetric === 'roe' ? 2 : 2)}</b>
+          <span>Lowest ${L(metric.label)}</span>
+        </div>
+        <div class="finance-kpi">
+          <b>${deltaSign}${formatNumber(delta, 2)}</b>
+          <span>2021 → 2025 net shift (${L(metric.unit)})</span>
+        </div>
+        <div class="finance-kpi">
+          <b>${L(metric.unit)}</b>
+          <span>${L(metric.summary)}</span>
+        </div>
+      `;
+
+      years.innerHTML = appData.financial.yearlyCards
+        .map(
+          (item) => `
+            <div class="finance-year">
+              <b>${item.year}</b>
+              <span>${L(item.text)}</span>
+            </div>
+          `
+        )
+        .join('');
+
+      notes.innerHTML = appData.financial.notes
+        .map(
+          (note) => `
+            <div class="finance-note">
+              <strong>${L(note.title)}</strong>
+              <span>${L(note.text)}</span>
+            </div>
+          `
+        )
+        .join('');
+
+      tooltip.innerHTML = `
+        <div><strong>${L(metric.label)}</strong><br />${L(metric.summary)}</div>
+        <div><strong>Unit</strong><br />${L(metric.unit)}</div>
+      `;
+
+      drawFinancialChart(metric);
+    }
+
+    function drawFinancialChart(metric) {
+      const svg = $('#financial-svg');
+      const values = metric.values;
+      const years = appData.financial.years;
+      const width = 860;
+      const height = 360;
+      const padding = { top: 24, right: 24, bottom: 48, left: 70 };
+      const innerWidth = width - padding.left - padding.right;
+      const innerHeight = height - padding.top - padding.bottom;
+      const minValue = Math.min(...values);
+      const maxValue = Math.max(...values);
+      const baselineMin = Math.min(minValue, 0);
+      const baselineMax = Math.max(maxValue, 0);
+      const range = baselineMax - baselineMin || 1;
+
+      const x = (index) => padding.left + (innerWidth / (values.length - 1)) * index;
+      const y = (value) => padding.top + innerHeight - ((value - baselineMin) / range) * innerHeight;
+      const zeroY = y(0);
+
+      const points = values.map((value, index) => `${x(index)},${y(value)}`).join(' ');
+      const areaPoints = `${padding.left},${zeroY} ${points} ${x(values.length - 1)},${zeroY}`;
+      const lineLength = values.reduce((total, value, index) => {
+        if (index === 0) return 0;
+        const prevX = x(index - 1);
+        const prevY = y(values[index - 1]);
+        const currentX = x(index);
+        const currentY = y(value);
+        return total + Math.hypot(currentX - prevX, currentY - prevY);
+      }, 0).toFixed(2);
+
+      const gridLines = 5;
+      const grid = Array.from({ length: gridLines + 1 }, (_, index) => {
+        const ratio = index / gridLines;
+        const currentValue = baselineMax - range * ratio;
+        const posY = padding.top + innerHeight * ratio;
+        return `
+          <line class="chart-grid-line" style="animation-delay:${index * 70}ms" x1="${padding.left}" y1="${posY}" x2="${width - padding.right}" y2="${posY}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="6 10" />
+          <text class="chart-label" style="animation-delay:${index * 70}ms" x="${padding.left - 12}" y="${posY + 4}" text-anchor="end" fill="rgba(170,179,223,0.9)" font-size="12">${formatNumber(currentValue, 1)}</text>
+        `;
+      }).join('');
+
+      const yearLabels = years
+        .map(
+          (year, index) => `
+            <text class="chart-year-label" style="animation-delay:${280 + index * 90}ms" x="${x(index)}" y="${height - 16}" text-anchor="middle" fill="rgba(170,179,223,0.9)" font-size="13">${year}</text>
+          `
+        )
+        .join('');
+
+      const circles = values
+        .map(
+          (value, index) => `
+            <circle class="chart-point" style="animation-delay:${320 + index * 110}ms" cx="${x(index)}" cy="${y(value)}" r="6" fill="${metric.color}" stroke="rgba(6,8,22,0.9)" stroke-width="3">
+              <title>${years[index]}: ${formatNumber(value, 2)} ${L(metric.unit)}</title>
+            </circle>
+          `
+        )
+        .join('');
+
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${metric.color}" stop-opacity="0.36"></stop>
+            <stop offset="100%" stop-color="${metric.color}" stop-opacity="0.02"></stop>
+          </linearGradient>
+          <filter id="glow-filter">
+            <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+            <feMerge>
+              <feMergeNode in="blur"></feMergeNode>
+              <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+          </filter>
+        </defs>
+        ${grid}
+        <line class="chart-grid-line" style="animation-delay:120ms" x1="${padding.left}" y1="${zeroY}" x2="${width - padding.right}" y2="${zeroY}" stroke="rgba(255,255,255,0.18)" />
+        <polygon class="chart-area" points="${areaPoints}" fill="url(#area-gradient)"></polygon>
+        <polyline class="chart-line" style="--line-length:${lineLength}" points="${points}" fill="none" stroke="${metric.color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow-filter)"></polyline>
+        ${circles}
+        ${yearLabels}
+        <text class="chart-label" style="animation-delay:100ms" x="${padding.left}" y="18" fill="${metric.color}" font-size="14" letter-spacing="2">${L(metric.label)} / ${L(metric.unit)}</text>
+      `;
+    }
+
+    function setupTilt(root = document) {
+      const cards = $$('[data-tilt]', root);
+      cards.forEach((card) => {
+        if (card.dataset.tiltBound === 'true') return;
+        card.dataset.tiltBound = 'true';
+
+        card.addEventListener('pointermove', (event) => {
+          if (window.matchMedia('(pointer: coarse)').matches) return;
+          const rect = card.getBoundingClientRect();
+          const offsetX = (event.clientX - rect.left) / rect.width;
+          const offsetY = (event.clientY - rect.top) / rect.height;
+          const rotateY = (offsetX - 0.5) * 10;
+          const rotateX = (0.5 - offsetY) * 10;
+          card.style.setProperty('--tilt-x', `${rotateX.toFixed(2)}deg`);
+          card.style.setProperty('--tilt-y', `${rotateY.toFixed(2)}deg`);
+        });
+
+        card.addEventListener('pointerleave', () => {
+          card.style.setProperty('--tilt-x', '0deg');
+          card.style.setProperty('--tilt-y', '0deg');
+        });
+      });
+    }
+
+    function renderSources() {
+      const list = $('#source-list');
+      list.innerHTML = appData.sources
+        .map(
+          (source) => `
+            <a class="source-link" href="${source.url}" target="_blank" rel="noreferrer">
+              ${L(source.title)}
+              <small>${L(source.note)}</small>
+            </a>
+          `
+        )
+        .join('');
+    }
+
+    function setupEvents() {
+      document.addEventListener('click', (event) => {
+        const navLink = event.target.closest('[data-target]');
+        if (navLink) {
+          const target = navLink.getAttribute('data-target');
+          const section = document.getElementById(target);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          const _hb = $('#hamburger');
+          const _nl = $('#nav-links');
+          if (_hb) _hb.classList.remove('is-open');
+          if (_nl) _nl.classList.remove('menu-open');
+        }
+
+        const jump = event.target.closest('[data-jump]');
+        if (jump) {
+          const target = jump.getAttribute('data-jump');
+          const section = document.getElementById(target);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          const _hb = $('#hamburger');
+          const _nl = $('#nav-links');
+          if (_hb) _hb.classList.remove('is-open');
+          if (_nl) _nl.classList.remove('menu-open');
+        }
+
+        const newsButton = event.target.closest('[data-news-index]');
+        if (newsButton) {
+          currentNews = Number(newsButton.getAttribute('data-news-index'));
+          renderNews();
+        }
+
+        const timelineButton = event.target.closest('[data-timeline-index]');
+        if (timelineButton) {
+          currentTimeline = Number(timelineButton.getAttribute('data-timeline-index'));
+          renderTimeline();
+        }
+
+        const flipTrigger = event.target.closest('[data-flip-trigger]');
+        if (flipTrigger) {
+          const index = flipTrigger.getAttribute('data-flip-trigger');
+          const card = document.querySelector(`[data-flip-index="${index}"]`);
+          if (card) {
+            card.classList.toggle('is-flipped');
+          }
+        }
+
+        const orgButton = event.target.closest('[data-org-key]');
+        if (orgButton) {
+          currentOrg = orgButton.getAttribute('data-org-key');
+          renderOrg();
+        }
+
+        const managementButton = event.target.closest('[data-management-index]');
+        if (managementButton) {
+          currentManagement = Number(managementButton.getAttribute('data-management-index'));
+          renderManagement();
+        }
+
+        const phaseButton = event.target.closest('[data-phase-key]');
+        if (phaseButton) {
+          currentPhase = phaseButton.getAttribute('data-phase-key');
+          renderPhases();
+        }
+
+        const metricButton = event.target.closest('[data-metric-key]');
+        if (metricButton) {
+          currentMetric = metricButton.getAttribute('data-metric-key');
+          renderFinance();
+        }
+
+        if (event.target.closest('#theme-toggle')) toggleTheme();
+        if (event.target.closest('#lang-toggle')) toggleLang();
+
+        if (event.target.closest('#hamburger')) {
+          const hb = $('#hamburger');
+          const nl = $('#nav-links');
+          if (hb) hb.classList.toggle('is-open');
+          if (nl) nl.classList.toggle('menu-open');
+        }
+      });
+    }
+
+    function setupObservers() {
+      const sections = $$('.section');
+      const reveals = $$('.reveal-up');
+      const navLinks = $$('.nav__link');
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        },
+        { threshold: 0.16 }
+      );
+
+      [...sections, ...reveals].forEach((item) => revealObserver.observe(item));
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach((link) => {
+              link.classList.toggle('is-active', link.getAttribute('data-target') === entry.target.id);
+            });
+          });
+        },
+        { threshold: 0.55 }
+      );
+
+      sections.forEach((section) => sectionObserver.observe(section));
+    }
+
+    function setupScrollHandlers() {
+      const bar = $('#top-progress-bar');
+      const sections = $$('.section');
+      let ticking = false;
+
+      const update = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = `${scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0}%`;
+
+        for (let i = 0; i < sections.length; i++) {
+          const rect = sections[i].getBoundingClientRect();
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          const clamped = Math.max(0, Math.min(1, progress));
+          const shift = (clamped - 0.5) * 80;
+          sections[i].style.setProperty('--orb-shift', `${shift.toFixed(1)}px`);
+          sections[i].style.setProperty('--orb-shift-alt', `${(-shift * 0.75).toFixed(1)}px`);
+        }
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      update();
+    }
+
+    function setupCursorGlow() {
+      const glow = $('#cursor-glow');
+      if (!glow || window.matchMedia('(pointer: coarse)').matches) return;
+
+      let active = false;
+      const move = (event) => {
+        glow.style.transform = `translate3d(${event.clientX - 130}px,${event.clientY - 130}px,0)`;
+        if (!active) {
+          active = true;
+          glow.classList.add('is-active');
+        }
+      };
+
+      window.addEventListener('pointermove', move, { passive: true });
+      window.addEventListener('pointerleave', () => {
+        active = false;
+        glow.classList.remove('is-active');
+      });
+    }
+
+    function setupCounters() {
+      const counters = $$('[data-counter]');
+      const counterObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = Number(el.getAttribute('data-counter'));
+            const decimals = Number(el.getAttribute('data-decimals') || 0);
+            const duration = 1200;
+            const start = performance.now();
+
+            const step = (now) => {
+              const progress = Math.min(1, (now - start) / duration);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = target * eased;
+              el.textContent = formatNumber(current, decimals);
+              if (progress < 1) {
+                requestAnimationFrame(step);
+              }
+            };
+
+            requestAnimationFrame(step);
+            observer.unobserve(el);
+          });
+        },
+        { threshold: 0.8 }
+      );
+
+      counters.forEach((counter) => counterObserver.observe(counter));
+    }
+
+    function setupPlasma() {
+      const canvas = $('#plasma-canvas');
+      const ctx = canvas.getContext('2d');
+      const blobs = [];
+      let w = 0;
+      let h = 0;
+      let animId = 0;
+      let lastFrame = 0;
+      const FRAME_MS = 1000 / 24;
+
+      const palette = [
+        'rgba(98, 231, 255, 0.10)',
+        'rgba(255, 127, 178, 0.08)',
+        'rgba(132, 255, 191, 0.10)',
+        'rgba(255, 200, 107, 0.08)'
+      ];
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+
+      function seed() {
+        blobs.length = 0;
+        for (let i = 0; i < 7; i += 1) {
+          blobs.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.2,
+            vy: (Math.random() - 0.5) * 0.2,
+            r: 120 + Math.random() * 180,
+            c: palette[i % palette.length]
+          });
+        }
+      }
+
+      function draw(now) {
+        animId = requestAnimationFrame(draw);
+        if (now - lastFrame < FRAME_MS) return;
+        lastFrame = now;
+
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < blobs.length; i++) {
+          const b = blobs[i];
+          b.x += b.vx;
+          b.y += b.vy;
+          if (b.x < -100 || b.x > w + 100) b.vx *= -1;
+          if (b.y < -100 || b.y > h + 100) b.vy *= -1;
+
+          const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+          g.addColorStop(0, b.c);
+          g.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, b.r, 0, 6.2832);
+          ctx.fill();
+        }
+      }
+
+      resize();
+      seed();
+      animId = requestAnimationFrame(draw);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { resize(); seed(); }, 200);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cancelAnimationFrame(animId);
+        } else {
+          lastFrame = performance.now();
+          animId = requestAnimationFrame(draw);
+        }
+      });
+    }
+
+    function init() {
+      try {
+        const savedTheme = localStorage.getItem('smmcemi-theme');
+        const savedLang = localStorage.getItem('smmcemi-lang');
+        if (savedTheme) { theme = savedTheme; document.documentElement.setAttribute('data-theme', theme); }
+        if (savedLang) lang = savedLang;
+      } catch(e) {}
+      const themeBtn = $('#theme-toggle');
+      if (themeBtn) themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+
+      renderNews();
+      renderTimeline();
+      renderVMV();
+      renderOrg();
+      renderManagement();
+      renderProducts();
+      renderFinance();
+      renderSources();
+      applyLanguage();
+      setupTilt();
+      setupEvents();
+      setupObservers();
+      setupScrollHandlers();
+      setupCounters();
+      setupCursorGlow();
+      setupPlasma();
+    }
+
+    init();
+  </script>
+</body>
+</html>
