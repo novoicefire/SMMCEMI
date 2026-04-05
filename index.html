@@ -1239,12 +1239,13 @@
 
     .sources-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 20px;
     }
 
     .source-list {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       margin-top: 16px;
     }
@@ -1420,6 +1421,10 @@
       .nav__inner {
         justify-content: flex-start;
       }
+
+      .source-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 720px) {
@@ -1490,6 +1495,10 @@
 
       .cursor-glow {
         display: none;
+      }
+
+      .source-list {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1877,26 +1886,25 @@
       <section class="section hero is-visible" id="hero">
         <div class="hero__grid">
           <div class="reveal-up is-visible">
-            <span class="eyebrow">Company Overview & Financial Performance</span>
+            <span class="eyebrow">公司概覽與財務表現</span>
             <h1 class="hero__title">
               FORMOSA
-              <span class="accent">IN FLUX</span>
+              <span class="accent">公司概覽</span>
             </h1>
             <p class="hero__copy">
-              這不是一份靜態報告，而是一場關於台塑如何在石化景氣循環、綠色轉型、
-              全球佈局與財務壓力之間重新定義自己的單頁敘事實驗。這個 SPA 把公司歷史、
-              管理結構、產品版圖與 2021 至 2025 的績效變化，轉成一條可探索的數據長卷。
+              本頁整理台塑公司概況與 2021 至 2025 年財務表現，內容涵蓋公司歷史、
+              組織治理、產品布局、近期新聞與主要財務指標，供展示與報告使用。
             </p>
             <div class="hero__actions">
-              <button class="btn btn--primary" data-jump="news" title="進入互動報告">Start The Scroll</button>
-              <button class="btn btn--ghost" data-jump="finance" title="直接查看財務段落">Jump To Finance</button>
+              <button class="btn btn--primary" data-jump="news" title="查看近期新聞重點">查看新聞重點</button>
+              <button class="btn btn--ghost" data-jump="finance" title="查看財務分析">查看財務分析</button>
             </div>
-            <div class="scroll-cue">Scroll To Disturb The Surface</div>
+            <div class="scroll-cue">向下瀏覽各段內容</div>
           </div>
 
           <div class="panel hero-card reveal-up is-visible">
             <div>
-              <div class="hero-card__label">2021 → 2025 / Five-Year Shockwave</div>
+              <div class="hero-card__label">2021 → 2025 / 五年財務摘要</div>
               <div class="hero-card__score">
                 <div class="score">
                   <div class="score__value" data-counter="2735.98" data-decimals="2">0</div>
@@ -1917,7 +1925,7 @@
               </div>
             </div>
             <div class="hero-card__footer">
-              核心敘事是清楚的：2021 為景氣高峰，2022 至 2023 快速修正，2024 與 2025 進入低檔盤整與虧損擴大。問題不只是量，而是產品利差與產業結構。
+              2021 年為近五年高點，2022 至 2023 年營收與獲利下滑，2024 年營收大致持平但已轉虧，2025 年虧損進一步擴大。
             </div>
           </div>
         </div>
@@ -1926,11 +1934,11 @@
       <section class="section" id="news">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Two Recent News</span>
-            <h2>Shockwaves In Motion</h2>
+            <span class="eyebrow">近期新聞</span>
+            <h2>近期新聞重點</h2>
           </div>
           <p>
-            兩則新聞像兩道相反方向的波：一邊是美國廠的原料與製程優勢，另一邊是台灣本地供應緊張與市場質疑。這組對照，直接揭示台塑的全球布局與在地風險如何同時存在。
+            本節整理兩則近期新聞，分別說明台塑在美國廠的原料成本優勢，以及台灣市場的供應緊張與價格爭議，作為觀察其營運環境的近期案例。
           </p>
         </div>
 
@@ -1951,11 +1959,11 @@
       <section class="section" id="history">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Company History</span>
-            <h2>From Micro PVC To A System</h2>
+            <span class="eyebrow">公司歷史</span>
+            <h2>公司發展歷程</h2>
           </div>
           <p>
-            台塑的歷史不是平面年表，而是一連串結構性動作：從逆向整合、跨域擴張、六輕建設，到全球化據點佈局，每一步都在重寫成本、供應鏈與市場控制方式。
+            本節整理台塑自創立以來的重要發展階段，說明其在原料整合、產業擴張、海外布局與轉型方向上的主要變化。
           </p>
         </div>
 
@@ -1968,11 +1976,11 @@
       <section class="section" id="vision">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Vision, Mission, Value</span>
-            <h2>Three Strategic Surfaces</h2>
+            <span class="eyebrow">願景、使命與核心價值</span>
+            <h2>願景、使命與核心價值</h2>
           </div>
           <p>
-            核心價值說明企業為何存在，願景界定未來的畫面，使命則是執行路徑。這裡不是把文字貼上牆，而是讓三個面向像三塊漂浮板塊，翻面後顯示其真正壓力與企圖。
+            本節說明台塑的核心價值、願景與使命，並整理其在永續經營、產業轉型、能源轉型與高值化發展上的主要方向。
           </p>
         </div>
 
@@ -1982,11 +1990,11 @@
       <section class="section" id="management">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Structure & Management</span>
-            <h2>Governance As A Machine</h2>
+            <span class="eyebrow">組織與公司治理</span>
+            <h2>組織架構與公司治理</h2>
           </div>
           <p>
-            4.1 與 4.2 在這裡被重構成一台可閱讀的機器：前端是事業群與全球布局，後端是董事會監督、經理人分工與績效邏輯。重點不是誰在名單裡，而是權力如何流動。
+            本節整理台塑的事業架構、功能分工、區域布局與主要管理團隊，說明董事會治理安排及各管理部門的職責配置。
           </p>
         </div>
 
@@ -2017,17 +2025,19 @@
 
             <div class="panel management-detail" id="management-detail"></div>
           </div>
+
+          <div class="panel stack-card" id="governance-panel"></div>
         </div>
       </section>
 
       <section class="section" id="products">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Product Portfolios</span>
-            <h2>Product Fields & Conversion Paths</h2>
+            <span class="eyebrow">產品布局</span>
+            <h2>產品布局與轉型方向</h2>
           </div>
           <p>
-            從石化主業到電子材料、醫療、儲能與鋼鐵，台塑的產品版圖本身就像一張垂直整合地圖。這裡把它拆成現在的產品面，以及未來三段轉型路線。
+            本節整理台塑目前的主要產品領域，並說明高值化、綠能與循環經濟等中長期轉型方向。
           </p>
         </div>
 
@@ -2047,11 +2057,11 @@
       <section class="section" id="finance">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Financial Performance</span>
-            <h2>The Financial Main Stage</h2>
+            <span class="eyebrow">財務表現</span>
+            <h2>財務表現分析</h2>
           </div>
           <p>
-            財務段落是這份作品的核心劇場。營收、稅前損益、EPS 與 ROE 在 2021 到 2025 之間形成一條幾乎完整的景氣斷面，也揭示台塑正在經歷的轉型壓力。
+            本節整理 2021 至 2025 年的合併營收、稅前利益、EPS 與 ROE 變化，以說明台塑近年的營運趨勢與獲利表現。
           </p>
         </div>
 
@@ -2075,26 +2085,28 @@
       <section class="section" id="sources">
         <div class="section-head reveal-up">
           <div>
-            <span class="eyebrow">Disclosure</span>
-            <h2>Sources, Methods, Integrity</h2>
+            <span class="eyebrow">資料來源</span>
+            <h2>資料來源與補充說明</h2>
           </div>
           <p>
-            這個單頁作品保留了報告的可追溯性。來源不是附註，而是敘事可信度的一部分；AI 使用聲明則被清楚保留下來，讓創作與查證邊界保持透明。
+            本節列出本報告使用的主要資料來源，並說明查核方式與 AI 使用情形，以維持內容可追溯性。
           </p>
         </div>
 
         <div class="sources-layout reveal-up">
           <div class="panel source-card tilt-card" data-tilt>
-            <h3>Primary Sources</h3>
+            <h3>重要資料來源</h3>
             <p>所有管理、財務與策略資訊，皆優先對照官網、永續報告、財務報告與法人說明會資料。</p>
+            <div class="mode-switch" id="source-filter"></div>
             <div class="source-list" id="source-list"></div>
           </div>
 
           <div class="panel disclosure-card tilt-card" data-tilt>
-            <h3>AI Usage Disclosure</h3>
+            <h3>AI 使用聲明</h3>
             <p>
-              1. AI was consulted for language and/or ideas.<br />
-              2. All company facts, management information, and financial figures used in this report were checked against the cited official sources before inclusion.
+              1. AI 僅用於語言整理與表達協助。<br />
+              2. 本報告引用之公司事實、管理資訊與財務數據均已對照官方來源。<br />
+              3. 本 SPA 使用 AI 進行 Vibe Coding，頁面程式碼由 AI 生成後整合為單檔互動頁面。
             </p>
             <div class="chip-grid">
               <span>Single File HTML</span>
@@ -2106,8 +2118,8 @@
         </div>
 
         <div class="footer-note reveal-up">
-          Designed as a one-file SPA for SMMC-EMI_GX_TP Company Overview &amp; Financial Performance.<br />
-          Content adapted from the companion report and re-orchestrated into an interactive visual narrative.
+          本頁為 SMMC-EMI_GX_TP「公司概覽與財務表現」單檔 SPA。<br />
+          內容依配套報告整理並改寫為互動展示頁面。
         </div>
       </section>
     </main>
@@ -2120,9 +2132,9 @@
           id: 'us-advantage',
           label: { zh: '近期新聞 01', en: 'Recent News 01' },
           source: 'UDN / 2026',
-          title: { zh: '台塑美國廠的乙烷裂解優勢，讓戰爭油價衝擊變成成本差距。', en: 'Formosa\u2019s US ethane cracking advantage turns oil-price shocks into a cost gap.' },
-          lead: { zh: '當亞洲廠因輕油裂解受油價波動牽動，乙烯成本一路逼近每噸 1,000 美元，台塑美國廠仍可把成本維持在 520 至 530 美元，形成極大的製程差與競爭緩衝。', en: 'While Asian naphtha crackers push ethylene costs near $1,000/ton, Formosa\u2019s US plants keep costs at $520\u2013530, creating a massive process gap and competitive buffer.' },
-          bullets: { zh: ['亞洲乙烯價格接近每噸 1,000 美元，美國乙烷裂解成本仍約 520~530 美元。','美國廠改善被視為帶動整體獲利的正面力量。','管理層預估 2026 石化景氣有望優於 2025，但仍須觀察關稅、地緣政治與海運費變數。'], en: ['Asia ethylene near $1,000/t; US ethane cracking cost stays around $520\u2013530/t.','US plant improvements seen as a positive driver for group profitability.','Management expects 2026 petrochemical conditions to improve vs 2025, but tariffs, geopolitics, and shipping remain variables.'] },
+          title: { zh: '台塑美國廠乙烷裂解成本具相對優勢。', en: 'Formosa\u2019s US ethane cracking operations show a relative cost advantage.' },
+          lead: { zh: '在亞洲輕油裂解成本受油價影響上升時，台塑美國廠仍可維持較低的乙烯生產成本，顯示其原料來源與製程條件具備成本優勢。', en: 'As Asian naphtha cracking costs rose with oil prices, Formosa\u2019s US plants maintained lower ethylene production costs, indicating an advantage in feedstock sourcing and process conditions.' },
+          bullets: { zh: ['亞洲乙烯價格接近每噸 1,000 美元；美國乙烷裂解成本約為 520 至 530 美元。','美國廠改善有助於支撐整體獲利表現。','管理層預估 2026 年石化景氣可能優於 2025 年，但仍須觀察關稅、地緣政治與海運費變化。'], en: ['Asian ethylene prices approached $1,000 per ton, while US ethane cracking costs remained around $520 to $530 per ton.','Improvements at the US plants may help support overall profitability.','Management expects petrochemical conditions in 2026 to improve from 2025, but tariffs, geopolitics, and shipping costs remain variables.'] },
           metrics: { zh: [{ label: '亞洲乙烯價格', value: 1000, max: 1000, suffix: 'USD/t' },{ label: '美國乙烯成本', value: 525, max: 1000, suffix: 'USD/t' }], en: [{ label: 'Asia Ethylene Price', value: 1000, max: 1000, suffix: 'USD/t' },{ label: 'US Ethylene Cost', value: 525, max: 1000, suffix: 'USD/t' }] },
           url: 'https://udn.com/news/story/7241/9386427'
         },
@@ -2130,9 +2142,9 @@
           id: 'plastic-shortage',
           label: { zh: '近期新聞 02', en: 'Recent News 02' },
           source: 'PTS / 2026',
-          title: { zh: '台灣塑膠粒缺貨與價格爭議，暴露本地供應鏈的脆弱斷點。', en: 'Taiwan\u2019s plastic pellet shortage and price disputes expose local supply chain fragility.' },
-          lead: { zh: '另一邊，台灣本地卻因乙烯短缺、減供與市場恐慌，引發塑膠粒搶購與價格劇烈波動。事件中，同時出現供應緊張、政治質疑與政府緊急協調三條平行線。', en: 'Domestically, ethylene shortages, supply cuts, and market panic triggered plastic pellet hoarding and extreme price swings\u2014supply tension, political scrutiny, and government coordination ran in parallel.' },
-          bullets: { zh: ['塑膠粒價格一度飆升至原來的 3 倍以上。','立委質疑減供與關線可能形成價格操縱，但經濟部將主因歸結為上游乙烯短缺。','中油啟動四輕裂解廠，預期次月可增加約 3 萬噸乙烯供應。'], en: ['Plastic pellet prices surged to over 3\u00d7 the original level.','Legislators questioned whether supply cuts constituted price manipulation; the MOEA attributed it to upstream ethylene shortages.','CPC restarted its No. 4 naphtha cracker, expected to add ~30,000 tons of ethylene supply next month.'] },
+          title: { zh: '台灣塑膠粒供應緊張引發價格爭議。', en: 'Tight plastic pellet supply in Taiwan triggered price disputes.' },
+          lead: { zh: '台灣市場因乙烯供應短缺、減供與市場預期升溫，出現塑膠粒搶購與價格波動，也引發對供應安排與市場秩序的討論。', en: 'In Taiwan, ethylene shortages, reduced supply, and rising market expectations led to plastic pellet hoarding and price fluctuations, prompting discussion about supply arrangements and market order.' },
+          bullets: { zh: ['塑膠粒價格一度上升至原先的 3 倍以上。','立委質疑減供是否涉及價格操縱，經濟部則表示主因為上游乙烯短缺。','中油啟動四輕裂解廠，預期次月可增加約 3 萬噸乙烯供應。'], en: ['Plastic pellet prices temporarily rose to more than three times their original level.','Legislators questioned whether supply cuts involved price manipulation, while the MOEA said the main cause was upstream ethylene shortages.','CPC restarted its No. 4 naphtha cracker and expected to add about 30,000 tons of ethylene supply in the following month.'] },
           metrics: { zh: [{ label: '價格波動', value: 300, max: 300, suffix: '% of base' },{ label: '次月增產乙烯', value: 30000, max: 30000, suffix: 'tons' }], en: [{ label: 'Price Surge', value: 300, max: 300, suffix: '% of base' },{ label: 'Next Month Ethylene Boost', value: 30000, max: 30000, suffix: 'tons' }] },
           url: 'https://news.pts.org.tw/article/801635'
         }
@@ -2143,18 +2155,18 @@
           tag: 'Origin',
           title: '福懋塑膠成立，日後更名為台灣塑膠公司。',
           copy:
-            '台塑由王永慶與王永在兄弟創立，在美援與台灣民營化政策背景下開始起步。初期以聚氯乙烯相關業務切入，規模極小，卻很快形成強烈的成本與產業整合意識。',
+            '台塑由王永慶與王永在兄弟創立，在美援與台灣民營化政策背景下開始起步。初期以聚氯乙烯相關業務切入，規模雖小，但已逐步建立成本控制與產業整合方向。',
           impact:
-            '這是台塑一切擴張的原點，也是其「先把產能做大，再把需求做出來」思維的起始點。'
+            '顯示公司早期已以擴產與產業整合作為主要發展方向。'
         },
         {
           year: '1957-1958',
           tag: 'Reverse Integration',
           title: '以逆向整合化解 PVC 滯銷危機。',
           copy:
-            '面對產量少、成本高與下游客戶不足，台塑選擇擴增 PVC 產能，同時成立南亞塑膠與其他加工公司，把下游市場直接做出來。',
+            '面對產量少、成本高與下游客戶不足，台塑選擇擴增 PVC 產能，同時成立南亞塑膠與其他加工公司，擴大下游加工需求。',
           impact:
-            '這個策略不只是救公司，而是把整個台灣塑膠加工鏈一起推起來。'
+            '此舉擴大了下游加工需求，並強化公司在塑膠加工產業鏈中的位置。'
         },
         {
           year: '1965-1984',
@@ -2163,7 +2175,7 @@
           copy:
             '台化成立後切入化纖與紡織，南亞則進入印刷電路板與銅箔基板，集團版圖開始從傳統塑膠延伸到高技術材料。',
           impact:
-            '台塑開始脫離單一材料商的身份，建立多角化增長曲線。'
+            '公司產品範圍由塑膠延伸至紡織與電子材料，產業布局趨於多元。'
         },
         {
           year: '1970s-1986',
@@ -2172,7 +2184,7 @@
           copy:
             '面對上游原料仰賴進口的結構性問題，台塑向政府爭取興建輕油裂解廠，最終獲准推動六輕計畫，打造完整的一貫化生產體系。',
           impact:
-            '六輕讓台塑真正握住上游原料命脈，也建立了難以被複製的規模與成本護城河。'
+            '六輕計畫提升了上游原料掌握度，並強化公司一貫化生產能力。'
         },
         {
           year: '1990s',
@@ -2181,7 +2193,7 @@
           copy:
             '台塑在美國德州發展烯烴裂解與石化工廠，掌握低價頁岩氣優勢；同時進入中國大陸，建立寧波等原料與加工基地。',
           impact:
-            '全球化不只是擴產，而是讓台塑把低成本資源和高成長市場同時納入版圖。'
+            '此階段顯示公司同時布局低成本原料與海外市場，以擴大國際營運基礎。'
         },
         {
           year: '2001+',
@@ -2190,49 +2202,53 @@
           copy:
             '面對紡纖成本壓力與東協市場機會，台塑進入越南，並與中鋼、日本 JFE 合資發展河靜鋼鐵與深水港。',
           impact:
-            '集團從石化與材料，延伸到更重資本、更長週期的鋼鐵重工業。'
+            '公司業務由石化與材料進一步延伸至鋼鐵與重工相關投資。'
         },
         {
           year: '2024-2025',
           tag: 'Transformation',
           title: '轉型開發專案組成立，AI、能源與高值化成為新主軸。',
           copy:
-            '在石化景氣疲弱與獲利壓力下，台塑將轉型正式拉到管理主舞台：新產品、新事業、數位化與能源轉型不再是附屬工程，而是生存與重估價值的主軸。',
+            '在石化景氣疲弱與獲利壓力下，台塑成立轉型開發專案組，推動新產品、新事業、數位化與能源轉型等工作。',
           impact:
-            '台塑進入一個新階段：不只比誰規模更大，而是比誰能把結構變得更輕、更高值、更有韌性。'
+            '顯示公司近年將轉型工作納入管理重點，並強調高值化、能源與數位發展。'
         }
       ],
       vmv: [
         {
           title: 'Value',
           front:
-            '勤勞樸實、止於至善、永續經營、奉獻社會。這不是單純口號，而是台塑用來解釋成本控管、流程紀律與社會角色的底層語法。',
+            '勤勞樸實、止於至善、永續經營、奉獻社會，為台塑長期經營管理的核心價值。',
           back:
-            '優點在於治理節奏穩定、執行效率高；風險在於過度標準化可能壓縮創新速度與彈性。當外部環境快速變動，這套價值也必須學會轉型。'
+            '這些價值可反映出台塑重視成本管理、流程紀律與長期經營，但在外部環境快速變動下，也需要兼顧創新與調整能力。'
         },
         {
           title: 'Vision',
           front:
             '成為永續經營的領航者，透過產業轉型與綠色創新，朝向 2050 碳中和，並持續創造幸福與經濟價值。',
           back:
-            '這個願景不再把台塑定義成塑膠製造商，而是希望成為科技材料驅動者、綠色產業參與者，以及滲透日常生活的基礎供應者。'
+            '這項願景顯示台塑希望在既有塑化基礎上，進一步發展綠色創新、高值材料與永續經營能力。'
         },
         {
           title: 'Mission',
           front:
-            '推動高值化與差異化、深化 AI 與數位轉型、落實能源轉型與減碳脫煤，讓傳統製造體系獲得新的獲利曲線。',
+            '使命重點包括推動高值化與差異化、深化 AI 與數位轉型，並落實能源轉型與減碳工作。',
           back:
-            '使命的關鍵不是宣示，而是執行：產品組合能否升級、營運效率能否改善、減碳投入能否變成結構優勢，決定這段轉型是否只是口號。'
+            '使命的落實重點在於產品組合升級、營運效率改善，以及減碳投資能否轉化為長期競爭力。'
         }
       ],
       org: {
         business: {
           intro:
-            '台塑企業採多事業群並進的集團結構，台灣塑膠公司則聚焦在塑膠原料、碳纖維與化工產品。集團層級像策略母體，事業公司負責各自市場與生產邏輯。',
+            '台塑企業採多事業群架構，台灣塑膠公司主要聚焦塑膠原料、碳纖維與化工產品，各事業公司依其產品與市場分工運作。',
           items: [
             { title: '台塑企業 / 塑膠', description: '台灣塑膠、南亞塑膠等，以樹脂、建材與加工製品為主。'},
             { title: '台塑企業 / 石化', description: '台塑石化、台化，掌握煉油、輕油裂解與石化中游。'},
             { title: '台塑企業 / 電子', description: '南亞科技、南亞電路板等，向高技術材料與半導體延伸。'},
+            { title: '台塑企業 / 醫療', description: '台塑生醫與長庚醫療體系，涵蓋生技、醫療與保健服務。'},
+            { title: '台塑企業 / 教育', description: '長庚大學、長庚科技大學、明志科技大學等教育機構。'},
+            { title: '台塑企業 / 鋼鐵', description: '台塑河靜鋼鐵與相關重工布局，延伸至鋼鐵產業鏈。'},
+            { title: '台塑企業 / 運輸', description: '台塑海運、台塑汽車貨運等單位支撐物流與供應鏈效率。'},
             { title: '台灣塑膠公司 / 塑膠原料', description: 'PVC、HDPE、LLDPE、EVA、液鹼、鹽酸與塑膠改質劑。'},
             { title: '台灣塑膠公司 / 纖維', description: '碳纖維作為高值化材料核心。'},
             { title: '台灣塑膠公司 / 化學工業', description: '丙烯酸及酯類、AN、MMA、MTBE、正丁醇等。'}
@@ -2240,7 +2256,7 @@
         },
         functional: {
           intro:
-            '功能單位的角色，是把策略翻成製程、營運與管理責任。對台塑來說，總經理室、轉型開發專案組、塑膠事業群、化工事業群與直屬部門共同構成執行骨架。',
+            '本區說明公司內部主要功能單位與事業群分工，包括總經理室、轉型開發專案組、塑膠事業群、化工事業群與直屬部門。',
           items: [
             { title: '總經理室', description: '管理組、營業管理組、經營分析組、人事組、工程管理組。'},
             { title: '轉型開發專案組', description: '研究開發、能源轉型、數位轉型，直接對接新事業與 AI 化。'},
@@ -2251,12 +2267,14 @@
         },
         regional: {
           intro:
-            '地區單位反映的是供應鏈與市場位置：台灣是製造核心，中國是加工與市場延伸，美國是低成本資源據點，越南則承接東協市場與重工布局。',
+            '本區整理台塑在台灣、中國、美國與越南等地的主要布局，以說明其製造、加工、市場與原料配置。',
           items: [
-            { title: '台灣', description: '仁武、林園、冬山、台北辦事處、新港、麥寮等據點構成營運主體。'},
-            { title: '中國', description: '寧波與其他基地承接加工、市場與原料供應任務。'},
-            { title: '美國', description: '德州、路易斯安那等州支撐頁岩氣與石化成本優勢。'},
-            { title: '越南 / 東南亞', description: '河靜鋼鐵與區域市場布局，對應集團擴張。'}
+            { title: '台灣', description: '台北、林口、工三、華亞、錦興、樹林、宜蘭、龍德、彰化、嘉義、新港、麥寮、仁武與林園構成主要布局。'},
+            { title: '中國', description: '河南、安徽、廣東、福建、江蘇、浙江、山東與寧波等據點承接加工、市場與原料任務。'},
+            { title: '美國', description: '德州、路易斯安那、德拉瓦、紐澤西與南卡羅來納州支撐資源與成本優勢。'},
+            { title: '越南', description: '河靜省與同奈省布局對應鋼鐵、製造與東協市場。'},
+            { title: '菲律賓', description: '馬巴拉卡特廠區反映集團東南亞區域延伸。'},
+            { title: '印尼', description: '三寶壟市等布局顯示其區域化生產與市場接近策略。'}
           ]
         }
       },
@@ -2267,7 +2285,7 @@
           team: 'Corporate Leadership',
           education: '清華大學工業化學系',
           focus: '綜理所有經營管理業務，兼任台塑勝高董事長。',
-          insight: '在景氣低迷與轉型壓力同時存在的階段，董事長角色更像策略加速器，負責把集團的資源與治理節奏對接起來。',
+          insight: '董事長負責整體經營方向與治理統籌，對集團資源配置與重大決策具有重要影響。',
           tags: ['Strategy', 'Transformation', 'Board Leadership']
         },
         {
@@ -2276,7 +2294,7 @@
           team: 'Corporate Leadership',
           education: '政治大學企管系',
           focus: '綜理所有經營管理業務。',
-          insight: '董事長與總經理分工恢復後，總經理成為把方向轉成日常營運節奏的關鍵執行者。',
+          insight: '總經理負責整體營運管理，重點在於將公司策略落實到日常經營。',
           tags: ['Execution', 'Operations', 'Management']
         },
         {
@@ -2285,7 +2303,7 @@
           team: 'Chemical Operations',
           education: '交通大學機械系',
           focus: '協助綜理所有經營管理業務，兼管化工事業群。',
-          insight: '化工事業群在產品利差壓縮時，直接影響獲利修復速度。',
+          insight: '化工事業群營運表現與產品利差變化，對公司整體獲利具有重要影響。',
           tags: ['Chemical Group', 'Engineering', 'Profitability']
         },
         {
@@ -2294,7 +2312,7 @@
           team: 'Plastics Group',
           education: '匹茲堡大學化工所',
           focus: '綜理塑膠事業群並兼管塑膠事業部。',
-          insight: '台塑的主體仍在塑膠產品組合，這個位置等於握住公司最核心的產品結構。',
+          insight: '塑膠事業群為公司主要產品部門之一，負責核心塑膠產品的營運管理。',
           tags: ['PVC', 'PE', 'Core Products']
         },
         {
@@ -2303,7 +2321,7 @@
           team: 'Polyolefin',
           education: '中央大學化工系',
           focus: '綜理聚烯事業部所有經營管理業務。',
-          insight: '聚烯事業是塑膠主戰場之一，關係到出貨量與平均售價的穩定度。',
+          insight: '聚烯事業部負責主要塑膠產品線之一，其營運表現影響出貨與售價管理。',
           tags: ['Polyolefin', 'Volume', 'Pricing']
         },
         {
@@ -2312,7 +2330,7 @@
           team: 'Polypropylene',
           education: '清華大學化工系',
           focus: '綜理聚丙烯事業部所有經營管理業務。',
-          insight: 'PP 屬於台塑主要營收項目之一，在景氣循環中對獲利彈性影響明顯。',
+          insight: '聚丙烯事業部為主要產品線之一，與營收及獲利表現密切相關。',
           tags: ['PP', 'Margin', 'Core Line']
         },
         {
@@ -2321,7 +2339,7 @@
           team: 'Formolene / Specialty',
           education: '台灣科技大學化工系',
           focus: '綜理台麗朗事業部所有經營管理業務。',
-          insight: '台麗朗與特用化學品板塊，是公司從泛用品轉向高值化的重要節點。',
+          insight: '台麗朗與特用化學品業務反映公司在高值化產品上的布局。',
           tags: ['Specialty', 'Upgrade', 'Differentiation']
         },
         {
@@ -2330,7 +2348,7 @@
           team: 'Chemicals',
           education: '中央大學化工系',
           focus: '綜理化學品事業部所有經營管理業務。',
-          insight: '丙烯酸酯、AN、MMA 等產品的價差波動，直接反映到化工事業群的績效。',
+          insight: '化學品事業部產品價差變化，會直接影響化工事業群績效。',
           tags: ['Chemical Products', 'AN', 'MMA']
         },
         {
@@ -2339,7 +2357,7 @@
           team: 'Engineering',
           education: '台北工專機械系',
           focus: '綜理工務部所有經營管理業務。',
-          insight: '當公司推動去瓶頸、產能擴充與設備效率改善時，工務系統就是支點。',
+          insight: '工務部負責設備、產能與工程管理，對擴產與效率改善具有支援作用。',
           tags: ['Engineering', 'Debottlenecking', 'Capex']
         },
         {
@@ -2348,7 +2366,7 @@
           team: 'Electronic Materials',
           education: '明志工專電工系',
           focus: '綜理電子材料部所有經營管理業務。',
-          insight: '電子材料代表台塑往高值化與半導體材料移動的方向。',
+          insight: '電子材料部代表公司在高值化與半導體相關材料上的發展方向。',
           tags: ['Electronic Materials', 'High Value', 'Transition']
         },
         {
@@ -2357,35 +2375,72 @@
           team: 'Finance',
           education: '台灣大學商學所碩士',
           focus: '綜理財務部所有業務。',
-          insight: '在營收下滑與本業虧損擴大時，財務系統的資金調度、資本支出節奏與風險監控變得更重要。',
+          insight: '財務部負責資金調度、資本支出與風險管理，對營運穩定性具有重要作用。',
           tags: ['Finance', 'Capital Allocation', 'Risk Control']
+        }
+      ],
+      governance: [
+        {
+          title: { zh: '集團層級管理核心', en: 'Group-Level Management Core' },
+          text: {
+            zh: '台塑企業屬集團式治理架構，由核心領導層統籌資本配置、轉型方向與跨事業協調，再由各主要子公司董事會與經理部門落地執行。',
+            en: 'Formosa Plastics Group operates as a group governance structure in which core leadership coordinates capital allocation, transformation direction, and cross-business coordination before execution by each major subsidiary board and management team.'
+          }
+        },
+        {
+          title: { zh: '董事會治理快照', en: 'Board Governance Snapshot' },
+          text: {
+            zh: '2024 年 6 月 20 日完成董事改選，任期至 2027 年 6 月 19 日。董事會共 12 席，其中獨立董事 4 席、女性董事 2 席，獨立董事比率提升至 33.3%，2024 年共開會 7 次，出席率 95.56%，董事持股質押比率 0%。',
+            en: 'The board was re-elected on June 20, 2024 for a term lasting through June 19, 2027. It has 12 seats, including 4 independent directors and 2 female directors. Independent director representation rose to 33.3%, the board met 7 times in 2024, attendance was 95.56%, and directors’ pledged-share ratio was 0%.'
+          }
+        },
+        {
+          title: { zh: '功能性委員會', en: 'Board Committees' },
+          text: {
+            zh: '公司已設置審計委員會、薪資報酬委員會與永續發展委員會。審計委員會監督財報與風險控管；薪酬委員會審議董事及經理人薪酬制度；永續委員會審議永續策略、ESG 進度與揭露內容。',
+            en: 'The company has established an Audit Committee, a Compensation Committee, and a Sustainability Committee. The Audit Committee oversees financial statements and risk control; the Compensation Committee reviews director and executive pay systems; and the Sustainability Committee reviews sustainability strategy, ESG progress, and disclosure content.'
+          }
+        },
+        {
+          title: { zh: '經理人績效考核', en: 'Executive Performance Metrics' },
+          text: {
+            zh: '經理人績效除 EBITDA、營運成長率與利潤貢獻度外，也納入 AI 推動案件、節水節能、減碳目標、工安事件與公司治理等非財務指標。',
+            en: 'Executive evaluation includes not only EBITDA, operating growth, and profit contribution, but also non-financial indicators such as AI projects, water and energy savings, decarbonization goals, safety incidents, and corporate governance.'
+          }
+        },
+        {
+          title: { zh: '管理分析重點', en: 'Management Analysis' },
+          text: {
+            zh: '台塑管理機制具有三個特徵：一是管理架構與產品事業群高度對應；二是董事會與委員會制度逐步制度化；三是績效指標已結合 AI、減碳與工安等轉型面向。',
+            en: 'Formosa’s management system has three notable traits: strong alignment between structure and product business groups, increasingly institutionalized board and committee mechanisms, and performance metrics that now incorporate AI, decarbonization, and industrial safety transformation themes.'
+          }
         }
       ],
       products: {
         lines: [
           {
             title: '石化與塑膠本業',
-            text: '台塑四寶構成垂直整合主體，從煉油、輕油裂解，到 PVC、PE、PP 與終端加工，形成集團現金流核心。',
+            text: '本業涵蓋煉油、輕油裂解、PVC、PE、PP 與下游加工，是集團營收與現金流的重要基礎。',
             chips: ['PVC', 'PE', 'PP', 'ABS', 'PS']
           },
           {
             title: '電子材料與半導體',
-            text: '從 CCL、PCB、環氧樹脂延伸到 DRAM 與矽晶圓，是台塑高毛利與高技術密度的延伸面。',
+            text: '產品由 CCL、PCB、環氧樹脂延伸至 DRAM 與矽晶圓，反映公司在電子材料領域的布局。',
             chips: ['CCL', 'PCB', 'DRAM', 'Silicon Wafers']
           },
           {
             title: '化纖與紡織',
-            text: '聚酯纖維、尼龍與回收紗線構成轉型中的中間層，兼顧傳統產量與機能性材質。',
+            text: '聚酯纖維、尼龍與回收紗線兼具傳統產量基礎與機能性材料應用。',
             chips: ['Polyester', 'Nylon', 'Recycled Yarn']
           },
           {
             title: '生技、醫療與生活用品',
-            text: '台塑生醫與長庚醫療體系讓集團可在品牌、醫療資源與生活消費市場建立另一條路徑。',
+            text: '台塑生醫與長庚醫療體系使集團同時布局品牌、醫療與生活消費相關市場。',
             chips: ['Dr’s Formula', 'FORTE', 'Medical Support']
           },
           {
             title: '新能源與重工業',
-            text: '台塑新智能、儲能、電池回收與河靜鋼鐵，顯示台塑不只升級材料，也在重新選擇資本配置方向。',
+            text: '台塑新智能、儲能、電池回收與河靜鋼鐵，顯示公司在新能源與重工領域的投資方向。',
             chips: ['LFP Cells', 'Energy Storage', 'Steel']
           }
         ],
@@ -2396,11 +2451,11 @@
             title: '高值化與 AI 智能化',
             progress: 78,
             text:
-              '減少泛用型塑膠比重，增加醫療級塑膠、半導體級化學品與碳纖維等高附加價值產品，並同步導入 AI 做製程控制、工安預測與能耗管理。',
+              '轉型方向包括降低泛用型塑膠比重，增加醫療級塑膠、半導體級化學品與碳纖維等高附加價值產品，並導入 AI 強化製程、工安與能耗管理。',
             bullets: [
-              '產品差異化取代單純追求量。',
-              '數位化與 GPT 導入研發與營運。',
-              '目標是讓傳統製造擁有科技產業的精準度。'
+              '提高高附加價值產品比重。',
+              '將數位工具導入研發與營運管理。',
+              '強化製程控制、工安預測與能源效率。'
             ]
           },
           {
@@ -2409,11 +2464,11 @@
             title: '綠能與新能源產業鏈',
             progress: 56,
             text:
-              '彰濱磷酸鋰鐵電芯、儲能系統與電池回收成為未來三到五年的關鍵爆發區，對應的不只是新產品，更是新的資本敘事。',
+              '彰濱磷酸鋰鐵電芯、儲能系統與電池回收為未來三到五年的重點布局，反映公司在新能源產業鏈的發展方向。',
             bullets: [
-              '儲能與電池建構新成長曲線。',
-              '太陽能、風電與微電網形成能源布局。',
-              '從石化原料供應商往綠色系統參與者移動。'
+              '儲能與電池業務為中期發展重點。',
+              '太陽能、風電與微電網為能源布局相關領域。',
+              '公司角色由石化原料供應延伸至能源應用領域。'
             ]
           },
           {
@@ -2424,9 +2479,9 @@
             text:
               '最長期的目標是 2050 碳中和，包括廢塑料回收再生、化學回收、生物可分解塑膠、氫能與碳捕捉技術等。',
             bullets: [
-              '回收與再製將重新定義材料生命週期。',
-              '低碳材料不只是 ESG，而是下一輪競爭門票。',
-              '真正的關鍵在於這些投資能否回到毛利與產品組合。'
+              '回收再利用與循環材料為重要發展項目。',
+              '低碳材料與減碳技術為長期投資方向。',
+              '後續重點在於評估投資成果對獲利與產品組合的影響。'
             ]
           }
         ]
@@ -2438,70 +2493,226 @@
             label: '合併營收',
             unit: '億元',
             values: [2735.98, 2516.47, 1991.38, 2000.40, 1754.11],
-            summary: '營收先在 2021 年衝上高峰，再在 2023 大幅下修，2024 止跌但 2025 再度下探。',
+            summary: '2021 年營收達近五年高點，2023 年明顯下滑，2024 年大致持平，2025 年再度下降。',
             color: '#62e7ff'
+          },
+          growth: {
+            label: '年增率',
+            unit: '%',
+            values: [0, -8.02, -20.87, 0.45, -12.31],
+            summary: '2021 年為基期，之後營收年增率在 2022 與 2023 年明顯轉弱，2024 年短暫回穩，2025 年再次下滑。',
+            color: '#7ea8ff'
           },
           pretax: {
             label: '稅前利益',
             unit: '億元',
-            values: [859.57, 437.94, 69.96, -24.14, -102.15],
-            summary: '獲利端比營收更早、更劇烈地失速，2024 與 2025 已轉為虧損。',
+            values: [859.57, 437.94, 69.97, -24.14, -102.15],
+            summary: '稅前利益降幅大於營收，2024 與 2025 年已轉為虧損。',
             color: '#ff7fb2'
           },
           eps: {
             label: '每股盈餘 EPS',
             unit: '元/股',
             values: [11.21, 5.68, 1.15, -0.19, -1.58],
-            summary: 'EPS 幾乎是一條縮影式折線，反映景氣循環與本業利差壓縮。',
+            summary: 'EPS 由 2021 年高點一路下滑，反映獲利能力明顯轉弱。',
             color: '#ffc86b'
           },
           roe: {
             label: '股東權益報酬率 ROE',
             unit: '%',
-            values: [19.4, 9.5, 2.08, -0.39, -3.1],
-            summary: '資本報酬率從高效率資本運作，轉為面臨結構調整的壓力訊號。',
+            values: [19.4, 9.5, 2.08, -0.39, -3.08],
+            summary: 'ROE 由雙位數下降至負值，顯示資本報酬表現持續惡化。',
             color: '#84ffbf'
+          },
+          netMargin: {
+            label: '純益率',
+            unit: '%',
+            values: [26.08, 14.36, 3.68, -0.62, -5.73],
+            summary: '純益率由高獲利水準快速收縮，2024 與 2025 年已轉為負值。',
+            color: '#f8b86a'
+          },
+          receivablesTurnover: {
+            label: '應收款項週轉率',
+            unit: '次',
+            values: [13.16, 12.14, 13.23, 13.95, 13.26],
+            summary: '應收款項週轉率整體維持在 12 至 14 次，顯示收款效率未出現劇烈惡化。',
+            color: '#7cf0d7'
+          },
+          inventoryTurnover: {
+            label: '存貨週轉率',
+            unit: '次',
+            values: [9.58, 8.91, 8.63, 8.32, 8.18],
+            summary: '存貨週轉率小幅下降，反映營運效率略為轉弱但未出現崩跌。',
+            color: '#c6ff8a'
+          },
+          assetTurnover: {
+            label: '總資產週轉率',
+            unit: '次',
+            values: [0.53, 0.48, 0.38, 0.39, 0.33],
+            summary: '總資產週轉率逐年下降，顯示資產使用效率隨景氣轉弱而下滑。',
+            color: '#9dd6ff'
+          },
+          debtRatio: {
+            label: '負債占資產比率',
+            unit: '%',
+            values: [25.84, 30.04, 34.55, 41.84, 34.85],
+            summary: '負債比在 2024 年升高後於 2025 年回落，但仍高於 2021 年水準。',
+            color: '#ff9d9d'
+          },
+          longTermCapitalPPE: {
+            label: '長期資金占不動產、廠房及設備比率',
+            unit: '%',
+            values: [481.94, 387.07, 380.28, 313.12, 389.35],
+            summary: '長期資金對固定資產覆蓋程度維持高水位，但 2024 年顯著下滑，2025 年回升。',
+            color: '#e7a4ff'
+          },
+          currentRatio: {
+            label: '流動比率',
+            unit: '%',
+            values: [253.9, 167.76, 154.84, 90.77, 204.97],
+            summary: '流動比率在 2024 年跌破 100%，2025 年回升至 200% 以上。',
+            color: '#8ef3ff'
+          },
+          interestCoverage: {
+            label: '利息保障倍數',
+            unit: '倍',
+            values: [92.03, 32.26, 3.67, -0.14, -2.2],
+            summary: '利息保障倍數在 2024 年轉負，2025 年進一步惡化，顯示本業獲利已難支應財務成本。',
+            color: '#ff8fc4'
+          },
+          stockPrice: {
+            label: '年底收盤價',
+            unit: '元/股',
+            values: [104, 86.8, 79.2, 35.5, 39],
+            summary: '年底收盤價自 2021 年高點回落，2025 年雖反彈但仍遠低於 2021 年。',
+            color: '#ffd36b'
           }
         },
         notes: [
-          { title: '2021 / Peak', text: '疫情後需求回升、產品平均售價上揚，形成五年高峰。' },
-          { title: '2022-2023 / Correction', text: '亞洲石化供給過剩、中國房市疲弱與通膨壓抑需求，獲利快速收縮。' },
-          { title: '2024 / Stabilized Revenue, Weakened Margin', text: '營收止跌，但利差與本業獲利仍不足以支撐修復。' },
-          { title: '2025 / Structural Pressure', text: '全年營收、稅前損益與 EPS 持續走弱，顯示本業獲利能力尚未恢復。' }
+          { title: '2021 / Peak', text: '疫情後需求回升與產品售價上升，使營收與獲利同步增加。' },
+          { title: '2022-2023 / Correction', text: '亞洲石化供給過剩、中國房市疲弱與通膨壓力，使需求與獲利明顯下滑。' },
+          { title: '2024 / Stabilized Revenue, Weakened Margin', text: '營收大致持平，但產品利差與本業獲利仍未明顯改善，流動比率降至 90.77%，利息保障倍數轉為 -0.14 倍。' },
+          { title: '2025 / Structural Pressure', text: '全年營收、稅前損益與 EPS 持續走弱，流動比率雖回升至 204.97%，但利息保障倍數進一步降至 -2.20 倍。' },
+          { title: 'Stock Price / Market Signal', text: '年底收盤價由 2021 年 104 元滑落至 2024 年 35.5 元，2025 年回升至 39 元，反映市場對獲利與轉型成效仍偏保守。' }
         ],
         yearlyCards: [
-          { year: '2021', text: '高峰年：營收與 EPS 同步衝高。' },
-          { year: '2022', text: '修正開始：營收與獲利同步收縮。' },
-          { year: '2023', text: '快速下探：僅剩低檔獲利。' },
-          { year: '2024', text: '止跌不止損：營收微回，但已轉虧。' },
-          { year: '2025', text: '低檔延續：虧損擴大，轉型壓力前置。' }
+          { year: '2021', text: '營收、稅前利益與 EPS 同步達到近五年高點。' },
+          { year: '2022', text: '營收與獲利同步回落，但仍維持正向獲利。' },
+          { year: '2023', text: '獲利明顯縮減，ROE 與純益率降至低水位。' },
+          { year: '2024', text: '營收止跌但已轉虧，短期償債壓力明顯升高。' },
+          { year: '2025', text: '虧損擴大，本業獲利與財務成本承受力持續惡化。' }
         ]
       },
       sources: [
         {
+          title: '聯合新聞網：台塑美國廠競爭優勢',
+          url: 'https://udn.com/news/story/7241/9386427',
+          note: '第 1 節近期新聞之一，說明乙烷裂解成本優勢與景氣展望'
+        },
+        {
+          title: '公視新聞：台灣塑膠粒缺貨與價格爭議',
+          url: 'https://news.pts.org.tw/article/801635',
+          note: '第 1 節近期新聞之二，說明供應緊張、價格波動與政府回應'
+        },
+        {
+          title: 'The News Lens：台塑集團歷史背景',
+          url: 'https://www.thenewslens.com/article/101291',
+          note: '第 2 節公司歷史的外部整理來源'
+        },
+        {
+          title: '台塑企業簡介與沿革',
+          url: 'https://www.fpg.com.tw/tw/about/info',
+          note: '第 2 節公司歷史與集團介紹官方來源'
+        },
+        {
+          title: '台塑企業 2020 企業簡介',
+          url: 'https://www.fpg.com.tw/uploads/images/media-center/ebook-top/2020%E4%BC%81%E6%A5%AD%E7%B0%A1%E4%BB%8B(%E7%B9%81%E9%AB%94%E7%89%88).pdf',
+          note: '第 2 節歷史與集團發展背景補充資料'
+        },
+        {
+          title: '台塑企業全球資訊網',
+          url: 'https://www.fpg.com.tw/tw',
+          note: '第 3 節與第 5 節之集團介紹、策略與事業布局官方來源'
+        },
+        {
+          title: '台塑公司官網首頁',
+          url: 'https://www.fpc.com.tw/fpcw/index.php',
+          note: '第 3 節願景、使命與價值的官方入口'
+        },
+        {
+          title: '台塑企業永續發展專區',
+          url: 'https://csr.fpc.com.tw/FPC_CSR/home.aspx',
+          note: '第 3 節永續與治理方向官方來源'
+        },
+        {
+          title: 'Eric CPA Notes：使命、願景、價值觀',
+          url: 'https://ericcpa.co/%e4%bd%bf%e5%91%bd%e3%80%81%e9%a1%98%e6%99%af%e3%80%81%e5%83%b9%e5%80%bc%e8%a7%80/',
+          note: '第 3 節觀念整理的輔助來源'
+        },
+        {
+          title: 'FPG Introduction 2018',
+          url: 'http://www.fpg.com.tw/uploads/images/media-center/ebook-top/FPG%20Introduction2018_zh-tw.pdf',
+          note: '第 4.1 節組織架構與區域布局補充資料'
+        },
+        {
+          title: 'FPG Plant Distribution',
+          url: 'https://www.fpg.taipei/uploads/images/about/download/FPG_Plant(0108).pdf',
+          note: '第 4.1 節區域據點資料'
+        },
+        {
           title: '台塑主要經理人',
           url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=3',
-          note: '管理團隊與職責分工'
+          note: '管理團隊名單與職務分工'
         },
         {
           title: '台塑公司治理原則',
           url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=11',
-          note: '董事會、審計委員會、薪酬與永續委員會'
+          note: '董事會、審計委員會、薪酬與永續委員會資料'
         },
         {
           title: '董事會資訊',
           url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=13&c=54',
-          note: '董事會議事錄與治理資料'
+          note: '董事會議事錄及治理資訊'
         },
         {
           title: '2024 永續報告書',
           url: 'https://csr.fpc.com.tw/FPC_CSR/download/csr_report/FPC_2024_ESG_TW.pdf',
-          note: '公司治理、2022-2024 財務摘要'
+          note: '公司治理、董事會、委員會與財務摘要'
         },
         {
           title: '2022 永續報告書',
           url: 'https://csr.fpc.com.tw/FPC_CSR/download/csr_report/FPC_2022_ESG-CH.pdf',
           note: '2021-2022 財務績效摘要'
+        },
+        {
+          title: '台塑投資人關係／年報頁面',
+          url: 'https://www.fpg.com.tw/tw/about/ir/report',
+          note: '第 4.2 節治理資訊與年報入口'
+        },
+        {
+          title: '台塑新智能科技',
+          url: 'https://www.fpg.com.tw/tw/about/business/new-smart-energy',
+          note: '第 5 節新能源事業與電池布局來源'
+        },
+        {
+          title: '公開資訊觀測站',
+          url: 'https://mops.twse.com.tw/mops/web/index',
+          note: '第 5 節政府與交易所公開資料庫入口'
+        },
+        {
+          title: '台塑 2023 年年報',
+          url: 'https://www.fpc.com.tw/fpcwuploads/files/2023_annual%20report%282%29.pdf',
+          note: '第 6 節 2021-2023 財務比率與五年財務分析原始來源'
+        },
+        {
+          title: '台塑 2024 年年報',
+          url: 'https://www.fpc.com.tw/fpcwuploads/files/2024_annual%20report.pdf',
+          note: '第 6 節年報與治理背景補充資料'
+        },
+        {
+          title: '台塑 2024 年合併財務報告',
+          url: 'https://www.fpc.com.tw/fpcwuploads/files/2024%20Q4%20FS-CH.pdf',
+          note: '第 6 節 2024 年營收、稅前利益、EPS 與財務結構來源'
         },
         {
           title: '財務資訊頁面',
@@ -2511,57 +2722,131 @@
         {
           title: '2025 合併財務報告',
           url: 'https://www.fpc.com.tw/fpcwuploads/files/2025%20Q4%20FS-CH(4).pdf',
-          note: '2025 全年營收、稅前淨損、EPS'
+          note: '2025 全年營收、稅前淨損與 EPS 資料'
         },
         {
           title: '2025 第四季法人說明會',
           url: 'https://www.fpc.com.tw/fpcwuploads/files/2025Q4M.pdf',
-          note: '季營收與市場說明'
+          note: '季營收與市場說明資料'
+        },
+        {
+          title: '台塑股利分配／每股市價頁面',
+          url: 'https://www.fpc.com.tw/fpcw/index.php?op=res&id=13&c=20',
+          note: '第 6 節年底股價與市場資訊來源'
+        },
+        {
+          title: 'TWSE 2021 年底收盤價',
+          url: 'https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=20211230&type=ALLBUT0999&response=json',
+          note: '1301 台塑 2021 年最後交易日收盤價'
+        },
+        {
+          title: 'TWSE 2022 年底收盤價',
+          url: 'https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=20221230&type=ALLBUT0999&response=json',
+          note: '1301 台塑 2022 年最後交易日收盤價'
+        },
+        {
+          title: 'TWSE 2023 年底收盤價',
+          url: 'https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=20231229&type=ALLBUT0999&response=json',
+          note: '1301 台塑 2023 年最後交易日收盤價'
+        },
+        {
+          title: 'TWSE 2024 年底收盤價',
+          url: 'https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=20241231&type=ALLBUT0999&response=json',
+          note: '1301 台塑 2024 年最後交易日收盤價'
+        },
+        {
+          title: 'TWSE 2025 年底收盤價',
+          url: 'https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=20251231&type=ALLBUT0999&response=json',
+          note: '1301 台塑 2025 年最後交易日收盤價'
         }
       ]
     };
 
+    const sourceCategoryMap = {
+      '聯合新聞網：台塑美國廠競爭優勢': ['news'],
+      '公視新聞：台灣塑膠粒缺貨與價格爭議': ['news'],
+      'The News Lens：台塑集團歷史背景': ['history'],
+      '台塑企業簡介與沿革': ['history'],
+      '台塑企業 2020 企業簡介': ['history'],
+      '台塑企業全球資訊網': ['vision', 'products'],
+      '台塑公司官網首頁': ['vision'],
+      '台塑企業永續發展專區': ['vision'],
+      'Eric CPA Notes：使命、願景、價值觀': ['vision'],
+      'FPG Introduction 2018': ['governance'],
+      'FPG Plant Distribution': ['governance'],
+      '台塑主要經理人': ['governance'],
+      '台塑公司治理原則': ['governance'],
+      '董事會資訊': ['governance'],
+      '2024 永續報告書': ['governance', 'finance'],
+      '2022 永續報告書': ['finance'],
+      '台塑投資人關係／年報頁面': ['governance', 'finance'],
+      '台塑新智能科技': ['products'],
+      '公開資訊觀測站': ['products', 'finance'],
+      '台塑 2023 年年報': ['finance'],
+      '台塑 2024 年年報': ['finance'],
+      '台塑 2024 年合併財務報告': ['finance'],
+      '財務資訊頁面': ['finance'],
+      '2025 合併財務報告': ['finance'],
+      '2025 第四季法人說明會': ['finance'],
+      '台塑股利分配／每股市價頁面': ['finance'],
+      'TWSE 2021 年底收盤價': ['finance'],
+      'TWSE 2022 年底收盤價': ['finance'],
+      'TWSE 2023 年底收盤價': ['finance'],
+      'TWSE 2024 年底收盤價': ['finance'],
+      'TWSE 2025 年底收盤價': ['finance']
+    };
+
+    appData.sources.forEach(function(item) {
+      item.categories = sourceCategoryMap[item.title] || ['finance'];
+    });
+
     /* ── English translation augmentation ── */
     (function augmentBilingual() {
       const enTimeline = [
-        { title: 'Formosa Plastics founded, later renamed Taiwan Plastics Corporation.', copy: 'Founded by Y.C. Wang and Y.T. Wang under US aid and privatization policies. Started with PVC on a tiny scale but quickly developed an intense cost and integration mindset.', impact: 'This is the origin of all expansion—and the birthplace of the "scale up capacity first, then create demand" philosophy.' },
-        { title: 'Reverse integration to resolve the PVC glut crisis.', copy: 'Facing low volume, high cost, and too few downstream customers, Formosa expanded PVC capacity while founding Nan Ya Plastics and other processors to create downstream demand directly.', impact: 'This strategy didn\u2019t just save the company—it pulled Taiwan\u2019s entire plastics processing chain upward.' },
-        { title: 'From plastics into textiles and electronic materials.', copy: 'Formosa Chemicals entered synthetic fibers and textiles, while Nan Ya moved into PCBs and copper-clad laminates. The group\u2019s portfolio began stretching from traditional plastics into high-tech materials.', impact: 'Formosa Plastics began shedding its single-material identity and built a diversified growth curve.' },
-        { title: 'Pursuing a naphtha cracker; the Sixth Naphtha Cracker takes shape.', copy: 'Facing structural dependence on imported feedstock, Formosa lobbied the government for a naphtha cracking license. The resulting Sixth Naphtha Cracker project built a fully integrated production system.', impact: 'The Sixth Naphtha Cracker gave Formosa true upstream feedstock control and an almost unreplicable scale-and-cost moat.' },
-        { title: 'US and China deployment: dual axes of resources and markets.', copy: 'Formosa developed olefin crackers and petrochemical plants in Texas to capture cheap shale gas, while entering mainland China with Ningbo and other feedstock/processing bases.', impact: 'Globalization wasn\u2019t just about adding capacity—it put low-cost resources and high-growth markets on the same map.' },
-        { title: 'Vietnam deployment and heavy-industry extension.', copy: 'Facing textile cost pressure and ASEAN market opportunities, Formosa entered Vietnam and co-developed Ha Tinh Steel and a deep-water port with CSC and JFE.', impact: 'The group extended from petrochemicals and materials into heavier-capital, longer-cycle steel and heavy industry.' },
-        { title: 'Transformation task force formed; AI, energy, and high-value products become the new pillars.', copy: 'Under weak petrochemical conditions and profit pressure, Formosa elevated transformation to center-stage management: new products, new businesses, digitalization, and energy transition are no longer side projects but survival imperatives.', impact: 'Formosa enters a new phase: the competition is no longer about scale, but about making the structure lighter, higher-value, and more resilient.' }
+        { tag: 'Origin', title: 'Formosa Plastics was founded and later renamed Taiwan Plastics Corporation.', copy: 'Founded by Y.C. Wang and Y.T. Wang under US aid and Taiwan\u2019s privatization policies, the company began with PVC-related business. Although small in scale, it gradually established a direction centered on cost control and industrial integration.', impact: 'This stage shows that expansion and industrial integration were part of the company\u2019s early development approach.' },
+        { tag: 'Reverse Integration', title: 'Reverse integration was used to address the PVC oversupply problem.', copy: 'Facing low output, high cost, and insufficient downstream customers, Formosa expanded PVC capacity while establishing Nan Ya Plastics and other processors to increase downstream demand.', impact: 'This move expanded downstream processing demand and strengthened the company\u2019s position in the plastics value chain.' },
+        { tag: 'Diversification', title: 'The business expanded from plastics into textiles and electronic materials.', copy: 'Formosa Chemicals entered synthetic fibers and textiles, while Nan Ya moved into printed circuit boards and copper-clad laminates. The group\u2019s portfolio extended from traditional plastics into higher-technology materials.', impact: 'The company\u2019s product range broadened from plastics into textiles and electronic materials, making its industrial layout more diversified.' },
+        { tag: 'Petrochemical Power', title: 'The Sixth Naphtha Cracker project took shape after securing a cracker license.', copy: 'Facing structural dependence on imported feedstock, Formosa sought government approval to build a naphtha cracker and ultimately advanced the Sixth Naphtha Cracker project as an integrated production system.', impact: 'The project improved control over upstream feedstock and strengthened the company\u2019s integrated production capability.' },
+        { tag: 'Global Buildout', title: 'US and China deployment expanded both feedstock and market access.', copy: 'Formosa developed olefin crackers and petrochemical plants in Texas to benefit from lower-cost shale gas while also establishing feedstock and processing bases in mainland China, including Ningbo.', impact: 'This stage shows that the company was deploying both low-cost feedstock resources and overseas markets to expand its international operating base.' },
+        { tag: 'Southeast Asia', title: 'Operations in Vietnam extended the group into heavy industry.', copy: 'In response to textile cost pressure and ASEAN market opportunities, Formosa entered Vietnam and co-developed Ha Tinh Steel and a deep-water port with CSC and JFE.', impact: 'The company\u2019s business extended from petrochemicals and materials into steel and other heavy-industry investments.' },
+        { tag: 'Transformation', title: 'A transformation task force was formed to focus on AI, energy, and high-value products.', copy: 'Under weak petrochemical conditions and profitability pressure, Formosa established a transformation task force to promote new products, new businesses, digitalization, and energy transition initiatives.', impact: 'This indicates that the company has recently made transformation a management priority, with an emphasis on high-value products, energy, and digital development.' }
       ];
       appData.timeline.forEach(function(item, i) {
+        item.tag = { zh: ['起點', '逆向整合', '多角化', '石化擴張', '全球布局', '東南亞', '轉型'][i], en: enTimeline[i].tag };
         item.title = { zh: item.title, en: enTimeline[i].title };
         item.copy = { zh: item.copy, en: enTimeline[i].copy };
         item.impact = { zh: item.impact, en: enTimeline[i].impact };
       });
 
       const enVMV = [
-        { front: 'Diligence, frugality, striving for perfection, sustainable management, and serving society. This is not mere sloganeering—it\u2019s the underlying grammar Formosa uses to explain cost control, process discipline, and social role.', back: 'Strengths: stable governance rhythm and high execution efficiency. Risk: over-standardization may compress innovation speed and flexibility. When the external environment changes rapidly, these values must also learn to transform.' },
-        { front: 'Become a leader in sustainable management through industrial transformation and green innovation toward 2050 carbon neutrality, while continuously creating well-being and economic value.', back: 'This vision no longer defines Formosa as a plastics manufacturer, but as a tech-materials driver, green-industry participant, and infrastructure provider permeating daily life.' },
-        { front: 'Drive high-value and differentiated products, deepen AI and digital transformation, implement energy transition and coal phase-out, giving the traditional manufacturing system a new profit curve.', back: 'The key to the mission is not declaration but execution: whether the product mix can upgrade, operational efficiency can improve, and decarbonization investment can become a structural advantage determines if this transformation is more than rhetoric.' }
+        { title: 'Value', front: 'Diligence, frugality, striving for perfection, sustainable management, and service to society are the core values that guide Formosa Plastics\u2019 long-term management.', back: 'These values reflect the company\u2019s emphasis on cost management, process discipline, and long-term operation, but they also require a balance between stability, innovation, and adjustment when the external environment changes rapidly.' },
+        { title: 'Vision', front: 'Become a leader in sustainable management through industrial transformation and green innovation toward 2050 carbon neutrality, while continuously creating well-being and economic value.', back: 'This vision shows that Formosa Plastics aims to build on its petrochemical base while further developing green innovation, high-value materials, and sustainable management capabilities.' },
+        { title: 'Mission', front: 'Key mission priorities include promoting high-value and differentiated products, deepening AI and digital transformation, and implementing energy transition and decarbonization work.', back: 'Execution of the mission depends on whether the product mix can be upgraded, operational efficiency can improve, and decarbonization investment can be converted into long-term competitiveness.' }
       ];
       appData.vmv.forEach(function(item, i) {
+        item.title = { zh: ['價值', '願景', '使命'][i], en: enVMV[i].title };
         item.front = { zh: item.front, en: enVMV[i].front };
         item.back = { zh: item.back, en: enVMV[i].back };
       });
 
       const enOrg = {
         business: {
-          intro: 'Formosa Enterprises adopts a multi-business-group structure; Taiwan Plastics Corp. focuses on plastic raw materials, carbon fiber, and chemical products. The group level acts as a strategic parent while each subsidiary manages its own market and production logic.',
+          intro: 'Formosa Enterprises uses a multi-business-group structure. Taiwan Plastics Corp. mainly focuses on plastic raw materials, carbon fiber, and chemical products, while each subsidiary operates according to its product and market responsibilities.',
           items: [
             { title: 'FPG / Plastics', description: 'Formosa Plastics, Nan Ya Plastics, etc.—resins, building materials, and processed products.' },
             { title: 'FPG / Petrochemicals', description: 'Formosa Petrochemical, Formosa Chemicals—refining, naphtha cracking, and midstream petrochemicals.' },
             { title: 'FPG / Electronics', description: 'Nanya Technology, Nanya PCB, etc.—extending into high-tech materials and semiconductors.' },
+            { title: 'FPG / Healthcare', description: 'Formosa Biomedical and the Chang Gung medical system—biotech, healthcare, and wellness services.' },
+            { title: 'FPG / Education', description: 'Chang Gung University, Chang Gung University of Science and Technology, and Ming Chi University of Technology.' },
+            { title: 'FPG / Steel', description: 'Formosa Ha Tinh Steel and related heavy-industry deployment extending into the steel value chain.' },
+            { title: 'FPG / Transportation', description: 'Formosa Marine and Formosa Highway Logistics units supporting logistics and supply-chain efficiency.' },
             { title: 'FPC / Plastic Raw Materials', description: 'PVC, HDPE, LLDPE, EVA, caustic soda, hydrochloric acid, and plastic modifiers.' },
             { title: 'FPC / Fiber', description: 'Carbon fiber as a core high-value material.' },
             { title: 'FPC / Chemical Industry', description: 'Acrylic acid & esters, AN, MMA, MTBE, n-butanol, etc.' }
           ]
         },
         functional: {
-          intro: 'Functional units translate strategy into processes, operations, and management accountability. At Formosa Plastics, the President\u2019s Office, Transformation Task Force, Plastics BG, Chemical BG, and direct departments form the execution backbone.',
+          intro: 'This section outlines the company\u2019s main functional units and business-group responsibilities, including the President\u2019s Office, Transformation Task Force, Plastics BG, Chemical BG, and direct departments.',
           items: [
             { title: 'President\u2019s Office', description: 'Management, sales management, business analysis, HR, and engineering management divisions.' },
             { title: 'Transformation Task Force', description: 'R&D, energy transition, digital transformation—directly interfacing with new businesses and AI.' },
@@ -2571,49 +2856,71 @@
           ]
         },
         regional: {
-          intro: 'Regional units reflect supply-chain and market positioning: Taiwan is the manufacturing core, China handles processing and market extension, the US provides low-cost feedstock, and Vietnam serves ASEAN markets and heavy-industry deployment.',
+          intro: 'This section summarizes Formosa Plastics\u2019 main deployment in Taiwan, China, the United States, and Vietnam to explain its manufacturing, processing, market, and feedstock allocation.',
           items: [
-            { title: 'Taiwan', description: 'Renwu, Linyuan, Dongshan, Taipei office, Xingang, Mailiao—forming the operational backbone.' },
-            { title: 'China', description: 'Ningbo and other bases handling processing, market, and feedstock supply.' },
-            { title: 'USA', description: 'Texas, Louisiana, etc.—supporting shale gas and petrochemical cost advantages.' },
-            { title: 'Vietnam / SE Asia', description: 'Ha Tinh Steel and regional market deployment matching group expansion.' }
+            { title: 'Taiwan', description: 'Taipei, Linkou, Gong-3, Huaya, Jinxing, Shulin, Yilan, Longde, Changhua, Chiayi, Xingang, Mailiao, Renwu, and Linyuan form the main domestic footprint.' },
+            { title: 'China', description: 'Henan, Anhui, Guangdong, Fujian, Jiangsu, Zhejiang, Shandong, Ningbo, and other sites handle processing, markets, and feedstock tasks.' },
+            { title: 'USA', description: 'Texas, Louisiana, Delaware, New Jersey, and South Carolina support resource access and cost advantages.' },
+            { title: 'Vietnam', description: 'Ha Tinh and Dong Nai correspond to steel, manufacturing, and ASEAN market deployment.' },
+            { title: 'Philippines', description: 'The Mabalacat site reflects further regional expansion in Southeast Asia.' },
+            { title: 'Indonesia', description: 'Semarang and related deployment show the company’s localized production and market-access strategy.' }
           ]
         }
       };
       for (var orgKey in enOrg) {
         appData.org[orgKey].intro = { zh: appData.org[orgKey].intro, en: enOrg[orgKey].intro };
         appData.org[orgKey].items.forEach(function(item, i) {
-          item.title = { zh: item.title, en: enOrg[orgKey].items[i].title };
-          item.description = { zh: item.description, en: enOrg[orgKey].items[i].description };
+          if (enOrg[orgKey].items[i]) {
+            item.title = { zh: item.title, en: enOrg[orgKey].items[i].title };
+            item.description = { zh: item.description, en: enOrg[orgKey].items[i].description };
+          }
         });
       }
 
       var enMgmt = [
-        { name: 'Wen-Pi Kuo', education: 'NTHU Industrial Chemistry', focus: 'Oversees all business management; also chairs Formosa Sumco.', insight: 'In a phase of simultaneous cyclical downturn and transformation pressure, the Chairman acts as a strategic accelerator aligning group resources with governance rhythm.' },
-        { name: 'Sheng-Kuan Lin', education: 'NCCU Business Administration', focus: 'Oversees all business management operations.', insight: 'After restoring the Chairman-President division of labor, the President becomes the critical executor translating direction into daily operational rhythm.' },
-        { name: 'Shih-Chang Liang', education: 'NCTU Mechanical Engineering', focus: 'Assists in overall management; also oversees the Chemical BG.', insight: 'The Chemical BG directly affects profit-recovery speed when product spreads compress.' },
-        { name: 'Yun-Ching Ou', education: 'U. of Pittsburgh, Chemical Eng.', focus: 'Oversees the Plastics BG and Plastics Division.', insight: 'Formosa\u2019s core is still its plastics product mix—this position holds the company\u2019s most critical product structure.' },
-        { name: 'Cheng-Lung Wu', education: 'NCU Chemical Engineering', focus: 'Oversees all operations of the Polyolefin Division.', insight: 'The polyolefin business is a plastics battleground, affecting shipment volume and average selling-price stability.' },
-        { name: 'Jung-Hung Kao', education: 'NTHU Chemical Engineering', focus: 'Oversees all operations of the Polypropylene Division.', insight: 'PP is a major revenue item; its margin elasticity significantly impacts profitability across cycles.' },
-        { name: 'Kuo-Ching Lien', education: 'NTUST Chemical Engineering', focus: 'Oversees all operations of the Formolene Division.', insight: 'Formolene and specialty chemicals are a critical node in the shift from commodity to high-value products.' },
-        { name: 'Yi-Chih Yeh', education: 'NCU Chemical Engineering', focus: 'Oversees all operations of the Chemicals Division.', insight: 'Price-spread volatility in acrylic esters, AN, and MMA directly reflects on Chemical BG performance.' },
-        { name: 'Chao-Jung Chen', education: 'Taipei Tech, Mechanical Eng.', focus: 'Oversees all operations of the Engineering Department.', insight: 'When the company pushes debottlenecking, capacity expansion, and equipment efficiency, the engineering system is the fulcrum.' },
-        { name: 'Ying-Yuan Li', education: 'Ming Chi Tech, Electrical Eng.', focus: 'Oversees all operations of the Electronic Materials Dept.', insight: 'Electronic materials represent Formosa\u2019s move toward high-value products and semiconductor materials.' },
-        { name: 'Chen-Hsiao Lei', education: 'NTU Business School (MA)', focus: 'Oversees all finance department operations.', insight: 'When revenue declines and operating losses widen, the finance system\u2019s fund management, capex pacing, and risk monitoring become even more critical.' }
+        { role: 'Chairman', team: 'Corporate Leadership', name: 'Wen-Pi Kuo', education: 'NTHU Industrial Chemistry', focus: 'Oversees all business management; also chairs Formosa Sumco.', insight: 'The Chairman is responsible for overall business direction and governance coordination, and plays an important role in resource allocation and major decisions.', tags: ['Strategy', 'Transformation', 'Board Leadership'] },
+        { role: 'President', team: 'Corporate Leadership', name: 'Sheng-Kuan Lin', education: 'NCCU Business Administration', focus: 'Oversees all business management operations.', insight: 'The President is responsible for overall operational management, with an emphasis on translating company strategy into daily execution.', tags: ['Execution', 'Operations', 'Management'] },
+        { role: 'Executive VP', team: 'Chemical Operations', name: 'Shih-Chang Liang', education: 'NCTU Mechanical Engineering', focus: 'Assists in overall management; also oversees the Chemical BG.', insight: 'The operating performance of the Chemical BG and changes in product spreads have an important effect on overall profitability.', tags: ['Chemical Group', 'Engineering', 'Profitability'] },
+        { role: 'Senior VP', team: 'Plastics Group', name: 'Yun-Ching Ou', education: 'U. of Pittsburgh, Chemical Eng.', focus: 'Oversees the Plastics BG and Plastics Division.', insight: 'The Plastics BG is one of the company\u2019s main product units and is responsible for managing core plastics operations.', tags: ['PVC', 'PE', 'Core Products'] },
+        { role: 'VP', team: 'Polyolefin', name: 'Cheng-Lung Wu', education: 'NCU Chemical Engineering', focus: 'Oversees all operations of the Polyolefin Division.', insight: 'The Polyolefin Division manages one of the company\u2019s major plastics product lines and affects shipment and pricing management.', tags: ['Polyolefin', 'Volume', 'Pricing'] },
+        { role: 'VP', team: 'Polypropylene', name: 'Jung-Hung Kao', education: 'NTHU Chemical Engineering', focus: 'Oversees all operations of the Polypropylene Division.', insight: 'The Polypropylene Division is one of the major product lines and is closely related to revenue and profitability performance.', tags: ['PP', 'Margin', 'Core Line'] },
+        { role: 'VP', team: 'Formolene / Specialty', name: 'Kuo-Ching Lien', education: 'NTUST Chemical Engineering', focus: 'Oversees all operations of the Formolene Division.', insight: 'Formolene and specialty chemicals reflect the company\u2019s development in high-value products.', tags: ['Specialty', 'Upgrade', 'Differentiation'] },
+        { role: 'VP', team: 'Chemicals', name: 'Yi-Chih Yeh', education: 'NCU Chemical Engineering', focus: 'Oversees all operations of the Chemicals Division.', insight: 'Changes in product spreads in the Chemicals Division directly affect the performance of the Chemical BG.', tags: ['Chemical Products', 'AN', 'MMA'] },
+        { role: 'VP', team: 'Engineering', name: 'Chao-Jung Chen', education: 'Taipei Tech, Mechanical Eng.', focus: 'Oversees all operations of the Engineering Department.', insight: 'The Engineering Department supports equipment, capacity, and project management, and plays a key role in expansion and efficiency improvement.', tags: ['Engineering', 'Debottlenecking', 'Capex'] },
+        { role: 'VP', team: 'Electronic Materials', name: 'Ying-Yuan Li', education: 'Ming Chi Tech, Electrical Eng.', focus: 'Oversees all operations of the Electronic Materials Dept.', insight: 'The Electronic Materials Department represents the company\u2019s development direction in high-value and semiconductor-related materials.', tags: ['Electronic Materials', 'High Value', 'Transition'] },
+        { role: 'Senior VP', team: 'Finance', name: 'Chen-Hsiao Lei', education: 'NTU Business School (MA)', focus: 'Oversees all finance department operations.', insight: 'The Finance Department is responsible for fund management, capital expenditure, and risk control, and is important to operating stability.', tags: ['Finance', 'Capital Allocation', 'Risk Control'] }
       ];
       appData.management.forEach(function(item, i) {
+        item.role = { zh: ['董事長', '總經理', '執行副總', '資深副總', '副總', '副總', '副總', '副總', '副總', '副總', '資深副總'][i], en: enMgmt[i].role };
         item.name = { zh: item.name, en: enMgmt[i].name };
+        item.team = { zh: ['經營核心', '經營核心', '化工營運', '塑膠事業群', '聚烯事業部', '聚丙烯事業部', '台麗朗／特化', '化學品事業部', '工務部', '電子材料部', '財務部'][i], en: enMgmt[i].team };
         item.education = { zh: item.education, en: enMgmt[i].education };
         item.focus = { zh: item.focus, en: enMgmt[i].focus };
         item.insight = { zh: item.insight, en: enMgmt[i].insight };
+        item.tags = {
+          zh: [
+            ['策略', '轉型', '董事會領導'],
+            ['執行', '營運', '管理'],
+            ['化工事業群', '工程', '獲利'],
+            ['PVC', 'PE', '核心產品'],
+            ['聚烯', '出貨量', '價格'],
+            ['PP', '利差', '核心產品線'],
+            ['特化', '升級', '差異化'],
+            ['化學品', 'AN', 'MMA'],
+            ['工程', '去瓶頸', '資本支出'],
+            ['電子材料', '高值化', '轉型'],
+            ['財務', '資本配置', '風險控管']
+          ][i],
+          en: enMgmt[i].tags
+        };
       });
 
       var enLines = [
-        { title: 'Petrochemical & Plastics Core', text: 'The "Big Four" form a vertically integrated body—from refining and naphtha cracking to PVC, PE, PP, and finished processing—constituting the group\u2019s cash-flow engine.' },
-        { title: 'Electronic Materials & Semiconductors', text: 'From CCL, PCB, and epoxy resins extending to DRAM and silicon wafers—Formosa\u2019s high-margin, high-tech-density frontier.' },
-        { title: 'Synthetic Fibers & Textiles', text: 'Polyester, nylon, and recycled yarn form a transitional middle layer, balancing traditional volume with functional materials.' },
-        { title: 'Biotech, Healthcare & Consumer', text: 'Formosa Biomedical and Chang Gung Medical let the group build another pathway in brands, medical resources, and consumer markets.' },
-        { title: 'New Energy & Heavy Industry', text: 'Formosa Advanced Technologies, energy storage, battery recycling, and Ha Tinh Steel show Formosa isn\u2019t just upgrading materials but also re-choosing capital allocation.' }
+        { title: 'Petrochemical & Plastics Core', text: 'The core business covers refining, naphtha cracking, PVC, PE, PP, and downstream processing, and remains an important foundation of group revenue and cash flow.' },
+        { title: 'Electronic Materials & Semiconductors', text: 'The product range extends from CCL, PCB, and epoxy resins to DRAM and silicon wafers, reflecting the company\u2019s deployment in electronic materials.' },
+        { title: 'Synthetic Fibers & Textiles', text: 'Polyester, nylon, and recycled yarn support both traditional volume demand and applications in functional materials.' },
+        { title: 'Biotech, Healthcare & Consumer', text: 'Formosa Biomedical and the Chang Gung medical system allow the group to participate in brand, healthcare, and consumer-related markets.' },
+        { title: 'New Energy & Heavy Industry', text: 'Formosa Advanced Technologies, energy storage, battery recycling, and Ha Tinh Steel reflect the company\u2019s investment direction in new energy and heavy industry.' }
       ];
       appData.products.lines.forEach(function(item, i) {
         item.title = { zh: item.title, en: enLines[i].title };
@@ -2621,21 +2928,32 @@
       });
 
       var enPhases = [
-        { title: 'High-Value Products & AI Intelligence', text: 'Reduce commodity plastics ratio, increase medical-grade plastics, semiconductor-grade chemicals, and carbon fiber. Simultaneously deploy AI for process control, safety prediction, and energy management.', bullets: ['Product differentiation replaces volume-only pursuit.', 'Digitalization and GPT integrated into R&D and operations.', 'Goal: give traditional manufacturing the precision of tech industries.'] },
-        { title: 'Green Energy & New Energy Chain', text: 'Changbin LFP cells, energy-storage systems, and battery recycling are key explosion areas for the next 3\u20135 years\u2014representing new products and a new capital narrative.', bullets: ['Energy storage and batteries build a new growth curve.', 'Solar, wind, and microgrids form the energy layout.', 'Moving from petrochemical supplier to green-system participant.'] },
-        { title: 'Net-Zero & Circular Economy', text: 'The longest-term goal is 2050 carbon neutrality: waste-plastic recycling, chemical recycling, biodegradable plastics, hydrogen, and carbon capture.', bullets: ['Recycling and remanufacturing will redefine material life cycles.', 'Low-carbon materials are not just ESG\u2014they\u2019re the next competitive ticket.', 'The real key: whether these investments can flow back into margins and product mix.'] }
+        { label: 'Phase 1', title: 'High-Value Products & AI Intelligence', text: 'This transition direction includes reducing the share of commodity plastics, increasing medical-grade plastics, semiconductor-grade chemicals, and carbon fiber, and applying AI to process control, industrial safety, and energy management.', bullets: ['Increase the share of high-value products.', 'Introduce digital tools into R&D and operations management.', 'Strengthen process control, safety forecasting, and energy efficiency.'] },
+        { label: 'Phase 2', title: 'Green Energy & New Energy Chain', text: 'Changbin LFP cells, energy-storage systems, and battery recycling are key priorities for the next three to five years and reflect the company\u2019s development direction in the new energy supply chain.', bullets: ['Energy storage and battery businesses are medium-term priorities.', 'Solar power, wind power, and microgrids are related energy deployment areas.', 'The company is extending from petrochemical feedstock supply into energy applications.'] },
+        { label: 'Phase 3', title: 'Net-Zero & Circular Economy', text: 'The long-term goal is carbon neutrality by 2050, including waste-plastic recycling, chemical recycling, biodegradable plastics, hydrogen, and carbon capture technologies.', bullets: ['Recycling and circular materials are important development items.', 'Low-carbon materials and decarbonization technologies are long-term investment directions.', 'A later focus will be to evaluate how these investments affect profitability and product mix.'] }
       ];
       appData.products.phases.forEach(function(item, i) {
+        item.label = { zh: ['第一階段', '第二階段', '第三階段'][i], en: enPhases[i].label };
         item.title = { zh: item.title, en: enPhases[i].title };
         item.text = { zh: item.text, en: enPhases[i].text };
         item.bullets = { zh: item.bullets, en: enPhases[i].bullets };
       });
 
       var enMetrics = {
-        revenue: { label: 'Consolidated Revenue', unit: '100M NTD', summary: 'Revenue peaked in 2021, dropped sharply in 2023, stabilized in 2024, then fell again in 2025.' },
-        pretax: { label: 'Pretax Income', unit: '100M NTD', summary: 'Profits stalled earlier and more sharply than revenue; 2024\u20132025 turned to losses.' },
-        eps: { label: 'Earnings Per Share', unit: 'NTD/share', summary: 'EPS is a miniature folding chart reflecting cycle dynamics and margin compression.' },
-        roe: { label: 'Return on Equity', unit: '%', summary: 'Capital returns shifted from efficient deployment to a structural-adjustment pressure signal.' }
+        revenue: { label: 'Consolidated Revenue', unit: '100M NTD', summary: 'Revenue reached a five-year high in 2021, fell clearly in 2023, remained broadly flat in 2024, and declined again in 2025.' },
+        growth: { label: 'YoY Growth', unit: '%', summary: '2021 serves as the base year. Growth weakened sharply in 2022 and 2023, stabilized briefly in 2024, and declined again in 2025.' },
+        pretax: { label: 'Pretax Income', unit: '100M NTD', summary: 'Pretax income fell more sharply than revenue and turned into losses in 2024 and 2025.' },
+        eps: { label: 'Earnings Per Share', unit: 'NTD/share', summary: 'EPS declined from its 2021 high point, indicating a clear weakening in profitability.' },
+        roe: { label: 'Return on Equity', unit: '%', summary: 'ROE fell from double-digit levels to negative territory, showing continued deterioration in capital returns.' },
+        netMargin: { label: 'Net Margin', unit: '%', summary: 'Net margin contracted rapidly and turned negative in 2024 and 2025.' },
+        receivablesTurnover: { label: 'Receivables Turnover', unit: 'times', summary: 'Receivables turnover stayed in the 12x to 14x range, indicating no severe deterioration in collection efficiency.' },
+        inventoryTurnover: { label: 'Inventory Turnover', unit: 'times', summary: 'Inventory turnover edged down, reflecting slightly weaker operating efficiency without collapse.' },
+        assetTurnover: { label: 'Total Asset Turnover', unit: 'times', summary: 'Total asset turnover declined over time as the business cycle weakened.' },
+        debtRatio: { label: 'Debt-to-Asset Ratio', unit: '%', summary: 'The debt ratio rose into 2024 before easing in 2025, but remained above the 2021 level.' },
+        longTermCapitalPPE: { label: 'Long-Term Capital to PPE Ratio', unit: '%', summary: 'Long-term capital coverage of fixed assets stayed high, fell noticeably in 2024, and recovered in 2025.' },
+        currentRatio: { label: 'Current Ratio', unit: '%', summary: 'The current ratio dropped below 100% in 2024 before rebounding above 200% in 2025.' },
+        interestCoverage: { label: 'Interest Coverage', unit: 'times', summary: 'Interest coverage turned negative in 2024 and deteriorated further in 2025, showing profit could no longer support finance costs.' },
+        stockPrice: { label: 'Year-End Closing Price', unit: 'NTD/share', summary: 'The year-end closing price fell sharply from the 2021 peak; 2025 rebounded slightly but stayed far below 2021.' }
       };
       for (var mKey in enMetrics) {
         var m = appData.financial.metrics[mKey];
@@ -2645,40 +2963,69 @@
       }
 
       var enNotes = [
-        { title: '2021 / Peak', text: 'Post-pandemic demand rebound and rising ASPs created a five-year high.' },
-        { title: '2022\u20132023 / Correction', text: 'Asian petrochemical oversupply, weak Chinese property, and inflation suppressed demand\u2014profits shrank rapidly.' },
-        { title: '2024 / Stabilized Revenue, Weakened Margin', text: 'Revenue stabilized, but spreads and operating profit were insufficient to support recovery.' },
-        { title: '2025 / Structural Pressure', text: 'Full-year revenue, pretax income, and EPS continued to weaken\u2014core profitability not yet restored.' }
+        { title: '2021 / Peak', text: 'A rebound in post-pandemic demand and higher product prices increased both revenue and profit.' },
+        { title: '2022\u20132023 / Correction', text: 'Asian petrochemical oversupply, weakness in China\u2019s property market, and inflation pressure led to clear declines in demand and profitability.' },
+        { title: '2024 / Stabilized Revenue, Weakened Margin', text: 'Revenue was broadly stable, but product spreads and operating profit had not improved significantly, while the current ratio fell to 90.77% and interest coverage turned to -0.14x.' },
+        { title: '2025 / Structural Pressure', text: 'Full-year revenue, pretax income, and EPS continued to weaken. Although the current ratio rebounded to 204.97%, interest coverage deteriorated further to -2.20x.' },
+        { title: 'Stock Price / Market Signal', text: 'The year-end closing price fell from NTD 104 in 2021 to NTD 35.5 in 2024, then recovered slightly to NTD 39 in 2025, showing the market remained cautious about profitability and transformation.' }
       ];
       appData.financial.notes.forEach(function(item, i) {
-        item.title = { zh: item.title, en: enNotes[i].title };
-        item.text = { zh: item.text, en: enNotes[i].text };
+        if (enNotes[i]) {
+          item.title = { zh: ['2021 / 高峰', '2022-2023 / 修正期', '2024 / 營收持平但利差偏弱', '2025 / 結構性壓力', '股價 / 市場訊號'][i], en: enNotes[i].title };
+          item.text = { zh: item.text, en: enNotes[i].text };
+        }
       });
 
       var enYearlyCards = [
-        { text: 'Peak year: revenue and EPS surged together.' },
-        { text: 'Correction begins: revenue and profits contract in tandem.' },
-        { text: 'Rapid decline: only minimal profit remained.' },
-        { text: 'Revenue stabilized but losses began.' },
-        { text: 'Low-end persists: losses widened, transformation pressures front-loaded.' }
+        { text: 'Revenue, pretax income, and EPS all reached five-year highs.' },
+        { text: 'Revenue and profitability both retreated but remained positive.' },
+        { text: 'Profitability contracted sharply, with ROE and margin falling to low levels.' },
+        { text: 'Revenue stabilized, but the company turned loss-making and short-term solvency pressure rose.' },
+        { text: 'Losses widened and both operating profitability and finance-cost coverage worsened.' }
       ];
       appData.financial.yearlyCards.forEach(function(item, i) {
         item.text = { zh: item.text, en: enYearlyCards[i].text };
       });
 
-      var enSources = [
-        { title: 'FPC Key Executives', note: 'Management team and role assignments' },
-        { title: 'FPC Corporate Governance', note: 'Board, audit committee, compensation & sustainability committees' },
-        { title: 'Board Information', note: 'Board meeting minutes and governance data' },
-        { title: '2024 Sustainability Report', note: 'Corporate governance, 2022\u20132024 financial summary' },
-        { title: '2022 Sustainability Report', note: '2021\u20132022 financial performance summary' },
-        { title: 'Financial Information Page', note: 'Financial reports and investor conference portal' },
-        { title: '2025 Consolidated Financial Report', note: '2025 full-year revenue, pretax loss, EPS' },
-        { title: '2025 Q4 Investor Conference', note: 'Quarterly revenue and market commentary' }
-      ];
-      appData.sources.forEach(function(item, i) {
-        item.title = { zh: item.title, en: enSources[i].title };
-        item.note = { zh: item.note, en: enSources[i].note };
+      var enSources = {
+        '聯合新聞網：台塑美國廠競爭優勢': { title: 'UDN: Formosa US Plant Competitive Edge', note: 'Recent news item 1 covering ethane cracking cost advantage and market outlook' },
+        '公視新聞：台灣塑膠粒缺貨與價格爭議': { title: 'PTS: Plastic Pellet Shortage and Price Dispute in Taiwan', note: 'Recent news item 2 covering tight supply, price volatility, and government response' },
+        'The News Lens：台塑集團歷史背景': { title: 'The News Lens: Historical Background of Formosa Plastics Group', note: 'External summary source for the company history section' },
+        '台塑企業簡介與沿革': { title: 'FPG Profile and History', note: 'Official source for company history and group introduction' },
+        '台塑企業 2020 企業簡介': { title: 'FPG 2020 Corporate Introduction', note: 'Supplementary material for history and group development background' },
+        '台塑企業全球資訊網': { title: 'Formosa Plastics Group Global Website', note: 'Official source for group introduction, strategy, and business portfolio' },
+        '台塑公司官網首頁': { title: 'Formosa Plastics Corporate Website', note: 'Official entry for vision, mission, and values' },
+        '台塑企業永續發展專區': { title: 'FPG Sustainability Portal', note: 'Official source for sustainability and governance direction' },
+        'Eric CPA Notes：使命、願景、價值觀': { title: 'Eric CPA Notes: Mission, Vision, and Values', note: 'Supporting reference for conceptual framing in the vision section' },
+        'FPG Introduction 2018': { title: 'FPG Introduction 2018', note: 'Supplementary material for organization structure and regional footprint' },
+        'FPG Plant Distribution': { title: 'FPG Plant Distribution', note: 'Regional site distribution reference' },
+        '台塑主要經理人': { title: 'FPC Key Executives', note: 'Management roster and division of duties' },
+        '台塑公司治理原則': { title: 'FPC Corporate Governance Principles', note: 'Board, audit committee, compensation, and sustainability committee materials' },
+        '董事會資訊': { title: 'Board Information', note: 'Board meeting records and governance information' },
+        '2024 永續報告書': { title: '2024 Sustainability Report', note: 'Corporate governance, board, committee, and financial summary' },
+        '2022 永續報告書': { title: '2022 Sustainability Report', note: '2021-2022 financial performance summary' },
+        '台塑投資人關係／年報頁面': { title: 'FPC Investor Relations / Annual Report Page', note: 'Entry point for governance information and annual reports' },
+        '台塑新智能科技': { title: 'Formosa Smart Energy Tech', note: 'Source for new energy business and battery deployment' },
+        '公開資訊觀測站': { title: 'MOPS Disclosure Platform', note: 'Public database entry for government and exchange disclosures' },
+        '台塑 2023 年年報': { title: 'Formosa Plastics 2023 Annual Report', note: 'Primary source for 2021-2023 ratios and five-year financial analysis' },
+        '台塑 2024 年年報': { title: 'Formosa Plastics 2024 Annual Report', note: 'Annual report and governance background supplement' },
+        '台塑 2024 年合併財務報告': { title: 'Formosa Plastics 2024 Consolidated Financial Report', note: 'Source for 2024 revenue, pretax income, EPS, and financial structure' },
+        '財務資訊頁面': { title: 'Financial Information Page', note: 'Portal for financial reports and investor conferences' },
+        '2025 合併財務報告': { title: '2025 Consolidated Financial Report', note: '2025 full-year revenue, pretax loss, and EPS data' },
+        '2025 第四季法人說明會': { title: '2025 Q4 Investor Conference', note: 'Quarterly revenue and market briefing materials' },
+        '台塑股利分配／每股市價頁面': { title: 'Dividend Distribution / Market Price Page', note: 'Source for year-end stock prices and market data' },
+        'TWSE 2021 年底收盤價': { title: 'TWSE 2021 Year-End Closing Price', note: '1301 Formosa Plastics closing price on the last trading day of 2021' },
+        'TWSE 2022 年底收盤價': { title: 'TWSE 2022 Year-End Closing Price', note: '1301 Formosa Plastics closing price on the last trading day of 2022' },
+        'TWSE 2023 年底收盤價': { title: 'TWSE 2023 Year-End Closing Price', note: '1301 Formosa Plastics closing price on the last trading day of 2023' },
+        'TWSE 2024 年底收盤價': { title: 'TWSE 2024 Year-End Closing Price', note: '1301 Formosa Plastics closing price on the last trading day of 2024' },
+        'TWSE 2025 年底收盤價': { title: 'TWSE 2025 Year-End Closing Price', note: '1301 Formosa Plastics closing price on the last trading day of 2025' }
+      };
+      appData.sources.forEach(function(item) {
+        var sourceKey = item.title;
+        if (enSources[sourceKey]) {
+          item.title = { zh: sourceKey, en: enSources[sourceKey].title };
+          item.note = { zh: item.note, en: enSources[sourceKey].note };
+        }
       });
     })();
 
@@ -2692,73 +3039,84 @@
     let currentManagement = 0;
     let currentPhase = 'phase1';
     let currentMetric = 'revenue';
+    let currentSourceFilter = 'all';
     let lang = 'zh';
     let theme = 'dark';
+
+    const SOURCE_FILTERS = [
+      { key: 'all', label: { zh: '全部', en: 'All' } },
+      { key: 'news', label: { zh: '新聞', en: 'News' } },
+      { key: 'history', label: { zh: '歷史', en: 'History' } },
+      { key: 'vision', label: { zh: '願景', en: 'Vision' } },
+      { key: 'governance', label: { zh: '治理', en: 'Governance' } },
+      { key: 'products', label: { zh: '產品', en: 'Products' } },
+      { key: 'finance', label: { zh: '財務', en: 'Finance' } }
+    ];
 
     const UI_TEXT = {
       navIntro: { zh: '首頁', en: 'Intro' },
       navNews: { zh: '新聞', en: 'News' },
       navHistory: { zh: '歷史', en: 'History' },
       navVision: { zh: '願景', en: 'Vision' },
-      navTeam: { zh: '團隊', en: 'Team' },
+      navTeam: { zh: '治理', en: 'Governance' },
       navProducts: { zh: '產品', en: 'Products' },
       navFinance: { zh: '財務', en: 'Finance' },
-      navSources: { zh: '資料', en: 'Sources' },
+      navSources: { zh: '來源', en: 'Sources' },
       heroEyebrow: { zh: '公司概覽與財務表現', en: 'Company Overview & Financial Performance' },
-      heroTitle: { zh: 'FORMOSA <span class="accent">動態全景</span>', en: 'FORMOSA <span class="accent">IN FLUX</span>' },
+      heroTitle: { zh: 'FORMOSA <span class="accent">公司概覽</span>', en: 'FORMOSA <span class="accent">OVERVIEW</span>' },
       heroCopy: {
-        zh: '這不是一份靜態報告，而是一場關於台塑如何在石化景氣循環、綠色轉型、全球佈局與財務壓力之間重新定義自己的單頁敘事實驗。這個 SPA 把公司歷史、管理結構、產品版圖與 2021 至 2025 的績效變化，轉成一條可探索的數據長卷。',
-        en: 'This is not a static report but a single-page narrative experiment exploring how Formosa Plastics redefines itself amid petrochemical cycles, green transformation, global expansion, and financial pressure. This SPA converts company history, management structure, product portfolios, and 2021\u20132025 performance data into an explorable visual scroll.'
+        zh: '本頁整理台塑公司概況與 2021 至 2025 年財務表現，內容涵蓋公司歷史、組織治理、產品布局、近期新聞與主要財務指標，供展示與報告使用。',
+        en: 'This page presents an overview of Formosa Plastics and its financial performance from 2021 to 2025. It covers company history, organization and governance, product portfolio, recent news, and key financial indicators for presentation and reporting purposes.'
       },
-      btnStart: { zh: '開始探索', en: 'Start The Scroll' },
-      btnFinance: { zh: '直接查看財務', en: 'Jump To Finance' },
-      scrollCue: { zh: '向下滾動以探索更多', en: 'Scroll To Disturb The Surface' },
-      newsEyebrow: { zh: '兩則近期新聞', en: 'Two Recent News' },
-      newsH2: { zh: '波動中的衝擊', en: 'Shockwaves In Motion' },
+      btnStart: { zh: '查看新聞重點', en: 'View News Highlights' },
+      btnFinance: { zh: '查看財務分析', en: 'View Financial Analysis' },
+      scrollCue: { zh: '向下瀏覽各段內容', en: 'Scroll For More Sections' },
+      newsEyebrow: { zh: '近期新聞', en: 'Recent News' },
+      newsH2: { zh: '近期新聞重點', en: 'Recent News Highlights' },
       newsDesc: {
-        zh: '兩則新聞像兩道相反方向的波：一邊是美國廠的原料與製程優勢，另一邊是台灣本地供應緊張與市場質疑。這組對照，直接揭示台塑的全球布局與在地風險如何同時存在。',
-        en: 'Two news stories like opposing waves: one highlights the US plant\u2019s feedstock advantages, the other exposes domestic supply tensions. This contrast reveals how global strategy and local risks coexist.'
+        zh: '本節整理兩則近期新聞，分別說明台塑在美國廠的原料成本優勢，以及台灣市場的供應緊張與價格爭議，作為觀察其營運環境的近期案例。',
+        en: 'This section summarizes two recent news items: one highlights Formosa\u2019s feedstock cost advantage at its US plants, while the other outlines supply tension and price disputes in Taiwan as recent operating cases.'
       },
       historyEyebrow: { zh: '公司歷史', en: 'Company History' },
-      historyH2: { zh: '從PVC到產業系統', en: 'From Micro PVC To A System' },
+      historyH2: { zh: '公司發展歷程', en: 'Development Timeline' },
       historyDesc: {
-        zh: '台塑的歷史不是平面年表，而是一連串結構性動作：從逆向整合、跨域擴張、六輕建設，到全球化據點佈局，每一步都在重寫成本、供應鏈與市場控制方式。',
-        en: 'Formosa Plastics\u2019 history is not a flat timeline but a series of structural moves: from reverse integration to the Sixth Naphtha Cracker and global deployment\u2014each rewriting cost, supply chain, and market control.'
+        zh: '本節整理台塑自創立以來的重要發展階段，說明其在原料整合、產業擴張、海外布局與轉型方向上的主要變化。',
+        en: 'This section outlines Formosa Plastics\u2019 major development stages, including changes in feedstock integration, industrial expansion, overseas deployment, and transformation priorities.'
       },
-      visionEyebrow: { zh: '願景、使命、價值', en: 'Vision, Mission, Value' },
-      visionH2: { zh: '三個策略面向', en: 'Three Strategic Surfaces' },
+      visionEyebrow: { zh: '願景、使命與核心價值', en: 'Vision, Mission, and Core Values' },
+      visionH2: { zh: '願景、使命與核心價值', en: 'Vision, Mission, and Core Values' },
       visionDesc: {
-        zh: '核心價值說明企業為何存在，願景界定未來的畫面，使命則是執行路徑。這裡不是把文字貼上牆，而是讓三個面向像三塊漂浮板塊，翻面後顯示其真正壓力與企圖。',
-        en: 'Core values explain why the company exists, vision defines the future, and mission is the execution path. Here, three dimensions float like tectonic plates\u2014flip them to reveal real pressures and ambitions.'
+        zh: '本節說明台塑的核心價值、願景與使命，並整理其在永續經營、產業轉型、能源轉型與高值化發展上的主要方向。',
+        en: 'This section explains Formosa Plastics\u2019 core values, vision, and mission, and summarizes its main directions in sustainable management, industrial transformation, energy transition, and high-value development.'
       },
-      mgmtEyebrow: { zh: '架構與管理團隊', en: 'Structure & Management' },
-      mgmtH2: { zh: '治理即機器', en: 'Governance As A Machine' },
+      mgmtEyebrow: { zh: '組織與公司治理', en: 'Organization & Governance' },
+      mgmtH2: { zh: '組織架構與公司治理', en: 'Organization and Governance' },
       mgmtDesc: {
-        zh: '4.1 與 4.2 在這裡被重構成一台可閱讀的機器：前端是事業群與全球布局，後端是董事會監督、經理人分工與績效邏輯。重點不是誰在名單裡，而是權力如何流動。',
-        en: 'Sections 4.1 and 4.2 are reconstructed as a readable machine: business groups and global deployment at the front; board oversight, executive roles, and performance logic at the back.'
+        zh: '本節整理台塑的事業架構、功能分工、區域布局與主要管理團隊，說明董事會治理安排及各管理部門的職責配置。',
+        en: 'This section summarizes Formosa Plastics\u2019 business structure, functional divisions, regional deployment, and key management team, with a focus on board governance and departmental responsibilities.'
       },
-      productsEyebrow: { zh: '產品版圖', en: 'Product Portfolios' },
-      productsH2: { zh: '產品領域與轉換路徑', en: 'Product Fields & Conversion Paths' },
+      productsEyebrow: { zh: '產品布局', en: 'Product Portfolio' },
+      productsH2: { zh: '產品布局與轉型方向', en: 'Product Portfolio and Transformation' },
       productsDesc: {
-        zh: '從石化主業到電子材料、醫療、儲能與鋼鐵，台塑的產品版圖本身就像一張垂直整合地圖。這裡把它拆成現在的產品面，以及未來三段轉型路線。',
-        en: 'From core petrochemicals to electronic materials, healthcare, energy storage, and steel\u2014Formosa Plastics\u2019 product map is a vertically integrated landscape split into current segments and three transformation paths.'
+        zh: '本節整理台塑目前的主要產品領域，並說明高值化、綠能與循環經濟等中長期轉型方向。',
+        en: 'This section outlines Formosa Plastics\u2019 current product portfolio and explains its medium- to long-term transformation directions in high-value products, green energy, and the circular economy.'
       },
       financeEyebrow: { zh: '財務表現', en: 'Financial Performance' },
-      financeH2: { zh: '財務主舞台', en: 'The Financial Main Stage' },
+      financeH2: { zh: '財務表現分析', en: 'Financial Performance Analysis' },
       financeDesc: {
-        zh: '財務段落是這份作品的核心劇場。營收、稅前損益、EPS 與 ROE 在 2021 到 2025 之間形成一條幾乎完整的景氣斷面，也揭示台塑正在經歷的轉型壓力。',
-        en: 'The financial section is the core theater. Revenue, pretax income, EPS, and ROE from 2021 to 2025 form a nearly complete business cycle cross-section, revealing transformation pressures.'
+        zh: '本節整理 2021 至 2025 年的合併營收、年增率、獲利能力、經營能力、財務結構、償債能力與年底股價，以完整對照報告中的財務資料。',
+        en: 'This section reviews revenue, growth, profitability, operating efficiency, financial structure, solvency, and year-end stock prices from 2021 to 2025 so the SPA fully matches the report.'
       },
-      sourcesEyebrow: { zh: '資訊揭露', en: 'Disclosure' },
-      sourcesH2: { zh: '來源、方法、誠信', en: 'Sources, Methods, Integrity' },
+      sourcesEyebrow: { zh: '資料來源', en: 'Sources' },
+      sourcesH2: { zh: '資料來源與補充說明', en: 'Sources and Notes' },
       sourcesDesc: {
-        zh: '這個單頁作品保留了報告的可追溯性。來源不是附註，而是敘事可信度的一部分；AI 使用聲明則被清楚保留下來，讓創作與查證邊界保持透明。',
-        en: 'This single-page work preserves traceability. Sources are part of the narrative\u2019s credibility; the AI usage disclosure is retained to keep the boundary between creation and verification transparent.'
+        zh: '本節列出本報告使用的主要資料來源，並說明查核方式與 AI 使用情形，以維持內容可追溯性。',
+        en: 'This section lists the main sources used in the report and explains the verification approach and AI usage disclosure to maintain traceability.'
       },
-      heroCardLabel: { zh: '2021 → 2025 / 五年衝擊波', en: '2021 → 2025 / Five-Year Shockwave' },
+      heroCardLabel: { zh: '2021 → 2025 / 五年財務摘要', en: '2021 → 2025 / Five-Year Financial Summary' },
       heroCardFooter: {
-        zh: '核心敘事是清楚的：2021 為景氣高峰，2022 至 2023 快速修正，2024 與 2025 進入低檔盤整與虧損擴大。問題不只是量，而是產品利差與產業結構。',
-        en: 'The core narrative is clear: 2021 was the cycle peak, 2022\u20132023 saw rapid correction, and 2024\u20132025 entered consolidation with widening losses. The issue is product margins and industrial structure.'
+        zh: '2021 年為近五年高點，2022 至 2023 年營收與獲利下滑，2024 年營收大致持平但已轉虧，2025 年虧損進一步擴大。',
+        en: '2021 was the high point of the five-year period. Revenue and profit declined in 2022 and 2023, revenue was broadly flat but loss-making in 2024, and losses widened further in 2025.'
       },
       scoreCaptions: [
         { zh: '2021 合併營收高峰（億元）', en: '2021 Peak Revenue (100M NTD)' },
@@ -2773,12 +3131,38 @@
       primarySourcesDesc: { zh: '所有管理、財務與策略資訊，皆優先對照官網、永續報告、財務報告與法人說明會資料。', en: 'All management, financial, and strategic information was cross-referenced with official sources, sustainability reports, financial reports, and investor conference materials.' },
       aiDisclosure: { zh: 'AI 使用聲明', en: 'AI Usage Disclosure' },
       aiDisclosureText: {
-        zh: '1. AI 曾被諮詢以提供語言與/或創意支援。<br />2. 本報告中所有公司事實、管理資訊與財務數據均已與所引用之官方來源交叉核實。',
-        en: '1. AI was consulted for language and/or ideas.<br />2. All company facts, management information, and financial figures used in this report were checked against the cited official sources before inclusion.'
+        zh: '1. AI 僅用於語言整理與表達協助。<br />2. 本報告引用之公司事實、管理資訊與財務數據均已對照官方來源。<br />3. 本 SPA 使用 AI 進行 Vibe Coding，頁面程式碼由 AI 生成後整合為單檔互動頁面。',
+        en: '1. AI was used only for language organization and wording support.<br />2. All company facts, management information, and financial figures cited in this report were checked against official sources.<br />3. This SPA used AI for vibe coding, and the page code was AI-generated and assembled into a single-file interactive experience.'
       },
+      openSourceLink: { zh: '查看原始來源', en: 'Open Source' },
+      timelineImpact: { zh: '重點意義', en: 'Why It Matters' },
+      vmvFrontHint: { zh: '正面 / 定義', en: 'Front / Surface' },
+      vmvBackHint: { zh: '背面 / 解讀', en: 'Back / Pressure' },
+      vmvFlip: { zh: '翻面', en: 'Flip' },
+      vmvBack: { zh: '返回', en: 'Back' },
+      orgTabs: {
+        business: { zh: '事業布局', en: 'Business' },
+        functional: { zh: '功能分工', en: 'Functional' },
+        regional: { zh: '區域布局', en: 'Regional' }
+      },
+      managementDuty: { zh: '主要職責', en: 'Primary Duty' },
+      managementEducation: { zh: '學歷', en: 'Education' },
+      managementInterpretation: { zh: '解析', en: 'Interpretation' },
+      governancePanelTitle: { zh: '治理補充與分析', en: 'Governance Addendum & Analysis' },
+      governancePanelDesc: {
+        zh: '本區補充 README 中集團治理、董事會監督、委員會職責與績效考核設計等內容。',
+        en: 'This panel adds the governance, board oversight, committee duties, and performance-evaluation details that appear in the README.'
+      },
+      phaseRoute: { zh: '轉型路徑', en: 'Transformation Route' },
+      financePeak: { zh: '高點', en: 'Peak' },
+      financeLowest: { zh: '低點', en: 'Lowest' },
+      financeNetShift: { zh: '2021 → 2025 淨變動', en: '2021 → 2025 net shift' },
+      financeUnit: { zh: '單位', en: 'Unit' },
+      sourceFilterEmptyTitle: { zh: '目前沒有這個分類的來源', en: 'No sources in this category' },
+      sourceFilterEmptyDesc: { zh: '請切換其他篩選類型以查看對應資料來源。', en: 'Switch to another filter to view the corresponding references.' },
       footerNote: {
-        zh: '本作品設計為 SMMC-EMI_GX_TP 公司概覽與財務表現之單檔 SPA。<br/>內容改編自配套報告，重新編排為互動式視覺敘事。',
-        en: 'Designed as a one-file SPA for SMMC-EMI_GX_TP Company Overview &amp; Financial Performance.<br/>Content adapted from the companion report and re-orchestrated into an interactive visual narrative.'
+        zh: '本頁為 SMMC-EMI_GX_TP「公司概覽與財務表現」單檔 SPA。<br/>內容依配套報告整理並改寫為互動展示頁面。',
+        en: 'This one-file SPA was prepared for SMMC-EMI_GX_TP: Company Overview and Financial Performance.<br/>The content is organized from the companion report for interactive presentation use.'
       }
     };
 
@@ -2916,8 +3300,8 @@
         <ul class="bullet-list">
           ${L(item.bullets).map((bullet) => `<li>${bullet}</li>`).join('')}
         </ul>
-        <a class="source-link" href="${item.url}" target="_blank" rel="noreferrer" title="Open Source">
-          Open Source
+        <a class="source-link" href="${item.url}" target="_blank" rel="noreferrer" title="${UI_TEXT.openSourceLink[lang]}">
+          ${UI_TEXT.openSourceLink[lang]}
           <small>${item.url}</small>
         </a>
       `;
@@ -2958,7 +3342,7 @@
         .map(
           (entry, index) => `
             <button class="timeline-item ${index === currentTimeline ? 'is-active' : ''}" data-timeline-index="${index}">
-              <small>${entry.tag}</small>
+              <small>${L(entry.tag)}</small>
               <strong>${entry.year}</strong>
               <div>${L(entry.title)}</div>
             </button>
@@ -2972,7 +3356,7 @@
           <h3 class="timeline-stage__title">${L(item.title)}</h3>
           <p class="timeline-stage__copy">${L(item.copy)}</p>
           <div class="timeline-stage__impact">
-            <strong>Why It Matters</strong><br />
+            <strong>${UI_TEXT.timelineImpact[lang]}</strong><br />
             ${L(item.impact)}
           </div>
         </div>
@@ -2989,19 +3373,19 @@
               <div class="flip-card__inner">
                 <div class="flip-card__face flip-card__face--front">
                   <div>
-                    <div class="flip-card__hint">Front / Surface</div>
-                    <h3>${item.title}</h3>
+                    <div class="flip-card__hint">${UI_TEXT.vmvFrontHint[lang]}</div>
+                    <h3>${L(item.title)}</h3>
                     <p>${L(item.front)}</p>
                   </div>
-                  <button class="btn btn--ghost" data-flip-trigger="${index}" title="Flip">Flip</button>
+                  <button class="btn btn--ghost" data-flip-trigger="${index}" title="${UI_TEXT.vmvFlip[lang]}">${UI_TEXT.vmvFlip[lang]}</button>
                 </div>
                 <div class="flip-card__face flip-card__face--back">
                   <div>
-                    <div class="flip-card__hint">Back / Pressure</div>
-                    <h3>${item.title}</h3>
+                    <div class="flip-card__hint">${UI_TEXT.vmvBackHint[lang]}</div>
+                    <h3>${L(item.title)}</h3>
                     <p>${L(item.back)}</p>
                   </div>
-                  <button class="btn btn--ghost" data-flip-trigger="${index}" title="Back">Back</button>
+                  <button class="btn btn--ghost" data-flip-trigger="${index}" title="${UI_TEXT.vmvBack[lang]}">${UI_TEXT.vmvBack[lang]}</button>
                 </div>
               </div>
             </div>
@@ -3018,8 +3402,8 @@
       tabs.innerHTML = Object.keys(appData.org)
         .map(
           (key) => `
-            <button class="${key === currentOrg ? 'is-active' : ''}" data-org-key="${key}" title="${key}">
-              ${key.toUpperCase()}
+            <button class="${key === currentOrg ? 'is-active' : ''}" data-org-key="${key}" title="${UI_TEXT.orgTabs[key][lang]}">
+              ${UI_TEXT.orgTabs[key][lang]}
             </button>
           `
         )
@@ -3045,13 +3429,14 @@
     function renderManagement() {
       const grid = $('#management-grid');
       const detail = $('#management-detail');
+      const governance = $('#governance-panel');
       const item = appData.management[currentManagement];
 
       grid.innerHTML = appData.management
         .map(
           (person, index) => `
             <button class="management-card ${index === currentManagement ? 'is-active' : ''}" data-management-index="${index}" title="${L(person.name)}">
-              <small>${person.role}</small>
+              <small>${L(person.role)}</small>
               <strong>${L(person.name)}</strong>
               <span>${L(person.focus)}</span>
             </button>
@@ -3061,16 +3446,34 @@
 
       detail.innerHTML = `
         <div class="management-detail__content content-swap tilt-card" data-tilt>
-          <div class="management-detail__role">${item.role} / ${item.team}</div>
+          <div class="management-detail__role">${L(item.role)} / ${L(item.team)}</div>
           <h3 class="management-detail__name">${L(item.name)}</h3>
           <div class="management-detail__tags">
-            ${item.tags.map((tag) => `<span>${tag}</span>`).join('')}
+            ${L(item.tags).map((tag) => `<span>${tag}</span>`).join('')}
           </div>
-          <p><strong>Primary Duty</strong><br />${L(item.focus)}</p>
-          <p><strong>Education</strong><br />${L(item.education)}</p>
-          <p><strong>Interpretation</strong><br />${L(item.insight)}</p>
+          <p><strong>${UI_TEXT.managementDuty[lang]}</strong><br />${L(item.focus)}</p>
+          <p><strong>${UI_TEXT.managementEducation[lang]}</strong><br />${L(item.education)}</p>
+          <p><strong>${UI_TEXT.managementInterpretation[lang]}</strong><br />${L(item.insight)}</p>
         </div>
       `;
+
+      governance.innerHTML = `
+        <h3>${UI_TEXT.governancePanelTitle[lang]}</h3>
+        <p>${UI_TEXT.governancePanelDesc[lang]}</p>
+        <div class="org-grid">
+          ${appData.governance
+            .map(
+              (block) => `
+                <div class="insight-card">
+                  <strong>${L(block.title)}</strong>
+                  <span>${L(block.text)}</span>
+                </div>
+              `
+            )
+            .join('')}
+        </div>
+      `;
+
       setupTilt(detail);
     }
 
@@ -3102,8 +3505,8 @@
       phaseSwitch.innerHTML = appData.products.phases
         .map(
           (phase) => `
-            <button class="${phase.key === currentPhase ? 'is-active' : ''}" data-phase-key="${phase.key}" title="${phase.label}">
-              ${phase.label}
+            <button class="${phase.key === currentPhase ? 'is-active' : ''}" data-phase-key="${phase.key}" title="${L(phase.label)}">
+              ${L(phase.label)}
             </button>
           `
         )
@@ -3113,7 +3516,7 @@
         .map(
           (phase) => `
             <div class="phase-item ${phase.key === currentPhase ? 'is-active' : ''}">
-              <small>${phase.label}</small>
+              <small>${L(phase.label)}</small>
               <strong>${L(phase.title)}</strong>
               <span>${L(phase.text)}</span>
             </div>
@@ -3124,7 +3527,7 @@
       phaseDetail.innerHTML = `
         <div class="phase-detail__content content-swap tilt-card" data-tilt>
           <div>
-            <div class="eyebrow" style="margin-bottom:14px;">${current.label} / Transformation Route</div>
+            <div class="eyebrow" style="margin-bottom:14px;">${L(current.label)} / ${UI_TEXT.phaseRoute[lang]}</div>
             <h3 style="margin:0 0 14px; font-size:44px; line-height:0.95;">${L(current.title)}</h3>
             <p>${L(current.text)}</p>
           </div>
@@ -3173,15 +3576,15 @@
       summary.innerHTML = `
         <div class="finance-kpi">
           <b>${formatNumber(Math.max(...values), currentMetric === 'roe' ? 2 : 2)}</b>
-          <span>Peak ${L(metric.label)}</span>
+          <span>${UI_TEXT.financePeak[lang]} ${L(metric.label)}</span>
         </div>
         <div class="finance-kpi">
           <b>${formatNumber(Math.min(...values), currentMetric === 'roe' ? 2 : 2)}</b>
-          <span>Lowest ${L(metric.label)}</span>
+          <span>${UI_TEXT.financeLowest[lang]} ${L(metric.label)}</span>
         </div>
         <div class="finance-kpi">
           <b>${deltaSign}${formatNumber(delta, 2)}</b>
-          <span>2021 → 2025 net shift (${L(metric.unit)})</span>
+          <span>${UI_TEXT.financeNetShift[lang]} (${L(metric.unit)})</span>
         </div>
         <div class="finance-kpi">
           <b>${L(metric.unit)}</b>
@@ -3213,7 +3616,7 @@
 
       tooltip.innerHTML = `
         <div><strong>${L(metric.label)}</strong><br />${L(metric.summary)}</div>
-        <div><strong>Unit</strong><br />${L(metric.unit)}</div>
+        <div><strong>${UI_TEXT.financeUnit[lang]}</strong><br />${L(metric.unit)}</div>
       `;
 
       drawFinancialChart(metric);
@@ -3327,8 +3730,22 @@
     }
 
     function renderSources() {
+      const filter = $('#source-filter');
       const list = $('#source-list');
-      list.innerHTML = appData.sources
+      const filteredSources = appData.sources.filter((source) => currentSourceFilter === 'all' || (source.categories || []).includes(currentSourceFilter));
+
+      filter.innerHTML = SOURCE_FILTERS
+        .map(
+          (item) => `
+            <button class="${item.key === currentSourceFilter ? 'is-active' : ''}" data-source-filter="${item.key}" title="${L(item.label)}">
+              ${L(item.label)}
+            </button>
+          `
+        )
+        .join('');
+
+      list.innerHTML = filteredSources.length
+        ? filteredSources
         .map(
           (source) => `
             <a class="source-link" href="${source.url}" target="_blank" rel="noreferrer">
@@ -3337,7 +3754,13 @@
             </a>
           `
         )
-        .join('');
+        .join('')
+        : `
+          <div class="finance-note">
+            <strong>${UI_TEXT.sourceFilterEmptyTitle[lang]}</strong>
+            <span>${UI_TEXT.sourceFilterEmptyDesc[lang]}</span>
+          </div>
+        `;
     }
 
     function setupEvents() {
@@ -3405,6 +3828,12 @@
         if (phaseButton) {
           currentPhase = phaseButton.getAttribute('data-phase-key');
           renderPhases();
+        }
+
+        const sourceFilterButton = event.target.closest('[data-source-filter]');
+        if (sourceFilterButton) {
+          currentSourceFilter = sourceFilterButton.getAttribute('data-source-filter');
+          renderSources();
         }
 
         const metricButton = event.target.closest('[data-metric-key]');
